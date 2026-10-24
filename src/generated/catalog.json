@@ -1,0 +1,39 @@
+{
+  "products": [
+    {
+      "code": "BASE_5",
+      "kind": "BASE",
+      "name": "5슬롯",
+      "slots": 5,
+      "monthly_krw": 99000,
+      "promotion_label": "초기 90% 할인 요금",
+      "enabled": true,
+      "sort_order": 5,
+      "version": 1
+    },
+    {
+      "code": "BASE_15",
+      "kind": "BASE",
+      "name": "15슬롯",
+      "slots": 15,
+      "monthly_krw": 249000,
+      "promotion_label": "초기 90% 할인 요금",
+      "enabled": true,
+      "sort_order": 15,
+      "version": 1
+    },
+    {
+      "code": "BASE_30",
+      "kind": "BASE",
+      "name": "30슬롯",
+      "slots": 30,
+      "monthly_krw": 499000,
+      "promotion_label": "초기 90% 할인 요금",
+      "enabled": true,
+      "sort_order": 30,
+      "version": 1
+    }
+  ],
+  "checkoutUrl": null,
+  "billingPeriod": "MONTHLY"
+}

@@ -1,0 +1,35 @@
+:root {
+  /* ── color (Direction A · light-first) ── */
+  --ink: #0B1220;
+  --muted: #5B6474;
+  --line: #E4E9F2;
+  --paper: #F5F7FB;
+  --surface: #FFFFFF;
+  --brand: #1B4DFF;
+  --brand-soft: #EAF0FF;
+  --positive: #00C2A8;
+  --positive-soft: #E7FBF5;
+  --negative: #ED3C5A;
+  --amber: #F5A623;
+
+  /* ── typography ── */
+  --font-sans: var(--font-pretendard), -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ── radius ── */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+
+  /* ── shadow ── */
+  --shadow-card: 0 14px 34px rgba(20, 40, 90, 0.08);
+  --shadow-float: 0 24px 60px rgba(16, 26, 54, 0.12);
+
+  /* ── spacing scale ── */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+  /* ── layout ── */
+  --container: 1180px;
+}

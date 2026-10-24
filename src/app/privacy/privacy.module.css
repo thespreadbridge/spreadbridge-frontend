@@ -1,0 +1,17 @@
+.document { width: min(100% - 40px, 920px); margin: 64px auto 96px; color: #202b3c; line-height: 1.85; overflow-wrap: anywhere; }
+.back { color: #48608a; font-size: 14px; text-decoration: none; }
+.heading { padding: 32px 0; border-bottom: 1px solid #dce3ec; }
+.heading h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.3; letter-spacing: -.04em; margin: 14px 0 20px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #3659a6; }
+.date { font-size: 14px; color: #66748a; }
+.document section { padding-top: 32px; }
+.document h2 { font-size: 23px; line-height: 1.5; letter-spacing: -.025em; margin: 0 0 16px; }
+.document p { margin: 12px 0; }
+.document a { color: #2854ab; text-underline-offset: 4px; }
+.tableWrap { overflow-x: auto; border: 1px solid #dce3ec; border-radius: 12px; margin: 20px 0; }
+.document table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+.document caption { text-align: left; padding: 14px 18px; background: #f6f8fc; font-weight: 650; }
+.document th, .document td { padding: 14px 16px; border-top: 1px solid #dce3ec; vertical-align: top; }
+.document th { min-width: 110px; font-weight: 650; }
+.document thead { background: #edf2fa; }
+@media (max-width: 600px) { .document { margin-top: 32px; } .document h2 { font-size: 20px; } .document th,.document td { padding: 10px; } .document th { min-width: 75px; } }
