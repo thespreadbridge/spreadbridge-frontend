@@ -2,6 +2,22 @@
 
 Public website for Spreadbridge. Next.js static export for the home, download, guide, pricing, and privacy pages.
 
+## Homepage v6 review branch
+
+The `codex/html-home-v6` branch replaces the complete homepage with the supplied
+Basis Lab v6 reference. The original is retained in `docs/design/basislab-home-v6.html`;
+the React implementation and scoped styles live in `src/components/home-v6/`.
+
+Run `npm run dev -- --hostname 127.0.0.1 --port 3210` to review it locally.
+The navigation switch previews guest, unsubscribed, and subscribed screens. These
+are presentation states, not authentication or access-control checks. Leaderboard,
+spread distribution, account details, and the countdown are fixed reference data;
+random profit increases and resetting countdown scripts are not executed. Live
+data and authenticated subscription access still require backend integration.
+Reference branding, copy (including stop-loss), and proposed pricing are retained
+for discussion. The review homepage is marked noindex. Existing login, billing,
+download, guide, and privacy destinations are connected where available.
+
 ## Development
 
 Requires Node.js 24.

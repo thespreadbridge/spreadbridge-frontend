@@ -1,33 +1,14 @@
-import { PublicHeader } from '@/components/public-header';
-import { Hero } from '@/components/landing/Hero';
-import { PrincipleCard } from '@/components/landing/PrincipleCard';
-import { PrincipleFlow } from '@/components/landing/PrincipleFlow';
-import { SafetyCards } from '@/components/landing/SafetyCards';
-import { StartSteps } from '@/components/landing/StartSteps';
-import { FairBilling } from '@/components/landing/FairBilling';
-import { LiveSpread } from '@/components/landing/LiveSpread';
-import { Faq } from '@/components/landing/Faq';
-import { FinalCta } from '@/components/landing/FinalCta';
-import { SiteFooter } from '@/components/landing/SiteFooter';
+import { HomeContent } from '@/components/home-v6/HomeContent';
+import { HomePreview } from '@/components/home-v6/HomePreview';
+import '@/components/home-v6/home-v6.css';
 
 export default function Home() {
-  return (
-    <div className="sb-page">
-      <PublicHeader />
-      <main className="sb-main">
-        <Hero />
-        <LiveSpread />
-        <PrincipleCard />
-        <PrincipleFlow />
-        <SafetyCards />
-        <StartSteps />
-        <FairBilling />
-        <Faq />
-        <FinalCta />
-      </main>
-      <SiteFooter />
-    </div>
-  );
+  return <HomePreview><HomeContent /></HomePreview>;
 }
 
-export const metadata = { alternates: { canonical: 'https://thespreadbridge.com/' } };
+export const metadata = {
+  title: 'Basis Lab — 달러 격차를 자동으로',
+  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Basis Auto 홈페이지 v6 시안.',
+  alternates: { canonical: 'https://thespreadbridge.com/' },
+  robots: { index: false, follow: false },
+};
