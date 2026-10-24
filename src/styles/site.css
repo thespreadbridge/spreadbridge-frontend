@@ -88,3 +88,21 @@
   .site-card-grid { gap: 16px; }
   .site-step { gap: 16px; }
 }
+
+/* Shared account and sign-in elements. Authentication state comes from the server. */
+.member-chip { display: inline-flex; align-items: center; gap: 9px; color: var(--ink-2); font-size: 13px; }
+.member-avatar { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--gradient-button); color: var(--white); font-weight: 700; }
+.member-status { font-size: 12px; color: var(--ink-2); }
+.site-form-error { color: var(--neg) !important; font-size: 13px; }
+.site-login-card { max-width: 480px; margin: 12px auto 40px; }
+.site-login-card .btn { margin-top: 16px; }
+.site-prose .site-login-note { margin-top: 24px; font-size: 12px; color: var(--ink-2); }
+.btn:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+.session-status { padding-block: 40px; display: flex; align-items: center; gap: 16px; color: var(--ink-2); }
+.member-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.member-history { padding: 18px; color: var(--ink-2); font-size: 14px; }
+.member-history .site-table-wrap { margin: 0; }
+@media (max-width: 700px) { .member-chip span:last-child { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .site-actions .btn { padding-inline: 12px; } }
+
+.board-skeleton { display: block; width: 88px; height: 12px; border-radius: 4px; background: var(--line-2); }
+.board-skeleton.short { width: 60px; height: 8px; margin-top: 9px; }

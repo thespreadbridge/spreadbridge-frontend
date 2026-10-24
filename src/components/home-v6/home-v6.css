@@ -7,6 +7,7 @@
 
   /* ===== view state control ===== */
   .view-free, .view-paid { display: none; }
+  :scope[data-view="pending"] .view-guest { display: none; }
   :scope[data-view="guest"] .view-guest { display: block; }
   :scope[data-view="guest"] .view-free,
   :scope[data-view="guest"] .view-paid { display: none; }
@@ -16,21 +17,6 @@
   :scope[data-view="paid"] .view-guest { display: none; }
   :scope[data-view="paid"] .view-paid { display: block; }
   :scope[data-view="paid"] .view-free { display: none; }
-
-  /* nav state: switcher + chips */
-  .view-switch { display: flex; gap: 2px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 3px; margin-right: 6px; }
-  .view-switch button { font-family: var(--sans); font-size: 11px; padding: 5px 9px; border: none; background: transparent; color: var(--ink-3); cursor: pointer; border-radius: 6px; }
-  .view-switch button.active { background: var(--accent-dim, rgba(82,168,255,.15)); color: var(--white); }
-  .user-chip { display: none; align-items: center; gap: 9px; }
-  .uc-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,var(--button-top),var(--accent-2)); color: var(--white); font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-  .uc-name { font-size: 13px; color: var(--ink-2); }
-  .uc-out { font-size: 12px; color: var(--ink-3); }
-  .uc-out:hover { color: var(--ink); }
-  :scope[data-view="guest"] #userChip { display: none; }
-  :scope[data-view="guest"] #loginBtn, :scope[data-view="guest"] #startBtn { display: inline-block; }
-  :scope[data-view="free"] #loginBtn, :scope[data-view="free"] #startBtn,
-  :scope[data-view="paid"] #loginBtn, :scope[data-view="paid"] #startBtn { display: none; }
-  :scope[data-view="free"] #userChip, :scope[data-view="paid"] #userChip { display: flex; }
 
   /* logged-in main */
   .logged-main { padding: 40px 0 60px; }
@@ -285,51 +271,6 @@
   .final p { font-size: 17px; color: var(--ink-2); margin-top: 16px; position: relative; }
   .final .btn { margin-top: 30px; position: relative; }
 
-  /* member board overlay */
-  .member-board {
-    position: fixed; inset: 0; z-index: 200; background: rgba(4,6,9,.82);
-    backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center;
-    overflow-y: auto; padding: 40px 20px;
-  }
-  .member-board.show { display: flex; }
-  .mb-inner {
-    width: 100%; max-width: 760px; background: linear-gradient(180deg,var(--panel),var(--bg-2));
-    border: 1px solid var(--line-2); border-radius: 18px; padding: 28px;
-    box-shadow: 0 30px 80px rgba(0,0,0,.6);
-  }
-  .mb-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-  .mb-mine {
-    display: flex; gap: 24px; align-items: center; padding: 16px 20px; margin-bottom: 20px;
-    background: linear-gradient(90deg,rgba(82,168,255,.1),rgba(124,92,255,.06));
-    border: 1px solid rgba(82,168,255,.25); border-radius: 12px;
-  }
-  .mb-mine-rank { font-size: 13px; color: var(--ink-2); }
-  .mb-mine-rank b { font-size: 24px; font-family: var(--mono); color: var(--accent); margin-left: 4px; }
-  .mb-mine-stat { display: flex; flex-direction: column; gap: 2px; }
-  .mb-mine-stat .lbl { font-size: 11px; color: var(--ink-3); }
-  .mb-mine-stat b { font-size: 16px; font-family: var(--mono); }
-  .mb-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
-  .mb-tab {
-    font-family: var(--sans); font-size: 12.5px; padding: 7px 14px; border-radius: 8px;
-    border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer;
-  }
-  .mb-tab.active { background: var(--accent-dim, rgba(82,168,255,.15)); color: var(--white); border-color: rgba(82,168,255,.4); }
-  .mb-table { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .mb-row {
-    display: grid; grid-template-columns: 60px 1fr 60px 50px 60px 110px; gap: 10px;
-    align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--line);
-    font-size: 13px; font-family: var(--mono);
-  }
-  .mb-row:last-child { border-bottom: none; }
-  .mb-row.mb-hd { background: rgba(255,255,255,.02); color: var(--ink-3); font-size: 11px; font-family: var(--sans); text-transform: uppercase; letter-spacing: .4px; }
-  .mb-id { font-family: var(--sans); }
-  .mb-rk { color: var(--ink-2); }
-  .mb-row.r1 { background: rgba(255,212,94,.05); }
-  .mb-row.mine { background: rgba(82,168,255,.1); border-top: 1px solid rgba(82,168,255,.3); border-bottom: 1px solid rgba(82,168,255,.3); }
-  .mb-row.mine .mb-id { color: var(--accent); font-weight: 600; }
-  .mb-pnl { text-align: right; font-weight: 600; }
-  .mb-foot { font-size: 11px; color: var(--ink-3); margin-top: 16px; text-align: center; line-height: 1.6; }
-
   @media (max-width: 900px) {
     .hero-grid, .prod-wrap { grid-template-columns: 1fr; }
     .how-grid, .trust-grid { grid-template-columns: 1fr; }
@@ -343,23 +284,11 @@
   :scope { min-height: 100vh; display: flow-root; }
   .preview-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 250; display: flex; align-items: center; gap: 20px; max-width: calc(100% - 32px); padding: 14px 18px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--panel); box-shadow: 0 12px 40px #0008; font-size: 13px; }
   .preview-toast button { border: 0; background: transparent; color: var(--ink); font-size: 22px; cursor: pointer; }
-  :scope[data-board-open="true"] .member-board { display: flex; }
-  .view-switch button.active { background: transparent; color: var(--ink-3); }
-  :scope[data-view="guest"] .view-switch [data-view="guest"],
-  :scope[data-view="free"] .view-switch [data-view="free"],
-  :scope[data-view="paid"] .view-switch [data-view="paid"] { background: rgba(82,168,255,.15); color: var(--white); }
   a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .faq-q { cursor: pointer; }
   section[id], div[id="pricing-free"] { scroll-margin-top: 90px; }
-  .mb-table { overflow-x: auto; }
-  .mb-row { min-width: 620px; }
-  @media (max-width: 1100px) {
-    .view-switch button { padding-inline: 7px; }
-  }
   @media (max-width: 700px) {
     .wrap { padding-inline: 20px; }
-    .view-switch { order: 3; flex-basis: 100%; margin: 4px 0 0; justify-content: center; }
-    .view-switch button { flex: 1; }
     .hero { padding-top: 48px; }
     .hero-grid { gap: 32px; }
     h1.hero-title { font-size: clamp(29px, 7vw, 38px); }

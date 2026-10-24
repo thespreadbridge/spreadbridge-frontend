@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { SessionProvider } from '@/components/auth/SessionProvider';
+import { serverSession } from '@/lib/auth/session';
 import localFont from 'next/font/local';
 
 import '../styles/tokens.css';
@@ -23,10 +25,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await serverSession();
   return (
-    <html lang="ko" className={`${pretendard.variable} ${mono.variable}`}>
-      <body>{children}</body>
+    <html lang="ko" data-scroll-behavior="smooth" className={`${pretendard.variable} ${mono.variable}`}>
+      <body><SessionProvider initialSession={session}>{children}</SessionProvider></body>
     </html>
   );
 }
