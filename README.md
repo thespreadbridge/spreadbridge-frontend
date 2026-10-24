@@ -67,6 +67,26 @@ from the final URL. The backend's registered Google callback still passes throug
 its existing growbee.ai endpoint. The Google consent-screen service name is also
 managed in that existing Google Cloud OAuth registration.
 
+### Google consent branding (2026-10-24)
+
+The live authorization endpoint and the private server credential file already use
+the `spreadbridge` Google Cloud project (project number `343250169455`) and its
+`Spreadbridge Server` Web OAuth client. The project app name is already
+`Spreadbridge`; changing the credential pair alone does not change the consent label.
+
+The Google Auth Platform branding homepage and privacy links have been changed to
+`https://thespreadbridge.com/` and `https://thespreadbridge.com/privacy/` and the
+new domain has been added to authorized domains. The existing API callback domain
+remains registered. The public homepage and privacy URLs both return HTTP 200;
+the unpublished terms draft is not linked from Google branding.
+
+With the user's explicit approval, `hoho0443@gmail.com` was added as a Search
+Console owner while preserving `hoho@thespreadbridge.com`, connecting the verified
+domain to the Cloud project owner. Google automatic brand verification passed and
+the verified branding was published. A fresh Google authorization request now shows
+“to continue to Spreadbridge” and links to the official domain's privacy policy.
+No credential values were rotated or added to frontend code for this correction.
+
 For public HTTPS deployment, the API's web OAuth return URL must match
 `https://<this-site>/api/session/google/callback`. The existing API currently fixes
 that return URL to its `APP_PUBLIC_URL`. Configure/deploy support for the new site's
