@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSession } from '@/components/auth/SessionProvider';
 import { homeView } from '@/lib/auth/types';
+import { MemberTradeTable, type MemberTrade } from './MemberTradeTable';
 
 interface MemberHistory {
   summary: { realizedPnl: number | null; entries: number; exits: number; missingPnlCount: number };
-  items: { id: string; occurredAt: string; action: 'ENTRY' | 'EXIT'; futuresSymbol?: string; spotSymbol?: string; status: string; realizedPnl: number | null }[];
+  items: MemberTrade[];
 }
 const won = (value: number | null | undefined) => value == null ? '—' : `${value > 0 ? '+' : ''}₩${value.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}`;
 
@@ -56,7 +57,7 @@ export function MemberHome() {
         <div className="board board-wide">
           <div className="board-head"><span className="title">내 최근 거래</span><span className="sub">서버에 수신된 거래 기록</span></div>
           <div className="member-history">
-            {current?.failed ? <p role="status">거래 기록을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.</p> : !data ? <p role="status">거래 기록을 불러오는 중입니다.</p> : !data.items.length ? <p>아직 기록된 거래가 없습니다.</p> : <div className="site-table-wrap"><table><thead><tr><th scope="col">시간</th><th scope="col">종목</th><th scope="col">구분</th><th scope="col">실현손익</th></tr></thead><tbody>{data.items.map(item => <tr key={item.id}><td>{new Date(item.occurredAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}</td><td>{item.futuresSymbol ?? '—'} / {item.spotSymbol ?? '—'}</td><td>{item.action === 'ENTRY' ? '진입' : '청산'}</td><td>{item.action === 'EXIT' && item.status === 'EXECUTION_SETTLED' ? won(item.realizedPnl) : '—'}</td></tr>)}</tbody></table></div>}
+            {current?.failed ? <p role="status">거래 기록을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.</p> : !data ? <p role="status">거래 기록을 불러오는 중입니다.</p> : !data.items.length ? <p>아직 기록된 거래가 없습니다.</p> : <MemberTradeTable items={data.items} />}
           </div>
           <div className="board-foot">증권사·거래소의 실제 체결 내역도 함께 확인해 주세요.</div>
         </div>
