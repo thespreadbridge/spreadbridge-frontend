@@ -14,7 +14,7 @@ are presentation states, not authentication or access-control checks. Leaderboar
 spread distribution, account details, and the countdown are fixed reference data;
 random profit increases and resetting countdown scripts are not executed. Live
 data and authenticated subscription access still require backend integration.
-Reference branding, copy (including stop-loss), and proposed pricing are retained
+Spreadbridge branding and contact information are applied. Reference copy (including stop-loss) and proposed pricing are retained
 for discussion. The review homepage is marked noindex. Existing login, billing,
 download, guide, and privacy destinations are connected where available.
 

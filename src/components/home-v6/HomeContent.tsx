@@ -8,7 +8,7 @@ export function HomeContent() {
 
 <nav>
   <div className={"wrap"}>
-    <div className={"logo"}>Basis<b>Lab</b></div>
+    <div className={"logo"}>Spread<b>bridge</b></div>
     <div className={"nav-links"}>
       <a href={"#how"}>작동 방식</a>
       <a href={"#security"}>보안</a>
@@ -46,7 +46,7 @@ export function HomeContent() {
         당신만의 에이전트들이 24시간 쉬지 않고 대신합니다.
       </p>
       <div className={"hero-actions"}>
-        <a className={"btn primary lg"} href={"#product"}>Basis Auto 시작하기</a>
+        <a className={"btn primary lg"} href={"#product"}>Spreadbridge 시작하기</a>
         <a className={"btn ghost lg"} href={"#how"}>작동 방식 보기</a>
       </div>
       <div className={"hero-trust"}>
@@ -164,7 +164,7 @@ export function HomeContent() {
       <div className={"prod-wrap"}>
         <div className={"prod-card live"}>
           <span className={"prod-badge now"}>● 지금 이용 가능</span>
-          <h3>Basis Auto</h3>
+          <h3>Spreadbridge</h3>
           <p className={"desc"}>달러 격차를 자동으로 공략하는 매매 에이전트. 슬롯 단위로 전략을 만들고 동시에 여러 개를 굴립니다.</p>
           <div className={"prod-price"}>
             <div className={"price-top"}><span className={"price-orig"}>₩990,000</span><span className={"price-off"}>런칭 90% OFF</span></div>
@@ -182,7 +182,7 @@ export function HomeContent() {
         <div className={"prod-card"}>
           <span className={"prod-badge soon"}>준비 중</span>
           <h3>더 많은 전략</h3>
-          <p className={"desc"}>Basis Auto가 자리 잡으면 다른 격차와 시장을 다루는 상품이 순차 추가됩니다.</p>
+          <p className={"desc"}>Spreadbridge가 자리 잡으면 다른 격차와 시장을 다루는 상품이 순차 추가됩니다.</p>
           <div className={"prod-price"}><span className={"amt"} style={{"color": "var(--ink-3)"}}>Coming</span></div>
           <ul className={"prod-feat prod-soon-list"}>
             <li><span className={"ck"}>○</span> 새로운 페어 · 시장 확장</li>
@@ -349,7 +349,7 @@ export function HomeContent() {
     <div className={"prod-wrap"}>
       <div className={"prod-card live"}>
         <span className={"prod-badge now"}>● 지금 이용 가능</span>
-        <h3>Basis Auto</h3>
+        <h3>Spreadbridge</h3>
         <p className={"desc"}>달러 격차를 자동으로 잡는 매매 프로그램. 슬롯 단위로 전략을 만들고, 동시에 여러 개를 굴립니다.</p>
         <div className={"prod-price"}>
           <div className={"price-top"}>
@@ -375,13 +375,13 @@ export function HomeContent() {
           <li><span className={"ck"}>✓</span> IP 변경 자동 감지 · 재등록 안내</li>
           <li><span className={"ck"}>✓</span> 모의거래 모드 · 실시간 리포트</li>
         </ul>
-        <a className={"btn primary"} href={"https://dollarflow.growbee.ai/payments"}>Basis Auto 시작하기</a>
+        <a className={"btn primary"} href={"https://dollarflow.growbee.ai/payments"}>Spreadbridge 시작하기</a>
       </div>
 
       <div className={"prod-card"}>
         <span className={"prod-badge soon"}>준비 중</span>
         <h3>더 많은 전략</h3>
-        <p className={"desc"}>Basis Auto가 자리 잡으면, 다른 격차와 다른 시장을 다루는 상품이 순차적으로 추가됩니다.</p>
+        <p className={"desc"}>Spreadbridge가 자리 잡으면, 다른 격차와 다른 시장을 다루는 상품이 순차적으로 추가됩니다.</p>
         <div className={"prod-price"}>
           <span className={"amt"} style={{"color": "var(--ink-3)"}}>Coming</span>
         </div>
@@ -414,7 +414,7 @@ export function HomeContent() {
     <div className={"risk-band"}>
       <h3>⚠ 시작 전 반드시 확인하세요</h3>
       <p>
-        Basis Auto는 매매를 자동화하는 도구이며, 투자 자문이나 수익을 보장하지 않습니다.
+        Spreadbridge는 매매를 자동화하는 도구이며, 투자 자문이나 수익을 보장하지 않습니다.
         시장의 격차는 좁혀질 것으로 기대되지만, 반대로 벌어지는 국면에서는 손실이 발생할 수 있고
         선물 포지션에서 증거금 부족이 생길 수 있습니다. 모든 설정과 그 결과에 대한 책임은 이용자 본인에게 있습니다.
       </p>
@@ -430,7 +430,7 @@ export function HomeContent() {
     <div className={"faq"}>
       <div className={"faq-item open"}>
         <div className={"faq-q"} role={"button"} tabIndex={0}>제 돈을 맡기는 건가요? <span className={"plus"}>+</span></div>
-        <div className={"faq-a"}>아닙니다. 프로그램은 당신의 PC에서 당신의 거래소 계정으로 직접 매매합니다. Basis Lab은 당신의 자금을 받거나 보관하지 않고, 계좌에 접근할 수도 없습니다. 우리는 소프트웨어를 제공할 뿐입니다.</div>
+        <div className={"faq-a"}>아닙니다. 프로그램은 당신의 PC에서 당신의 거래소 계정으로 직접 매매합니다. Spreadbridge는 당신의 자금을 받거나 보관하지 않고, 계좌에 접근할 수도 없습니다. 우리는 소프트웨어를 제공할 뿐입니다.</div>
       </div>
       <div className={"faq-item"}>
         <div className={"faq-q"} role={"button"} tabIndex={0}>수익이 보장되나요? <span className={"plus"}>+</span></div>
@@ -442,7 +442,7 @@ export function HomeContent() {
       </div>
       <div className={"faq-item"}>
         <div className={"faq-q"} role={"button"} tabIndex={0}>전략이 정확히 뭔가요? <span className={"plus"}>+</span></div>
-        <div className={"faq-a"}>달러와 관련된 두 시장 사이의 가격 격차를 이용합니다. 세부 산식과 실행 방식은 Basis Lab의 핵심 자산이라 공개하지 않지만, 프로그램 안에서 당신이 조정할 수 있는 조건은 모두 투명하게 열려 있습니다.</div>
+        <div className={"faq-a"}>달러와 관련된 두 시장 사이의 가격 격차를 이용합니다. 세부 산식과 실행 방식은 Spreadbridge의 핵심 자산이라 공개하지 않지만, 프로그램 안에서 당신이 조정할 수 있는 조건은 모두 투명하게 열려 있습니다.</div>
       </div>
       <div className={"faq-item"}>
         <div className={"faq-q"} role={"button"} tabIndex={0}>프로그래밍을 몰라도 되나요? <span className={"plus"}>+</span></div>
@@ -499,7 +499,7 @@ export function HomeContent() {
   <div className={"wrap"}>
     <h2>격차는 지금도 벌어지고 있습니다</h2>
     <p>사람이 밤새 지켜볼 수 없는 순간을, 기계에게 맡기세요.</p>
-    <a className={"btn primary lg"} href={"#product"}>Basis Auto 시작하기</a>
+    <a className={"btn primary lg"} href={"#product"}>Spreadbridge 시작하기</a>
   </div>
 </section>
 
@@ -508,12 +508,12 @@ export function HomeContent() {
   <div className={"wrap"}>
     <div className={"foot-grid"}>
       <div className={"foot-brand"}>
-        <div className={"logo"}>Basis<b>Lab</b></div>
+        <div className={"logo"}>Spread<b>bridge</b></div>
         <p>달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. 판단은 당신의 PC에서, 자산은 당신의 손에서.</p>
       </div>
       <div className={"foot-col"}>
         <h4>제품</h4>
-        <a href={"#product"}>Basis Auto</a>
+        <a href={"#product"}>Spreadbridge</a>
         <a href={"#how"}>작동 방식</a>
         <a href={"#security"}>보안</a>
         <a href={"/download/"}>다운로드</a>
@@ -534,10 +534,10 @@ export function HomeContent() {
       </div>
     </div>
     <div className={"foot-legal"}>
-      Basis Lab은 매매 자동화 소프트웨어를 제공하는 회사이며, 투자중개·투자자문·투자일임 서비스를 제공하지 않습니다.
+      Spreadbridge는 매매 자동화 소프트웨어를 제공하는 회사이며, 투자중개·투자자문·투자일임 서비스를 제공하지 않습니다.
       본 소프트웨어는 수익을 보장하지 않으며, 모든 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.
       파생상품 거래에는 원금 손실 위험이 있습니다.<br />
-      © 2026 Basis Lab. 사업자등록번호 000-00-00000 · 문의 support@basislab.co.kr
+      © 2026 Spreadbridge. 사업자등록번호 000-00-00000 · 문의 contact@thespreadbridge.com
     </div>
   </div>
 </footer>

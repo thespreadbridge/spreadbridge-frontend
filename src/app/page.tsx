@@ -7,8 +7,8 @@ export default function Home() {
 }
 
 export const metadata = {
-  title: 'Basis Lab — 달러 격차를 자동으로',
-  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Basis Auto 홈페이지 v6 시안.',
+  title: { absolute: 'Spreadbridge — 달러 격차를 자동으로' },
+  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Spreadbridge 홈페이지 v6 시안.',
   alternates: { canonical: 'https://thespreadbridge.com/' },
   robots: { index: false, follow: false },
 };

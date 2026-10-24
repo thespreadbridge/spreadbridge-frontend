@@ -86,7 +86,7 @@ export function HomePreview({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div ref={root} className="basis-home" data-view={view} data-board-open={boardOpen}
+    <div ref={root} className="spreadbridge-home" data-view={view} data-board-open={boardOpen}
       onClick={event => { if (event.target instanceof Element) activate(event.target, event); }}
       onKeyDown={event => {
         if ((event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.matches('.faq-q')) activate(event.target, event);
