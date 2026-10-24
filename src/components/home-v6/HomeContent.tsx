@@ -1,3 +1,4 @@
+import { subscriptionExpiryFaq } from '@/lib/public-faq';
 import { LaunchCountdown } from './LaunchCountdown';
 import { subscriptionCatalog } from '@/lib/subscription-catalog';
 import { softwareSchema } from '@/lib/seo';
@@ -207,6 +208,10 @@ export async function HomeContent() {
       <div className={"faq-item"}>
         <div data-analytics-id="faq_setup" className={"faq-q"} role={"button"} tabIndex={0}>프로그래밍을 몰라도 되나요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>됩니다. 설치부터 연결, 전략 등록까지 화면 안내를 따라가면 되고, 초기 설정은 1:1 온보딩으로 도와드립니다.</div>
+      </div>
+      <div className={"faq-item"}>
+        <div data-analytics-id={"faq_" + subscriptionExpiryFaq.id} className={"faq-q"} role={"button"} tabIndex={0}>{subscriptionExpiryFaq.question} <span className={"plus"}>+</span></div>
+        <div className={"faq-a"}>{subscriptionExpiryFaq.answer}</div>
       </div>
     </div>
   </div>

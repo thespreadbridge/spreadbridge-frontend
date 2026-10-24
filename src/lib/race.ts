@@ -25,8 +25,10 @@ export function upcomingRaceSymbols(now = new Date()) {
   }).filter(isRaceSymbol);
 }
 
-// Slot shares in tenths of a percent that always add up to exactly 100.0.
-export function slotShares(buckets: RaceBucket[], total: number) {
+// Slot shares in tenths of a percent that always add up to exactly 100.0,
+// normalised by the buckets actually shown.
+export function slotShares(buckets: RaceBucket[]) {
+  const total = buckets.reduce((sum, bucket) => sum + bucket.slots, 0);
   if (!total) return new Map(buckets.map(bucket => [bucket.lower, 0]));
   const parts = buckets.map(bucket => { const exact = bucket.slots / total * 1000; return { lower: bucket.lower, base: Math.floor(exact), remainder: exact % 1 }; })
     .sort((a, b) => b.remainder - a.remainder || a.lower - b.lower);
