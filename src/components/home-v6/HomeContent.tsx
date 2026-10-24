@@ -123,7 +123,7 @@ export async function HomeContent() {
           <div className={"price-top"}>
             {startingPlan?.promotion_label ? <span className={"price-off"}>{startingPlan.promotion_label}</span> : null}
           </div>
-          {startingPlan ? <><span className={"amt"}>₩{startingPlan.monthly_krw.toLocaleString('ko-KR')}</span><span className={"per"}> / 월부터</span>
+          {startingPlan ? <><span className={"amt"}>{startingPlan.monthly_krw.toLocaleString('ko-KR')}원</span><span className={"per"}> / 월부터</span>
             <div className={"price-note"}>{startingPlan.name} 기준 · <a href="/pricing/">전체 요금 보기</a></div></> : <p role="status">{catalog ? '현재 판매 중인 구독 상품이 없습니다.' : '요금 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.'}</p>}
           <LaunchCountdown />
         </div>
