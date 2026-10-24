@@ -164,8 +164,8 @@ Automated tests also cover subscription expiry and access restrictions.
 The owner also requested populated website verification for the same account. The
 dataset contains eight synthetic PAPER execution records and four synthetic
 subscription receipts (active, expired, revoked and scheduled). Records use the
-`website-preview:` namespace and are identified by API test flags; member pages
-show a test-data notice and per-row labels. These records do not represent broker
+`website-preview:` namespace and are identified by API test flags and per-row labels.
+The page-wide test notice was removed at the owner's request. These records do not represent broker
 orders or payment-provider transactions. The fixture grant has a 30-day preview
 period so the website can render both remaining days and a dated expiration.
 The seed transaction records its prior membership and exact inserted IDs for

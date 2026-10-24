@@ -6,7 +6,6 @@ import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { serverSession } from '@/lib/auth/session';
 import { checkoutTarget, subscriptionCatalog } from '@/lib/subscription-catalog';
 import { SubscriptionHistory, type SubscriptionReceipt } from '@/components/site/SubscriptionHistory';
-import { TestDataNotice } from '@/components/site/TestDataNotice';
 
 const date = (value: string) => new Date(value).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 export const metadata = { title: '구독 관리', robots: { index: false, follow: false } };
@@ -28,7 +27,6 @@ export default async function Payments() {
   const eligible = session.user.role === 'OWNER' && session.user.emailVerified && session.user.customerStatus === 'ACTIVE';
   const checkout = checkoutTarget(catalog?.checkoutUrl ?? null);
   return <SitePage title="구독 관리" eyebrow="SPREADBRIDGE · MEMBERSHIP" width="wide" description={`${session.user.displayName} 님의 구독 상태와 이용 내역을 확인하세요.`}>
-    {member.testData ? <TestDataNotice /> : null}
     <div className="site-summary-grid">
       <article><h2>현재 플랜</h2><p>{member.active ? member.planName ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
       <article><h2>이용 가능 슬롯</h2><p>{member.active ? member.maxActiveSlots : 0}개</p></article>
