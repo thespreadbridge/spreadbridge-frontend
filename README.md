@@ -45,6 +45,18 @@ Homepage section composition remains scoped in
 `src/styles/insights.css` and inherits the same shared tokens. The previous light landing stylesheet is no
 longer loaded. Change shared tokens/components to update all public pages together.
 
+At widths up to 900px, the shared header uses a menu disclosure for navigation and
+account actions. It closes after choosing a link, pressing Escape, or clicking
+outside. The collapsed header stays one row for signed-in and guest visitors.
+Shared header-height and anchor-offset tokens keep article and section links clear
+of the sticky header. At widths up to 700px, the trade and subscription tables use
+labelled cards and subscription summary cards become compact rows.
+
+Subscription history displays ten records per page using `historyPage` in the URL,
+with previous/next links targeting `#subscription-history`. Out-of-range pages are
+clamped. Credentials and receipt fetching stay server-side. The current API supplies
+at most the latest 100 receipts, so paging operates within that returned dataset.
+
 ## Authentication and subscription integration
 
 `/login/` belongs to this frontend. Google authorization starts at

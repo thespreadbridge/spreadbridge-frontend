@@ -45,4 +45,6 @@
   --container: 1140px;
   --document-width: 920px;
   --page-gutter: 28px;
+  --site-header-height: 65px;
+  --anchor-offset: calc(var(--site-header-height) + 24px);
 }

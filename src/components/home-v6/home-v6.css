@@ -286,7 +286,7 @@
   .preview-toast button { border: 0; background: transparent; color: var(--ink); font-size: 22px; cursor: pointer; }
   a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .faq-q { cursor: pointer; }
-  section[id], div[id="pricing-free"] { scroll-margin-top: 90px; }
+  section[id], div[id="pricing-free"] { scroll-margin-top: var(--anchor-offset); }
   @media (max-width: 700px) {
     .wrap { padding-inline: 20px; }
     .hero { padding-top: 48px; }

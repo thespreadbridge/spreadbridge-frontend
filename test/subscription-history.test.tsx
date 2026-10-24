@@ -21,4 +21,25 @@ describe('subscription receipt states', () => {
     expect(renderToStaticMarkup(<SubscriptionHistory receipts={[]} now={now} />)).toContain('아직 구독 결제 내역이 없습니다');
     expect(renderToStaticMarkup(<SubscriptionHistory receipts={null} now={now} />)).toContain('불러오지 못했습니다');
   });
+  it('shows ten receipts per page and links to neighboring pages at the history section', () => {
+    const receipts = Array.from({ length: 23 }, (_, index) => ({ ...receipt, id: `receipt-${index}`, amount: 10000 + index }));
+    const html = renderToStaticMarkup(<SubscriptionHistory receipts={receipts} now={now} page="2" />);
+    expect(html).toContain('10,010원'); expect(html).toContain('10,019원');
+    expect(html).not.toContain('10,009원'); expect(html).not.toContain('10,020원');
+    expect(html).toMatch(/\/payments\/?\?historyPage=1#subscription-history/);
+    expect(html).toMatch(/\/payments\/?\?historyPage=3#subscription-history/);
+    expect(html).toContain('11–20');
+  });
+  it('clamps an excessive page to the last available page without a next link', () => {
+    const receipts = Array.from({ length: 23 }, (_, index) => ({ ...receipt, id: `receipt-${index}`, amount: 10000 + index }));
+    const html = renderToStaticMarkup(<SubscriptionHistory receipts={receipts} now={now} page="999" />);
+    expect(html).toContain('10,020원'); expect(html).toContain('10,022원'); expect(html).not.toContain('10,019원');
+    expect(html).toContain('21–23'); expect(html).toMatch(/\/payments\/?\?historyPage=2#subscription-history/);
+    expect(html).not.toContain('aria-label="다음 페이지"');
+  });
+  it.each(['-1', 'invalid', '1.5', undefined])('uses the first page for an invalid or missing page (%s)', page => {
+    const html = renderToStaticMarkup(<SubscriptionHistory receipts={[receipt]} now={now} page={page} />);
+    expect(html).toContain('99,000원'); expect(html).not.toContain('historyPage=');
+    expect(html.match(/aria-disabled="true"/g)).toHaveLength(2);
+  });
 });
