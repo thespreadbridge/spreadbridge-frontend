@@ -1,6 +1,6 @@
 export function apiBaseUrl() {
   const configured = process.env.SPREADBRIDGE_API_URL ?? process.env.API_INTERNAL_URL;
-  const value = configured ?? 'https://dollarflow.growbee.ai/v1';
+  const value = configured ?? 'https://api.thespreadbridge.com/v1';
   return value.replace(/\/$/, '');
 }
 export function backend(path: string, init: RequestInit = {}) {
