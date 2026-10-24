@@ -53,21 +53,21 @@ export function RaceBoard() {
       </div>
       <div className="race-updated">
         <span>{summary ? `${kstTime(summary.updatedAt)} 집계` : status === 'loading' ? '집계 조회 중' : '—'}</span>
-        <button type="button" className="btn ghost" onClick={() => setTick(n => n + 1)}>새로고침</button>
+        <button type="button" className="btn ghost" onClick={() => setTick(n => n + 1)}>새로고침 ↻</button>
       </div>
     </div>
 
     <div className="site-summary-grid race-stats">
       <article><h2>참여 인원</h2><p><strong>{summary?.people ?? '—'}</strong> 명</p><small>선택 월물 내 중복 제거</small></article>
       <article><h2>활성 진입대기 슬롯</h2><p><strong>{summary?.slots ?? '—'}</strong> 개</p><small>정지·보유·완료 제외</small></article>
-      <article><h2>내 공유 상태</h2><p><strong>{summary ? (summary.shared ? '공유 중' : '공유 안 함') : '—'}</strong></p><small>앱의 레이스 창에서 변경</small></article>
+      <article><h2>내 설정</h2><p><strong>{summary ? (summary.shared ? '익명 공유 중' : '익명 공유 안 함') : '—'}</strong></p><small>앱의 진입갭 레이스에서 변경</small></article>
     </div>
 
-    {status === 'denied' ? <p role="status" className="race-empty">이메일 인증과 계정 승인이 끝난 회원만 볼 수 있습니다.</p>
-      : status === 'error' ? <p role="status" className="race-empty">집계를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
-      : summary && !buckets.length ? <p role="status" className="race-empty">이 월물에는 아직 공유된 조건이 없습니다.</p>
+    {status === 'denied' ? <p role="status" className="race-empty">이메일 인증과 계정 승인이 완료된 회원만 집계를 볼 수 있습니다.</p>
+      : status === 'error' ? <p role="status" className="race-empty">집계 데이터를 불러오지 못했습니다. 새로고침해 주세요.</p>
+      : summary && !buckets.length ? <p role="status" className="race-empty">이 월물에 공유된 활성 진입대기 슬롯이 없습니다.</p>
       : <div className="site-table-wrap"><table className="race-table">
-        <caption>{metric === 'people' ? '인원' : '슬롯'} 기준 순위 · 1원 단위 구간</caption>
+        <caption>{metric === 'people' ? '인원수' : '슬롯수'} 기준 인기 순위</caption>
         <thead><tr><th scope="col">순위</th><th scope="col">진입 기준값 구간</th><th scope="col">인원</th><th scope="col">슬롯</th><th scope="col">슬롯 비중</th><th scope="col">순위 변동</th></tr></thead>
         <tbody>
           {status === 'loading' && !summary ? <tr><td colSpan={6}>집계 데이터를 불러오는 중입니다.</td></tr> : buckets.map(bucket => {
