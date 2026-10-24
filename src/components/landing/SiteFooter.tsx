@@ -11,6 +11,7 @@ const footerGroups = [
   ] },
   { title: '지원', links: [
     { href: '/#faq', label: 'FAQ' },
+    { href: '/blog/', label: '블로그' },
     { href: 'mailto:contact@thespreadbridge.com', label: '고객센터' },
     { href: '/guide/', label: '온보딩 안내' },
     { href: '/notices/', label: '공지사항' },

@@ -40,8 +40,9 @@ pricing grids and onboarding steps. These files are loaded once in the root layo
 page. `SitePage` owns the common page frame; `InformationPage` adds policy navigation
 for notices and legal documents, including privacy. Route files contain content
 and composition, with no inline presentation styles or page-specific theme CSS.
-Only homepage-specific section composition remains scoped in
-`src/components/home-v6/home-v6.css`. The previous light landing stylesheet is no
+Homepage section composition remains scoped in
+`src/components/home-v6/home-v6.css`; blog composition lives in
+`src/styles/insights.css` and inherits the same shared tokens. The previous light landing stylesheet is no
 longer loaded. Change shared tokens/components to update all public pages together.
 
 ## Authentication and subscription integration
@@ -144,3 +145,17 @@ Installers remain on the existing CloudFront distribution. Published release met
 and the public pricing catalog in `src/generated/` are build-time snapshots; the signed-in
 billing page reads the current API catalog. Versioned installer URLs must continue to
 reference immutable release files.
+
+## Blog navigation and articles
+
+The common header and footer link to `/blog/`. The index and 14 previously
+published articles are included locally from the reviewed `3ac2d60` content,
+using the shared public header, footer, session provider and dark site tokens.
+Blog navigation stays on the current origin and preserves the member session.
+Article text, IDs, slugs, publication dates, sources and canonical URLs are retained.
+The few article inline layout styles were moved into the shared blog stylesheet.
+
+`src/content/insights.json` contains the reviewed content. The build runs
+`scripts/generate-content.mjs` to regenerate the 14-item RSS feed and a sitemap
+covering public pages and all articles. Login and private account routes are
+excluded from the sitemap. No live production deployment is part of this change.

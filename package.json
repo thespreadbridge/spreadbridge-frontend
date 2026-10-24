@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "node scripts/generate-content.mjs && next build --webpack",
     "typecheck": "tsc --noEmit",
     "start": "next start",
     "test": "vitest run"

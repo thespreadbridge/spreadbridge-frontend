@@ -12,7 +12,7 @@ export function PublicHeader() {
     <div className="site-container site-header-inner">
       <Brand />
       <nav aria-label="주요 메뉴" className="site-nav">
-        <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">FAQ</Link>
+        <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">FAQ</Link><Link href="/blog/">블로그</Link>
       </nav>
       <div className="site-actions">
         {session.status === 'authenticated' ? <>
