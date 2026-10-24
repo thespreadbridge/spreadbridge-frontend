@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { useSession } from '@/components/auth/SessionProvider';
 import { homeView } from '@/lib/auth/types';
 import { MemberTradeTable, type MemberTrade } from './MemberTradeTable';
+import { TestDataNotice } from '@/components/site/TestDataNotice';
+import { formatWon } from '@/lib/money';
 
 interface MemberHistory {
   summary: { realizedPnl: number | null; entries: number; exits: number; missingPnlCount: number };
   items: MemberTrade[];
 }
-const won = (value: number | null | undefined) => value == null ? '—' : `${value > 0 ? '+' : ''}₩${value.toLocaleString('ko-KR', { maximumFractionDigits: 0 })}`;
 
 export function MemberHome() {
   const { session, refresh } = useSession();
@@ -41,6 +42,7 @@ export function MemberHome() {
   const remaining = membership.expiresAt ? Math.max(0, Math.ceil((Date.parse(membership.expiresAt) - Date.now()) / 86400000)) : null;
   return <section className="logged-main">
     <div className="wrap">
+      {membership.testData ? <TestDataNotice /> : null}
       <div className={`welcome-bar ${view === 'paid' ? 'paid' : ''}`}>
         <div><div className="wb-hi">{view === 'paid' ? '다시 오셨네요' : '환영합니다'}, <b>{session.user.displayName}</b> 님</div>
           <p className="wb-sub">{view === 'paid' ? `${membership.planName ?? '유료 구독'} · 최대 ${membership.maxActiveSlots}슬롯 · ${remaining === null ? '관리자 지정 이용권' : `잔여 ${remaining}일`}` : session.user.customerStatus !== 'ACTIVE' ? '계정 상태를 확인해 주세요. 고객센터에서 이용 가능 여부를 안내합니다.' : !session.user.emailVerified ? '이메일 인증을 완료한 뒤 회원 기능을 이용해 주세요.' : '현재 이용 가능한 유료 구독이 없습니다. 구독 후 회원 기능을 이용할 수 있습니다.'}</p>
@@ -49,7 +51,7 @@ export function MemberHome() {
       </div>
       {view === 'paid' ? <>
         <div className="paid-summary four">
-          <div className="ps-card"><span className="ps-lbl">누적 실현손익</span><b className={`ps-val ${(data?.summary.realizedPnl ?? 0) < 0 ? 'down' : 'up'}`}>{won(data?.summary.realizedPnl)}</b></div>
+          <div className="ps-card"><span className="ps-lbl">누적 실현손익</span><b className={`ps-val ${(data?.summary.realizedPnl ?? 0) < 0 ? 'down' : 'up'}`}>{formatWon(data?.summary.realizedPnl)}</b></div>
           <div className="ps-card"><span className="ps-lbl">체결 완료 진입</span><b className="ps-val">{data?.summary.entries ?? '—'}</b></div>
           <div className="ps-card"><span className="ps-lbl">이용 가능 슬롯</span><b className="ps-val">{membership.maxActiveSlots}</b></div>
           <div className="ps-card"><span className="ps-lbl">구독 잔여</span><b className="ps-val">{remaining === null ? '관리자 지정' : <>{remaining}<span className="ps-unit">일</span></>}</b></div>

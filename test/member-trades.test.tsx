@@ -22,4 +22,12 @@ describe('member trade history', () => {
     expect(html).toContain('진입'); expect(html).toContain('청산'); expect(html).toContain('+₩4,444');
     expect(html).not.toContain('1,111'); expect(html).not.toContain('2,222'); expect(html).not.toContain('3,333');
   });
+  it('shows failed and partially filled entries separately and identifies test data', () => {
+    const html = renderToStaticMarkup(<MemberTradeTable items={[
+      { ...trade, id: 'failed', action: 'ENTRY', status: 'EXECUTION_FAILED', isTest: true },
+      { ...trade, id: 'partial', action: 'ENTRY', status: 'PARTIAL', isTest: true },
+      { ...trade, id: 'loss', action: 'EXIT', realizedPnl: -3700 },
+    ]} />);
+    expect(html).toContain('실패'); expect(html).toContain('부분 체결'); expect(html).toContain('테스트'); expect(html).toContain('-₩3,700');
+  });
 });

@@ -24,6 +24,7 @@ export async function resolveSession(accessToken?: string): Promise<SiteSession>
       planName: typeof raw.planName === 'string' ? raw.planName : null,
       maxActiveSlots: typeof raw.maxActiveSlots === 'number' && Number.isInteger(raw.maxActiveSlots) ? Math.max(0, raw.maxActiveSlots) : 0,
       expiresAt: typeof raw.expiresAt === 'string' ? raw.expiresAt : null,
+      testData: raw.testData === true,
     } : null;
     return { status: 'authenticated', user: {
       userId: member.userId, email: member.email,

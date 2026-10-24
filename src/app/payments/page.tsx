@@ -5,8 +5,9 @@ import { backend } from '@/lib/auth/backend';
 import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { serverSession } from '@/lib/auth/session';
 import { checkoutTarget, subscriptionCatalog } from '@/lib/subscription-catalog';
+import { SubscriptionHistory, type SubscriptionReceipt } from '@/components/site/SubscriptionHistory';
+import { TestDataNotice } from '@/components/site/TestDataNotice';
 
-interface Receipt { id: string; total_slots: number; amount: number; period_start: string; period_end: string; revoked_at: string | null }
 const date = (value: string) => new Date(value).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 export const metadata = { title: '구독 관리', robots: { index: false, follow: false } };
 
@@ -19,7 +20,7 @@ export default async function Payments() {
     subscriptionCatalog(),
     backend('/subscriptions/history', { headers: { Authorization: `Bearer ${token}` } }).catch(() => null),
   ]);
-  let receipts: Receipt[] | null = null;
+  let receipts: SubscriptionReceipt[] | null = null;
   try {
     if (history?.ok) receipts = await history.json();
   } catch { /* Preserve the verified membership and show an explicit unavailable state below. */ }
@@ -27,6 +28,7 @@ export default async function Payments() {
   const eligible = session.user.role === 'OWNER' && session.user.emailVerified && session.user.customerStatus === 'ACTIVE';
   const checkout = checkoutTarget(catalog?.checkoutUrl ?? null);
   return <SitePage title="구독 관리" eyebrow="SPREADBRIDGE · MEMBERSHIP" width="wide" description={`${session.user.displayName} 님의 구독 상태와 이용 내역을 확인하세요.`}>
+    {member.testData ? <TestDataNotice /> : null}
     <div className="site-summary-grid">
       <article><h2>현재 플랜</h2><p>{member.active ? member.planName ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
       <article><h2>이용 가능 슬롯</h2><p>{member.active ? member.maxActiveSlots : 0}개</p></article>
@@ -45,7 +47,7 @@ export default async function Payments() {
     </div>
     {catalog && !checkout ? <p>결제 사이트 연결을 준비하고 있습니다. 결제나 자동 갱신 청구는 발생하지 않습니다.</p> : null}
     <section><h2>구독 이용 내역</h2>
-      {receipts === null ? <p role="status">구독 이용 내역을 불러오지 못했습니다.</p> : !receipts.length ? <p>아직 구독 결제 내역이 없습니다.</p> : <div className="site-table-wrap"><table><thead><tr><th scope="col">플랜</th><th scope="col">금액</th><th scope="col">이용 기간</th><th scope="col">상태</th></tr></thead><tbody>{receipts.map(item => <tr key={item.id}><td>{item.total_slots}슬롯</td><td>{item.amount.toLocaleString('ko-KR')}원</td><td>{date(item.period_start)} ~ {date(item.period_end)}</td><td>{item.revoked_at ? '취소' : Date.parse(item.period_end) > Date.now() ? '이용 중' : '만료'}</td></tr>)}</tbody></table></div>}
+      <SubscriptionHistory receipts={receipts} />
     </section>
   </SitePage>;
 }

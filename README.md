@@ -161,6 +161,16 @@ page and protected trade summary all reflected the grant. With no recorded trade
 the report correctly displayed zero realized P&L, zero entries and an empty history.
 Automated tests also cover subscription expiry and access restrictions.
 
+The owner also requested populated website verification for the same account. The
+dataset contains eight synthetic PAPER execution records and four synthetic
+subscription receipts (active, expired, revoked and scheduled). Records use the
+`website-preview:` namespace and are identified by API test flags; member pages
+show a test-data notice and per-row labels. These records do not represent broker
+orders or payment-provider transactions. The fixture grant has a 30-day preview
+period so the website can render both remaining days and a dated expiration.
+The seed transaction records its prior membership and exact inserted IDs for
+scoped cleanup. No other account's data or published catalog is modified.
+
 The deployed catalog currently has three products and no checkout URL. No published
 installers are currently registered on the new server. Payment configuration and a
 new desktop release are required before those actions can be exercised. Announcements
