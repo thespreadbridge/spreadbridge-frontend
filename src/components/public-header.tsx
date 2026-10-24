@@ -37,7 +37,7 @@ export function PublicHeader() {
       </button>
       <div className="site-menu" id={menuId} data-open={menuOpen}>
         <nav aria-label="주요 메뉴" className="site-nav" onClick={() => setMenuOpen(false)}>
-          <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">FAQ</Link><Link href="/blog/">블로그</Link>
+          <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">FAQ</Link><Link href="/race/">진입갭 레이스</Link><Link href="/blog/">블로그</Link>
         </nav>
         <div className="site-actions" onClick={() => setMenuOpen(false)}>
           {session.status === 'authenticated' ? <>

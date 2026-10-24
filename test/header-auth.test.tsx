@@ -12,6 +12,9 @@ describe('published homepage session navigation', () => {
     expect(html).toMatch(/href="\/login\/?"/);
     expect(html).not.toContain('dollarflow.growbee.ai');
   });
+  it('links the member race page from the top menu', () => {
+    expect(render(guestSession)).toMatch(/href="\/race\/?"[^>]*>진입갭 레이스</);
+  });
   it('shows the verified member and offers logout', () => {
     const html = render({ status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: null });
     expect(html).toContain('회원 님');

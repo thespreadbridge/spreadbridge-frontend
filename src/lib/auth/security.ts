@@ -1,7 +1,7 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 
-const allowedReturns = new Set(['/', '/payments/', '/pricing/', '/download/']);
+const allowedReturns = new Set(['/', '/payments/', '/pricing/', '/download/', '/race/']);
 export function safeReturnTo(value: unknown) {
   return typeof value === 'string' && allowedReturns.has(value) ? value : '/';
 }
