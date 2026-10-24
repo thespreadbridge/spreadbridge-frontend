@@ -76,8 +76,10 @@ the `spreadbridge` Google Cloud project (project number `343250169455`) and its
 
 The Google Auth Platform branding homepage and privacy links have been changed to
 `https://thespreadbridge.com/` and `https://thespreadbridge.com/privacy/` and the
-new domain has been added to authorized domains. The existing API callback domain
-remains registered. The public homepage and privacy URLs both return HTTP 200;
+branding authorized-domain list now contains only `thespreadbridge.com`;
+`growbee.ai` was removed at the user's request. The existing API callback URI
+remains registered separately in the server OAuth client, and a fresh Google
+authorization request still opens the Spreadbridge account chooser. The public homepage and privacy URLs both return HTTP 200;
 the unpublished terms draft is not linked from Google branding.
 
 With the user's explicit approval, `hoho0443@gmail.com` was added as a Search
