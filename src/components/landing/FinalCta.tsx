@@ -10,7 +10,7 @@ export function FinalCta() {
         </div>
         <div className="sb-cta-side">
           <p>Google 계정으로 가입한 뒤 앱을 설치하고 거래 조건을 설정하세요.</p>
-          <Link href="https://dollarflow.growbee.ai/login" className="button button-blue">Google로 시작하기</Link>
+          <Link href="/login/" className="button button-blue">Google로 시작하기</Link>
         </div>
       </div>
     </section>
