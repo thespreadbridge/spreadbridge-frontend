@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://thespreadbridge.com'),
   title: { default: 'Spreadbridge | 비수탁 스프레드 차익거래 자동매매', template: '%s | Spreadbridge' },
   description: '두 시장의 가격 차이를, 고객님 계좌에서 직접 자동으로. 비수탁 스프레드 차익거래 자동매매 플랫폼 Spreadbridge.',
+  verification: {
+    other: { 'naver-site-verification': '193462cdf03f0035bac4c42074fb8c3591444cae' },
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
