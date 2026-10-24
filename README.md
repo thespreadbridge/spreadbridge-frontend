@@ -89,6 +89,11 @@ the verified branding was published. A fresh Google authorization request now sh
 “to continue to Spreadbridge” and links to the official domain's privacy policy.
 No credential values were rotated or added to frontend code for this correction.
 
+The Cloud project now has two active owners: `hoho0443@gmail.com` and
+`hoho@thespreadbridge.com`. The second owner was added with explicit user approval
+through the Google Cloud console's invitation flow, and the invitation was accepted.
+Both `roles/owner` bindings were confirmed in the project's actual IAM policy.
+
 For public HTTPS deployment, the API's web OAuth return URL must match
 `https://<this-site>/api/session/google/callback`. The existing API currently fixes
 that return URL to its `APP_PUBLIC_URL`. Configure/deploy support for the new site's
