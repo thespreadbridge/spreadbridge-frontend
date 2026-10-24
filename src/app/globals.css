@@ -7,7 +7,7 @@ button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 svg { max-width: 100%; }
-[id] { scroll-margin-top: 90px; }
+[id] { scroll-margin-top: var(--anchor-offset); }
 @media (max-width: 700px) { :root { --page-gutter: 20px; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
