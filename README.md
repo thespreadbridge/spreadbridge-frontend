@@ -152,10 +152,14 @@ The common header and footer link to `/blog/`. The index and 14 previously
 published articles are included locally from the reviewed `3ac2d60` content,
 using the shared public header, footer, session provider and dark site tokens.
 Blog navigation stays on the current origin and preserves the member session.
-Article text, IDs, slugs, publication dates, sources and canonical URLs are retained.
+Article bodies, IDs, slugs, publication dates, sources and canonical URLs are retained.
 The few article inline layout styles were moved into the shared blog stylesheet.
 
 `src/content/insights.json` contains the reviewed content. The build runs
 `scripts/generate-content.mjs` to regenerate the 14-item RSS feed and a sitemap
 covering public pages and all articles. Login and private account routes are
 excluded from the sitemap. No live production deployment is part of this change.
+
+Blog introductions and excerpts use the public site's concise product guidance tone.
+`src/components/blog/BlogStart.tsx` owns the shared installation/guide call to action
+for the index and article pages so its wording stays consistent across the blog.

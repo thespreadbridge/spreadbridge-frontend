@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleCard } from '@/components/blog/ArticleCard';
+import { BlogStart } from '@/components/blog/BlogStart';
 import { formatArticleDate, getInsight, insightCategories, insightPath, insights, jsonLd, siteOrigin } from '@/lib/insights';
 
 export const dynamicParams = false;
@@ -28,27 +29,27 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const schema = {
     '@context': 'https://schema.org', '@graph': [
       { '@type': 'BlogPosting', '@id': `${url}#article`, headline: post.title, description: post.description, url, mainEntityOfPage: url, datePublished: post.publishedAt, dateModified: post.updatedAt, inLanguage: 'ko-KR', articleSection: category.name, author: { '@type': 'Organization', name: 'Spreadbridge', url: `${siteOrigin}/blog/` }, publisher: { '@type': 'Organization', name: 'Spreadbridge', url: siteOrigin }, image: `${siteOrigin}/images/insights-cover.png`, citation: post.sources.map((source) => new URL(source.url, siteOrigin).href) },
-      { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: `${siteOrigin}/` }, { '@type': 'ListItem', position: 2, name: '인사이트', item: `${siteOrigin}/blog/` }, { '@type': 'ListItem', position: 3, name: post.title, item: url }] },
+      { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: '홈', item: `${siteOrigin}/` }, { '@type': 'ListItem', position: 2, name: '블로그', item: `${siteOrigin}/blog/` }, { '@type': 'ListItem', position: 3, name: post.title, item: url }] },
     ],
   };
   return (
     <>
       <main className="site-container insight-article-layout">
         <article className="insight-article">
-          <nav className="insight-breadcrumb" aria-label="탐색 경로"><Link href="/">홈</Link><span aria-hidden="true">/</span><Link href="/blog/">인사이트</Link><span aria-hidden="true">/</span><Link href={`/blog/#${category.id}`}>{category.name}</Link></nav>
+          <nav className="insight-breadcrumb" aria-label="탐색 경로"><Link href="/">홈</Link><span aria-hidden="true">/</span><Link href="/blog/">블로그</Link><span aria-hidden="true">/</span><Link href={`/blog/#${category.id}`}>{category.name}</Link></nav>
           <header className="insight-article-heading">
             <Link className="insight-kicker" href={`/blog/#${category.id}`}>{category.name} · {String(post.id).padStart(2, '0')}</Link>
             <h1>{post.title}</h1><p className="insight-description">{post.description}</p>
             <div className="insight-byline"><Link href="/blog/">Spreadbridge</Link><time dateTime={post.publishedAt}>{formatArticleDate(post.publishedAt)}</time><span>{post.readingMinutes}분 읽기</span></div>
           </header>
-          <details className="insight-toc" open><summary>이 글에서 다루는 내용</summary><ol>{post.toc.map((section) => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></details>
+          <details className="insight-toc" open><summary>목차</summary><ol>{post.toc.map((section) => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></details>
           {/* Reviewed local content, restricted to article markup at import. No draft scripts or controls. */}
           <div className="insight-body" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
-          <section className="insight-sources" aria-labelledby="sources-title"><h2 id="sources-title">출처와 함께 확인하기</h2><p>상품·기관 안내는 2026년 10월 24일 기준으로 확인했습니다. 실제 거래에는 각 기관의 최신 조건이 적용됩니다.</p><ul>{post.sources.map((source) => <li key={source.url}><a href={source.url} target={source.url.startsWith('https://') ? '_blank' : undefined} rel={source.url.startsWith('https://') ? 'noopener noreferrer' : undefined}>{source.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul></section>
+          <section className="insight-sources" aria-labelledby="sources-title"><h2 id="sources-title">참고 자료</h2><p>상품·기관 안내는 2026년 10월 24일 기준으로 확인했습니다. 실제 거래에는 각 기관의 최신 조건이 적용됩니다.</p><ul>{post.sources.map((source) => <li key={source.url}><a href={source.url} target={source.url.startsWith('https://') ? '_blank' : undefined} rel={source.url.startsWith('https://') ? 'noopener noreferrer' : undefined}>{source.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul></section>
           <p className="insight-editorial-note">이 글은 거래 구조와 운영을 이해하기 위한 자료입니다. 예시 수치는 실제 시세나 수익률이 아니며, 특정 조건의 거래를 권유하지 않습니다. 실제 기능과 표시 항목은 설치한 앱 버전에서 확인하세요.</p>
-          <section className="insight-next-step"><div><span className="insight-kicker">READ → PREPARE</span><h2>다음은, 내 환경을 확인할 차례.</h2><p>계좌와 연결 준비를 살펴본 뒤 앱을 설치해 보세요.</p></div><div><Link className="btn ghost" href="/guide/">시작 가이드</Link><Link className="btn primary" href="/download/">앱 다운로드</Link></div></section>
+          <BlogStart />
         </article>
-        <aside className="insight-related" aria-labelledby="related-title"><div className="insight-series-heading"><span className="insight-kicker">KEEP READING</span><h2 id="related-title">이어서 읽어보세요</h2><Link href="/blog/">전체 글 보기 →</Link></div><div className="insight-card-grid">{related.map((item) => <ArticleCard key={item.id} post={item} />)}</div></aside>
+        <aside className="insight-related" aria-labelledby="related-title"><div className="insight-series-heading"><h2 id="related-title">관련 글</h2><Link href="/blog/">전체 글 보기 →</Link></div><div className="insight-card-grid">{related.map((item) => <ArticleCard key={item.id} post={item} />)}</div></aside>
       </main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />
     </>
