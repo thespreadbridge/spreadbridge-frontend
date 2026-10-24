@@ -131,6 +131,7 @@ export async function HomeContent() {
         </div>
         <ul className={"prod-feat"}>
           <li><span className={"ck"}>✓</span> 슬롯 단위 전략 등록 · 동시 운용</li>
+          {catalog?.addon ? <li><span className={"ck"}>✓</span> 슬롯 1개씩 추가 · 월 {catalog.addon.monthly_krw.toLocaleString('ko-KR')}원 (최대 {catalog.addon.max_quantity}개)</li> : null}
           <li><span className={"ck"}>✓</span> 진입 · 청산 · 손절 직접 설정</li>
           <li><span className={"ck"}>✓</span> 24시간 자동 감시 · 실행</li>
           <li><span className={"ck"}>✓</span> IP 변경 자동 감지 · 재등록 안내</li>
