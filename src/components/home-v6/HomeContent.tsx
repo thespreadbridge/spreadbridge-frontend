@@ -492,7 +492,7 @@ export function HomeContent() {
   <div className={"wrap"}>
     <h2>격차는 지금도 벌어지고 있습니다</h2>
     <p>사람이 밤새 지켜볼 수 없는 순간을, 기계에게 맡기세요.</p>
-    <a className={"btn primary lg"} href={"#product"}>Spreadbridge 시작하기</a>
+    <a className={"btn primary lg"} href={"https://dollarflow.growbee.ai/login"}>Spreadbridge 시작하기</a>
   </div>
 </section>
 
