@@ -1,35 +1,48 @@
+/* Shared design tokens from the supplied homepage HTML. All public routes inherit this theme. */
 :root {
-  /* ── color (Direction A · light-first) ── */
-  --ink: #0B1220;
-  --muted: #5B6474;
-  --line: #E4E9F2;
-  --paper: #F5F7FB;
-  --surface: #FFFFFF;
-  --brand: #1B4DFF;
-  --brand-soft: #EAF0FF;
-  --positive: #00C2A8;
-  --positive-soft: #E7FBF5;
-  --negative: #ED3C5A;
-  --amber: #F5A623;
-
-  /* ── typography ── */
-  --font-sans: var(--font-pretendard), -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', Menlo, monospace;
-
-  /* ── radius ── */
-  --r-sm: 10px;
-  --r-md: 14px;
-  --r-lg: 20px;
+  color-scheme: dark;
+  --bg: #080b10;
+  --bg-2: #0e1218;
+  --panel: #141a22;
+  --panel-2: #1a212b;
+  --line: #232b36;
+  --line-2: #2e3745;
+  --ink: #eef3f8;
+  --ink-2: #9aa8b6;
+  --ink-3: #626e7c;
+  --text-body: #aebac7;
+  --text-subtle: #8492a2;
+  --pos: #43c463;
+  --neg: #f0564d;
+  --accent: #52a8ff;
+  --accent-2: #7c5cff;
+  --link: #83bfff;
+  --warn: #e0b055;
+  --white: #fff;
+  --accent-soft: rgba(82,168,255,.15);
+  --accent-line: rgba(82,168,255,.4);
+  --glow: rgba(82,168,255,.15);
+  --nav-background: rgba(8,11,16,.82);
+  --warning-bg: #1c1710;
+  --warning-line: #65492a;
+  --warning-text: #dec69a;
+  --button-top: #5cadff;
+  --button-bottom: #3d8ce6;
+  --gradient-button: linear-gradient(180deg,var(--button-top),var(--button-bottom));
+  --gradient-panel: linear-gradient(165deg,var(--panel),var(--bg-2));
+  --shadow-button: 0 4px 18px rgba(61,140,230,.3);
+  --shadow-panel: 0 24px 60px rgba(0,0,0,.5);
+  --sans: var(--font-pretendard), -apple-system, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  --mono: var(--font-geist-mono), 'SF Mono', 'JetBrains Mono', Consolas, monospace;
+  --font-sans: var(--sans);
+  --font-mono: var(--mono);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
   --r-pill: 999px;
-
-  /* ── shadow ── */
-  --shadow-card: 0 14px 34px rgba(20, 40, 90, 0.08);
-  --shadow-float: 0 24px 60px rgba(16, 26, 54, 0.12);
-
-  /* ── spacing scale ── */
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
   --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
-
-  /* ── layout ── */
-  --container: 1180px;
+  --container: 1140px;
+  --document-width: 920px;
+  --page-gutter: 28px;
 }

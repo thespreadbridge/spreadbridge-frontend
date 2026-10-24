@@ -6,7 +6,7 @@ Public website for Spreadbridge. Next.js static export for the home, download, g
 
 The `codex/html-home-v6` branch replaces the complete homepage with the supplied
 Basis Lab v6 reference. The original is retained in `docs/design/basislab-home-v6.html`;
-the React implementation and scoped styles live in `src/components/home-v6/`.
+the React homepage implementation and composition styles live in `src/components/home-v6/`.
 
 Run `npm run dev -- --hostname 127.0.0.1 --port 3210` to review it locally.
 The navigation switch previews guest, unsubscribed, and subscribed screens. These
@@ -28,6 +28,21 @@ texts are local review drafts based on current product behavior, not approved
 published terms. Confirm operator details, commercial/refund conditions, effective
 dates and final legal wording before production publication. Reading the API
 information page does not collect consent or activate a trading connection.
+
+## Shared public-site design
+
+Every route uses the v6 HTML's dark theme. `src/styles/tokens.css` is the single
+source for colors, fonts, spacing, radii and shared effects. `src/styles/site.css`
+defines shared buttons, navigation, footer, document typography, tables, cards,
+pricing grids and onboarding steps. These files are loaded once in the root layout.
+
+`PublicHeader`, `SiteFooter` and `Brand` are reused by the homepage and every inner
+page. `SitePage` owns the common page frame; `InformationPage` adds policy navigation
+for notices and legal documents, including privacy. Route files contain content
+and composition, with no inline presentation styles or page-specific theme CSS.
+Only homepage-specific sections, charts and preview controls remain scoped in
+`src/components/home-v6/home-v6.css`. The previous light landing stylesheet is no
+longer loaded. Change shared tokens/components to update all public pages together.
 
 ## Development
 

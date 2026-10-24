@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
-import styles from '@/components/information/information.module.css';
 
 export const metadata: Metadata = {
   title: '공지사항',
@@ -11,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function NoticesPage() {
   return <InformationPage title="공지사항" eyebrow="SPREADBRIDGE · NOTICE" description="서비스 변경, 점검 및 업데이트 소식을 안내합니다.">
-    <div className={styles.empty}>
-      <svg className={styles.emptyIcon} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+    <div className="site-empty">
+      <svg className="site-empty-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <rect x="11" y="7" width="26" height="34" rx="5" stroke="currentColor" strokeWidth="1.5" />
         <path d="M18 17h12M18 24h12M18 31h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </svg>

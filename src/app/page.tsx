@@ -1,6 +1,5 @@
 import { HomeContent } from '@/components/home-v6/HomeContent';
 import { HomePreview } from '@/components/home-v6/HomePreview';
-import '@/components/home-v6/home-v6.css';
 
 export default function Home() {
   return <HomePreview><HomeContent /></HomePreview>;

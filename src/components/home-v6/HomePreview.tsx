@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, type MouseEvent, type KeyboardEvent, type ReactNode } from 'react';
 
+import { PublicHeader } from '@/components/public-header';
+import { SiteFooter } from '@/components/landing/SiteFooter';
+
 type View = 'guest' | 'free' | 'paid';
 
 export function HomePreview({ children }: { children: ReactNode }) {
@@ -76,10 +79,11 @@ export function HomePreview({ children }: { children: ReactNode }) {
     }
     const link = target.closest<HTMLAnchorElement>('a');
     const href = link?.getAttribute('href');
-    if (view !== 'guest' && href && ['#how', '#security', '#product', '#faq'].includes(href)) {
+    const section = href?.startsWith('/#') ? href.slice(1) : href;
+    if (view !== 'guest' && section && ['#how', '#security', '#product', '#faq'].includes(section)) {
       event.preventDefault();
       setView('guest');
-      requestAnimationFrame(() => root.current?.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }));
+      requestAnimationFrame(() => root.current?.querySelector(section)?.scrollIntoView({ behavior: 'smooth' }));
       return;
     }
     if (link?.getAttribute('href') === '#') { event.preventDefault(); setNotice(`${link.textContent?.trim() ?? '이 기능'} 연결은 준비 중입니다.`); }
@@ -91,7 +95,9 @@ export function HomePreview({ children }: { children: ReactNode }) {
       onKeyDown={event => {
         if ((event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.matches('.faq-q')) activate(event.target, event);
       }}>
+      <PublicHeader preview />
       {children}
+      <SiteFooter />
       {notice ? <div className="preview-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="안내 닫기">×</button></div> : null}
     </div>
   );

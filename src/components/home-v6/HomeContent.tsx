@@ -1,6 +1,5 @@
 import { SpreadChart } from './SpreadChart';
 import { LaunchCountdown } from './LaunchCountdown';
-import { policyLinks } from '@/lib/information-links';
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
 export function HomeContent() {
@@ -8,31 +7,7 @@ export function HomeContent() {
 
 
 
-<nav>
-  <div className={"wrap"}>
-    <div className={"logo"}>Spread<b>bridge</b></div>
-    <div className={"nav-links"}>
-      <a href={"#how"}>작동 방식</a>
-      <a href={"#security"}>보안</a>
-      <a href={"#product"}>요금</a>
-      <a href={"#faq"}>FAQ</a>
-    </div>
-    <div className={"nav-cta"}>
-      <div className={"view-switch"} id={"viewSwitch"} title={"프로토타입 상태 전환"}>
-        <button data-view={"guest"} className={"active"}>비로그인</button>
-        <button data-view={"free"}>구독X 로그인</button>
-        <button data-view={"paid"}>구독O 로그인</button>
-      </div>
-      <a className={"btn ghost"} href={"https://dollarflow.growbee.ai/login"} id={"loginBtn"}>로그인</a>
-      <a className={"btn primary"} href={"#product"} id={"startBtn"}>시작하기</a>
-      <div className={"user-chip"} id={"userChip"}>
-        <span className={"uc-avatar"}>ha</span>
-        <span className={"uc-name"}>ha**3 님</span>
-        <a href={"#"} id={"logoutBtn"} className={"uc-out"}>로그아웃</a>
-      </div>
-    </div>
-  </div>
-</nav>
+
 
 
 <header className={"hero view-guest"}>
@@ -72,7 +47,7 @@ export function HomeContent() {
             <span className={"board-id"}>ki**7</span>
             <span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 21일</span>
           </div>
-          <div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "100%"}}></div></div>
+          <div className={"board-bar-wrap"}><div className={"board-bar board-fill-100"}></div></div>
           <div className={"board-pnl up"}>+₩4.82M</div>
         </div>
         <div className={"board-row top2"}>
@@ -81,7 +56,7 @@ export function HomeContent() {
             <span className={"board-id"}>so**2</span>
             <span className={"board-meta"}><span className={"in"}>진입 98</span> · <span className={"out"}>슬롯 2</span> · 운용 34일</span>
           </div>
-          <div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "78%"}}></div></div>
+          <div className={"board-bar-wrap"}><div className={"board-bar board-fill-78"}></div></div>
           <div className={"board-pnl up"}>+₩3.61M</div>
         </div>
         <div className={"board-row top3"}>
@@ -90,7 +65,7 @@ export function HomeContent() {
             <span className={"board-id"}>ju**9</span>
             <span className={"board-meta"}><span className={"in"}>진입 216</span> · <span className={"out"}>슬롯 4</span> · 운용 12일</span>
           </div>
-          <div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "59%"}}></div></div>
+          <div className={"board-bar-wrap"}><div className={"board-bar board-fill-59"}></div></div>
           <div className={"board-pnl up"}>+₩2.74M</div>
         </div>
         <div className={"board-row"}>
@@ -99,7 +74,7 @@ export function HomeContent() {
             <span className={"board-id"}>mi**4</span>
             <span className={"board-meta"}><span className={"in"}>진입 61</span> · <span className={"out"}>슬롯 2</span> · 운용 8일</span>
           </div>
-          <div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "41%"}}></div></div>
+          <div className={"board-bar-wrap"}><div className={"board-bar board-fill-41"}></div></div>
           <div className={"board-pnl up"}>+₩1.90M</div>
         </div>
         <div className={"board-row"}>
@@ -108,7 +83,7 @@ export function HomeContent() {
             <span className={"board-id"}>yo**1</span>
             <span className={"board-meta"}><span className={"in"}>진입 34</span> · <span className={"out"}>슬롯 1</span> · 운용 3일</span>
           </div>
-          <div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "24%"}}></div></div>
+          <div className={"board-bar-wrap"}><div className={"board-bar board-fill-24"}></div></div>
           <div className={"board-pnl up"}>+₩1.12M</div>
         </div>
       </div>
@@ -136,20 +111,20 @@ export function HomeContent() {
     </div>
 
     
-    <div className={"board"} style={{"maxWidth": "none"}}>
+    <div className={"board board-wide"}>
       <div className={"board-head"}>
         <span className={"live"}><span className={"pip"}></span> LIVE</span>
         <span className={"title"}>이용자 수익 보드</span>
         <span className={"sub"}>🔒 구독 회원 전용</span>
       </div>
       <div className={"board-body board-body-wide blurred"}>
-        <div className={"board-row top1"}><div className={"board-rank"}>1</div><div className={"board-user"}><span className={"board-id"}>ki**7</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 21일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "100%"}}></div></div><div className={"board-pnl up"}>+₩4.82M</div></div>
-        <div className={"board-row top2"}><div className={"board-rank"}>2</div><div className={"board-user"}><span className={"board-id"}>so**2</span><span className={"board-meta"}><span className={"in"}>진입 98</span> · <span className={"out"}>슬롯 2</span> · 운용 34일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "78%"}}></div></div><div className={"board-pnl up"}>+₩3.61M</div></div>
-        <div className={"board-row top3"}><div className={"board-rank"}>3</div><div className={"board-user"}><span className={"board-id"}>ju**9</span><span className={"board-meta"}><span className={"in"}>진입 216</span> · <span className={"out"}>슬롯 4</span> · 운용 12일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "59%"}}></div></div><div className={"board-pnl up"}>+₩2.74M</div></div>
-        <div className={"board-row"}><div className={"board-rank"}>4</div><div className={"board-user"}><span className={"board-id"}>mi**4</span><span className={"board-meta"}><span className={"in"}>진입 61</span> · <span className={"out"}>슬롯 2</span> · 운용 8일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "41%"}}></div></div><div className={"board-pnl up"}>+₩1.90M</div></div>
-        <div className={"board-row"}><div className={"board-rank"}>5</div><div className={"board-user"}><span className={"board-id"}>yo**1</span><span className={"board-meta"}><span className={"in"}>진입 34</span> · <span className={"out"}>슬롯 1</span> · 운용 3일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "24%"}}></div></div><div className={"board-pnl up"}>+₩1.12M</div></div>
+        <div className={"board-row top1"}><div className={"board-rank"}>1</div><div className={"board-user"}><span className={"board-id"}>ki**7</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 21일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-100"}></div></div><div className={"board-pnl up"}>+₩4.82M</div></div>
+        <div className={"board-row top2"}><div className={"board-rank"}>2</div><div className={"board-user"}><span className={"board-id"}>so**2</span><span className={"board-meta"}><span className={"in"}>진입 98</span> · <span className={"out"}>슬롯 2</span> · 운용 34일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-78"}></div></div><div className={"board-pnl up"}>+₩3.61M</div></div>
+        <div className={"board-row top3"}><div className={"board-rank"}>3</div><div className={"board-user"}><span className={"board-id"}>ju**9</span><span className={"board-meta"}><span className={"in"}>진입 216</span> · <span className={"out"}>슬롯 4</span> · 운용 12일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-59"}></div></div><div className={"board-pnl up"}>+₩2.74M</div></div>
+        <div className={"board-row"}><div className={"board-rank"}>4</div><div className={"board-user"}><span className={"board-id"}>mi**4</span><span className={"board-meta"}><span className={"in"}>진입 61</span> · <span className={"out"}>슬롯 2</span> · 운용 8일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-41"}></div></div><div className={"board-pnl up"}>+₩1.90M</div></div>
+        <div className={"board-row"}><div className={"board-rank"}>5</div><div className={"board-user"}><span className={"board-id"}>yo**1</span><span className={"board-meta"}><span className={"in"}>진입 34</span> · <span className={"out"}>슬롯 1</span> · 운용 3일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-24"}></div></div><div className={"board-pnl up"}>+₩1.12M</div></div>
       </div>
-      <div className={"board-lock"} style={{"inset": "52px 0 42px"}}>
+      <div className={"board-lock"}>
         <div className={"lock-ic"}>🔒</div>
         <div className={"lock-title"}>구독하면 바로 열립니다</div>
         <div className={"lock-sub"}>다른 이용자들의 실제 누적 수익과 진입 기록을<br />실시간으로 확인하고, 나도 보드에 이름을 올리세요</div>
@@ -159,7 +134,7 @@ export function HomeContent() {
     </div>
 
     
-    <div id={"pricing-free"} style={{"marginTop": "56px"}}>
+    <div id={"pricing-free"} className="section-offset">
       <div className={"sec-eyebrow"}>구독 시작</div>
       <h2 className={"sec-title"}>지금 시작하면 가장 저렴합니다</h2>
       <p className={"sec-lead"}>런칭 할인은 지금 참여하는 분들께만 적용됩니다. 가장 낮은 가격은 지금뿐입니다.</p>
@@ -185,7 +160,7 @@ export function HomeContent() {
           <span className={"prod-badge soon"}>준비 중</span>
           <h3>더 많은 전략</h3>
           <p className={"desc"}>Spreadbridge가 자리 잡으면 다른 격차와 시장을 다루는 상품이 순차 추가됩니다.</p>
-          <div className={"prod-price"}><span className={"amt"} style={{"color": "var(--ink-3)"}}>Coming</span></div>
+          <div className={"prod-price"}><span className={"amt text-dim"}>Coming</span></div>
           <ul className={"prod-feat prod-soon-list"}>
             <li><span className={"ck"}>○</span> 새로운 페어 · 시장 확장</li>
             <li><span className={"ck"}>○</span> 고급 리스크 관리 도구</li>
@@ -206,7 +181,7 @@ export function HomeContent() {
         <div className={"wb-hi"}>다시 오셨네요, <b>ha**3</b> 님</div>
         <div className={"wb-sub"}>Pro 구독 · 잔여 24일 · 에이전트 3개 실행 중</div>
       </div>
-      <div style={{"display": "flex", "gap": "8px"}}>
+      <div className="inline-actions">
         <span className={"run-badge"}><span className={"pip"}></span> 3 에이전트 가동 중</span>
       </div>
     </div>
@@ -241,25 +216,25 @@ export function HomeContent() {
     </div>
 
     
-    <div className={"board"} style={{"maxWidth": "none"}}>
+    <div className={"board board-wide"}>
       <div className={"board-head"}>
         <span className={"live"}><span className={"pip"}></span> LIVE</span>
         <span className={"title"}>이용자 수익 보드 · 실시간</span>
         <span className={"sub"}>계정 익명</span>
       </div>
       <div className={"board-body board-body-wide"} id={"paidBoard"}>
-        <div className={"board-row top1"}><div className={"board-rank"}>1</div><div className={"board-user"}><span className={"board-id"}>ki**7</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 21일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "100%"}}></div></div><div className={"board-pnl up"}>+₩4.82M</div></div>
-        <div className={"board-row top2"}><div className={"board-rank"}>2</div><div className={"board-user"}><span className={"board-id"}>so**2</span><span className={"board-meta"}><span className={"in"}>진입 98</span> · <span className={"out"}>슬롯 2</span> · 운용 34일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "78%"}}></div></div><div className={"board-pnl up"}>+₩3.61M</div></div>
-        <div className={"board-row top3"}><div className={"board-rank"}>3</div><div className={"board-user"}><span className={"board-id"}>ju**9</span><span className={"board-meta"}><span className={"in"}>진입 216</span> · <span className={"out"}>슬롯 4</span> · 운용 12일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "59%"}}></div></div><div className={"board-pnl up"}>+₩2.74M</div></div>
-        <div className={"board-row"}><div className={"board-rank"}>4</div><div className={"board-user"}><span className={"board-id"}>mi**4</span><span className={"board-meta"}><span className={"in"}>진입 61</span> · <span className={"out"}>슬롯 2</span> · 운용 8일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "41%"}}></div></div><div className={"board-pnl up"}>+₩1.90M</div></div>
-        <div className={"board-row mine-row"}><div className={"board-rank"}>12</div><div className={"board-user"}><span className={"board-id"}>나 · ha**3</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 27일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "38%"}}></div></div><div className={"board-pnl up"}>+₩1.84M</div></div>
-        <div className={"board-row"}><div className={"board-rank"}>5</div><div className={"board-user"}><span className={"board-id"}>yo**1</span><span className={"board-meta"}><span className={"in"}>진입 34</span> · <span className={"out"}>슬롯 1</span> · 운용 3일</span></div><div className={"board-bar-wrap"}><div className={"board-bar"} style={{"width": "24%"}}></div></div><div className={"board-pnl up"}>+₩1.12M</div></div>
+        <div className={"board-row top1"}><div className={"board-rank"}>1</div><div className={"board-user"}><span className={"board-id"}>ki**7</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 21일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-100"}></div></div><div className={"board-pnl up"}>+₩4.82M</div></div>
+        <div className={"board-row top2"}><div className={"board-rank"}>2</div><div className={"board-user"}><span className={"board-id"}>so**2</span><span className={"board-meta"}><span className={"in"}>진입 98</span> · <span className={"out"}>슬롯 2</span> · 운용 34일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-78"}></div></div><div className={"board-pnl up"}>+₩3.61M</div></div>
+        <div className={"board-row top3"}><div className={"board-rank"}>3</div><div className={"board-user"}><span className={"board-id"}>ju**9</span><span className={"board-meta"}><span className={"in"}>진입 216</span> · <span className={"out"}>슬롯 4</span> · 운용 12일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-59"}></div></div><div className={"board-pnl up"}>+₩2.74M</div></div>
+        <div className={"board-row"}><div className={"board-rank"}>4</div><div className={"board-user"}><span className={"board-id"}>mi**4</span><span className={"board-meta"}><span className={"in"}>진입 61</span> · <span className={"out"}>슬롯 2</span> · 운용 8일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-41"}></div></div><div className={"board-pnl up"}>+₩1.90M</div></div>
+        <div className={"board-row mine-row"}><div className={"board-rank"}>12</div><div className={"board-user"}><span className={"board-id"}>나 · ha**3</span><span className={"board-meta"}><span className={"in"}>진입 142</span> · <span className={"out"}>슬롯 3</span> · 운용 27일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-38"}></div></div><div className={"board-pnl up"}>+₩1.84M</div></div>
+        <div className={"board-row"}><div className={"board-rank"}>5</div><div className={"board-user"}><span className={"board-id"}>yo**1</span><span className={"board-meta"}><span className={"in"}>진입 34</span> · <span className={"out"}>슬롯 1</span> · 운용 3일</span></div><div className={"board-bar-wrap"}><div className={"board-bar board-fill-24"}></div></div><div className={"board-pnl up"}>+₩1.12M</div></div>
       </div>
       <div className={"board-foot"}>계정 아이디는 익명 처리됩니다 · 표시된 수치는 과거 실적이며 미래 수익을 보장하지 않습니다</div>
     </div>
 
     
-    <div style={{"marginTop": "56px"}}>
+    <div className="section-offset">
       <div className={"sec-eyebrow"}>더 키우기</div>
       <h2 className={"sec-title"}>슬롯을 늘리거나 구독을 연장하세요</h2>
       <p className={"sec-lead"}>동시에 굴리는 에이전트가 많을수록 더 많은 격차를 노릴 수 있습니다. 지금 연장하면 런칭 할인가가 유지됩니다.</p>
@@ -275,7 +250,7 @@ export function HomeContent() {
           <div className={"us-ic"}>📅</div>
           <h3>구독 연장</h3>
           <p>잔여 24일. 지금 연장하면 런칭 할인가(90% OFF)가 다음 결제에도 그대로 적용됩니다.</p>
-          <div className={"us-price"}><span className={"price-orig"} style={{"fontSize": "13px"}}>₩990,000</span> <span className={"amt"}>₩99,000</span><span className={"per"}> / 월</span></div>
+          <div className={"us-price"}><span className={"price-orig text-small"}>₩990,000</span> <span className={"amt"}>₩99,000</span><span className={"per"}> / 월</span></div>
           <a className={"btn primary"} href={"https://dollarflow.growbee.ai/payments"}>지금 연장하기</a>
         </div>
         <div className={"upsell-card ghost-card"}>
@@ -317,7 +292,7 @@ export function HomeContent() {
 </section>
 
 
-<section className={"blk view-guest"} id={"security"} style={{"background": "var(--bg-2)", "borderTop": "1px solid var(--line)", "borderBottom": "1px solid var(--line)"}}>
+<section className={"blk view-guest section-tint-bordered"} id={"security"}>
   <div className={"wrap"}>
     <div className={"sec-eyebrow"}>권한과 통제</div>
     <h2 className={"sec-title"}>모든 권한은 당신 손안에 있습니다</h2>
@@ -377,7 +352,7 @@ export function HomeContent() {
         <h3>더 많은 전략</h3>
         <p className={"desc"}>Spreadbridge가 자리 잡으면, 다른 격차와 다른 시장을 다루는 상품이 순차적으로 추가됩니다.</p>
         <div className={"prod-price"}>
-          <span className={"amt"} style={{"color": "var(--ink-3)"}}>Coming</span>
+          <span className={"amt text-dim"}>Coming</span>
         </div>
         <ul className={"prod-feat prod-soon-list"}>
           <li><span className={"ck"}>○</span> 새로운 페어 · 시장 확장</li>
@@ -398,7 +373,7 @@ export function HomeContent() {
           <div className={"elig-item"}>파생상품 거래 자격<b>사전교육 · 모의거래 이수</b></div>
           <div className={"elig-item"}>상시 켜둘 PC<b>또는 미니PC 권장</b></div>
         </div>
-        <p style={{"fontSize": "12.5px", "color": "var(--ink-3)", "marginTop": "14px"}}>
+        <p className="elig-note">
           파생상품 거래에는 기본예탁금과 사전 교육 이수가 필요합니다. 자격이 준비되지 않았다면 안내를 도와드립니다.
         </p>
       </div>
@@ -417,7 +392,7 @@ export function HomeContent() {
 </section>
 
 
-<section className={"blk view-guest"} id={"faq"} style={{"background": "var(--bg-2)", "borderTop": "1px solid var(--line)"}}>
+<section className={"blk view-guest section-tint"} id={"faq"}>
   <div className={"wrap"}>
     <div className={"sec-eyebrow"}>자주 묻는 질문</div>
     <h2 className={"sec-title"}>궁금한 것들</h2>
@@ -451,8 +426,8 @@ export function HomeContent() {
   <div className={"mb-inner"}>
     <div className={"mb-head"}>
       <div>
-        <div className={"sec-eyebrow"} style={{"marginBottom": "6px"}}>구독 회원 전용</div>
-        <h2 style={{"fontSize": "26px", "fontWeight": "740", "letterSpacing": "-.6px"}}>이용자 수익 보드</h2>
+        <div className={"sec-eyebrow eyebrow-tight"}>구독 회원 전용</div>
+        <h2 className="member-title">이용자 수익 보드</h2>
       </div>
       <button className={"btn ghost"} id={"mbClose"}>✕ 닫기</button>
     </div>
@@ -472,7 +447,7 @@ export function HomeContent() {
     </div>
 
     <div className={"mb-table"}>
-      <div className={"mb-row mb-hd"}><span>순위</span><span>계정</span><span>진입</span><span>슬롯</span><span>기간</span><span style={{"textAlign": "right"}}>누적 수익</span></div>
+      <div className={"mb-row mb-hd"}><span>순위</span><span>계정</span><span>진입</span><span>슬롯</span><span>기간</span><span className="text-right">누적 수익</span></div>
       <div className={"mb-row r1"}><span className={"mb-rk"}>🥇 1</span><span className={"mb-id"}>ki**7</span><span>142</span><span>3</span><span>21일</span><span className={"up mb-pnl"}>+₩4.82M</span></div>
       <div className={"mb-row r2"}><span className={"mb-rk"}>🥈 2</span><span className={"mb-id"}>so**2</span><span>98</span><span>2</span><span>34일</span><span className={"up mb-pnl"}>+₩3.61M</span></div>
       <div className={"mb-row r3"}><span className={"mb-rk"}>🥉 3</span><span className={"mb-id"}>ju**9</span><span>216</span><span>4</span><span>12일</span><span className={"up mb-pnl"}>+₩2.74M</span></div>
@@ -498,40 +473,7 @@ export function HomeContent() {
 </section>
 
 
-<footer>
-  <div className={"wrap"}>
-    <div className={"foot-grid"}>
-      <div className={"foot-brand"}>
-        <div className={"logo"}>Spread<b>bridge</b></div>
-        <p>달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. 판단은 당신의 PC에서, 자산은 당신의 손에서.</p>
-      </div>
-      <div className={"foot-col"}>
-        <h4>제품</h4>
-        <a href={"#product"}>Spreadbridge</a>
-        <a href={"#how"}>작동 방식</a>
-        <a href={"#security"}>보안</a>
-        <a href={"/download/"}>다운로드</a>
-      </div>
-      <div className={"foot-col"}>
-        <h4>지원</h4>
-        <a href={"#faq"}>FAQ</a>
-        <a href={"mailto:contact@thespreadbridge.com"}>고객센터</a>
-        <a href={"/guide/"}>온보딩 안내</a>
-        <a href={"/notices/"}>공지사항</a>
-      </div>
-      <div className={"foot-col"}>
-        <h4>정책</h4>
-        {policyLinks.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}
-      </div>
-    </div>
-    <div className={"foot-legal"}>
-      Spreadbridge는 매매 자동화 소프트웨어를 제공하는 회사이며, 투자중개·투자자문·투자일임 서비스를 제공하지 않습니다.
-      본 소프트웨어는 수익을 보장하지 않으며, 모든 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.
-      파생상품 거래에는 원금 손실 위험이 있습니다.<br />
-      © 2026 Spreadbridge. 사업자등록번호 000-00-00000 · 문의 contact@thespreadbridge.com
-    </div>
-  </div>
-</footer>
+
 
 
   </>;
