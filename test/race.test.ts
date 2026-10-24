@@ -15,7 +15,7 @@ describe('member race helpers', () => {
     expect(upcomingRaceSymbols(new Date('2026-11-30T15:30:00Z'))).toEqual(['A75612', 'A75701', 'A75702']);
   });
   it('rounds slot shares so they total exactly 100.0', () => {
-    const shares = slotShares([{ lower: 4, people: 1, slots: 1 }, { lower: 5, people: 1, slots: 1 }, { lower: 6, people: 1, slots: 1 }], 3);
+    const shares = slotShares([{ lower: 4, people: 1, slots: 1 }, { lower: 5, people: 1, slots: 1 }, { lower: 6, people: 1, slots: 1 }]);
     expect([...shares.values()].reduce((a, b) => a + b, 0)).toBeCloseTo(100, 5);
     expect(shares.get(4)).toBe(33.4);
   });

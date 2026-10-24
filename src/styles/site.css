@@ -176,8 +176,8 @@
 .race-gate { max-width: 680px; margin-block: 24px; }
 .race-gate-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .race-rules { margin-top: 24px; }
-
-
+.race-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: var(--ink-3); font-size: 13px; margin-top: 16px; }
+.race-status-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 @media (max-width: 640px) {
   .race-updated { margin-left: 0; width: 100%; justify-content: space-between; }
@@ -185,4 +185,3 @@
   .site-prose .race-stats strong { font-size: 18px; }
   .site-prose .race-stats small { display: none; }
 }
-.race-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: var(--ink-3); font-size: 13px; margin-top: 16px; }
