@@ -13,10 +13,10 @@ export function HeroSpreadCard() {
         : { label: '감시 중', cls: 'watch' };
 
   return (
-    <aside className="sb-spread-card" aria-label="현재 시장 스프레드 (데모)">
+    <aside className="sb-spread-card" aria-label="시장 스프레드 예시">
       <div className="sb-spread-head">
-        <span>현재 진입 스프레드</span>
-        <span className="sb-live"><i />LIVE</span>
+        <span>진입 스프레드 예시</span>
+        <span className="sb-live"><i />DEMO</span>
       </div>
       <div className="sb-spread-num">{spread.toFixed(2)}<sup>%</sup></div>
       <span className={`sb-spread-status sb-spread-status-${status.cls}`}>{status.label}</span>

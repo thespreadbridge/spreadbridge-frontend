@@ -9,9 +9,9 @@ export function LiveSpread() {
   return (
     <section className="sb-section sb-section-tint">
       <div className="shell">
-        <span className="sb-eyebrow"><i />LIVE MARKET</span>
+        <span className="sb-eyebrow"><i />SPREAD EXAMPLE</span>
         <h2 className="sb-h2">두 가격, 그리고 그 사이의 스프레드.</h2>
-        <p className="sb-lead">KIS 달러선물과 Upbit USDT의 실시간 가격, 그리고 둘의 차이(스프레드)가 어떻게 벌어졌다 좁혀지는지 함께 봅니다. Spreadbridge는 이 움직임 위에서 실행됩니다.</p>
+        <p className="sb-lead">KIS 달러선물과 Upbit USDT의 가격 차이(스프레드)가 어떻게 달라지는지 예시 데이터로 살펴보세요.</p>
         <div className="sb-market-card">
           <div className="sb-market-legend">
             <span className="sb-leg sb-leg-usdt">Upbit USDT <b>₩{current.usdt.toFixed(1)}</b></span>
@@ -24,7 +24,7 @@ export function LiveSpread() {
             <span>아래 · 스프레드 (%)</span>
           </div>
         </div>
-        <p className="sb-note">* 현재는 데모 데이터이며, 정식 오픈 시 KIS·Upbit 실시간 시세로 연결됩니다. 시장 스프레드일 뿐 실현 수익이 아니며, 체결·수수료·세금에 따라 결과는 달라집니다.</p>
+        <p className="sb-note">* 홈페이지 차트는 개념 설명을 위한 예시 데이터입니다. 시장 스프레드는 실현 수익과 다르며, 체결·수수료·세금에 따라 실제 결과는 달라집니다.</p>
       </div>
     </section>
   );
