@@ -401,7 +401,6 @@
 
 @scope (.spreadbridge-home) {
   :scope { min-height: 100vh; display: flow-root; }
-  .preview-note { padding: 7px 20px; text-align: center; font-size: 11px; color: #9aa8b6; background: #101722; border-bottom: 1px solid #232b36; }
   .preview-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 250; display: flex; align-items: center; gap: 20px; max-width: calc(100% - 32px); padding: 14px 18px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--panel); box-shadow: 0 12px 40px #0008; font-size: 13px; }
   .preview-toast button { border: 0; background: transparent; color: var(--ink); font-size: 22px; cursor: pointer; }
   :scope[data-board-open="true"] .member-board { display: flex; }

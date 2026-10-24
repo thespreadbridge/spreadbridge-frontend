@@ -91,7 +91,6 @@ export function HomePreview({ children }: { children: ReactNode }) {
       onKeyDown={event => {
         if ((event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.matches('.faq-q')) activate(event.target, event);
       }}>
-      <div className="preview-note">홈페이지 v6 미리보기 · 상단에서 회원 화면 전환 · 보드·시세·구독 정보는 예시 데이터입니다</div>
       {children}
       {notice ? <div className="preview-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="안내 닫기">×</button></div> : null}
     </div>
