@@ -1,27 +1,21 @@
 import { SitePage } from '@/components/site/SitePage';
-import releases from '@/generated/releases.json';
+import { downloadTargets, publishedRelease } from '@/lib/published-releases';
 
-type Release = { version: string; artifactUrl: string; installationMode?: string };
 const installationLabels: Record<string, string> = { MANUAL: '수동 설치', AUTO_UNSIGNED: '자동 업데이트 지원 · 인증서 없음', AUTO: '자동 업데이트 지원' };
 const installationLabel = (mode?: string) => installationLabels[mode ?? 'AUTO'] ?? '수동 설치';
-const targets = [
-  { platform: 'win32', architecture: 'x64', name: 'Windows', detail: 'Windows 10 이상 · 64비트 · EXE 설치파일' },
-  { platform: 'darwin', architecture: 'arm64', name: 'Mac · Apple Silicon', detail: 'M1·M2·M3·M4 이후 Apple Silicon · ZIP' },
-  { platform: 'darwin', architecture: 'x64', name: 'Mac · Intel', detail: 'Intel 프로세서 · ZIP' },
-];
-
-export default function Download() {
+export default async function Download() {
+  const releases = await Promise.all(downloadTargets.map(publishedRelease));
   return <SitePage title="Spreadbridge 다운로드" eyebrow="SPREADBRIDGE · DOWNLOAD" width="wide" description="사용하는 컴퓨터에 맞는 설치파일을 선택하세요. Google 계정으로 로그인하면 구독과 슬롯 한도가 적용됩니다.">
-    <p>현재 배포본은 코드서명 인증서와 Apple 공증 없이 제공됩니다. 첫 설치 시 운영체제의 확인 안내가 표시될 수 있습니다. 0.3.48 이전 앱은 한 번 수동 설치한 뒤부터 자동 업데이트를 이용할 수 있습니다.</p>
+    <p>각 배포본의 설치·업데이트 방식을 확인한 뒤 설치하세요. 자동 업데이트를 지원하지 않는 배포본은 새 설치파일을 직접 설치해야 합니다.</p>
     <div className="site-card-grid">
-      {targets.map(target => {
-        const release: Release | undefined = releases.find(row => row.platform === target.platform && row.architecture === target.architecture);
+      {downloadTargets.map((target, index) => {
+        const { status, release } = releases[index];
         return <section className="site-card" key={target.platform + target.architecture}>
           <h2>{target.name}</h2><p>{target.detail}</p>
           {release ? <>
             <p>v{release.version} · {installationLabel(release.installationMode)}</p>
             <a className="btn primary" href={release.artifactUrl}>설치파일 다운로드</a>
-          </> : <p role="status">이 플랫폼의 설치파일은 준비 중입니다.</p>}
+          </> : <p role="status">{status === 'unavailable' ? '배포 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.' : '현재 등록된 설치파일이 없습니다. 새 배포본을 준비 중입니다.'}</p>}
         </section>;
       })}
     </div>

@@ -1,7 +1,10 @@
 import { LaunchCountdown } from './LaunchCountdown';
+import { subscriptionCatalog } from '@/lib/subscription-catalog';
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
-export function HomeContent() {
+export async function HomeContent() {
+  const catalog = await subscriptionCatalog();
+  const startingPlan = catalog?.products[0];
   return <>
 <header className={"hero view-guest"}>
   <div className={"hero-glow"}></div>
@@ -118,11 +121,10 @@ export function HomeContent() {
         <p className={"desc"}>달러 격차를 자동으로 잡는 매매 프로그램. 슬롯 단위로 전략을 만들고, 동시에 여러 개를 굴립니다.</p>
         <div className={"prod-price"}>
           <div className={"price-top"}>
-            <span className={"price-orig"}>₩990,000</span>
-            <span className={"price-off"}>런칭 90% OFF</span>
+            {startingPlan?.promotion_label ? <span className={"price-off"}>{startingPlan.promotion_label}</span> : null}
           </div>
-          <span className={"amt"}>₩99,000</span><span className={"per"}> / 월</span>
-          <div className={"price-note"}>얼리버드 한정가 · 이후 정상가로 조정됩니다</div>
+          {startingPlan ? <><span className={"amt"}>₩{startingPlan.monthly_krw.toLocaleString('ko-KR')}</span><span className={"per"}> / 월부터</span>
+            <div className={"price-note"}>{startingPlan.name} 기준 · <a href="/pricing/">전체 요금 보기</a></div></> : <p role="status">{catalog ? '현재 판매 중인 구독 상품이 없습니다.' : '요금 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.'}</p>}
           <LaunchCountdown />
         </div>
         <ul className={"prod-feat"}>
@@ -147,7 +149,7 @@ export function HomeContent() {
           <li><span className={"ck"}>○</span> 고급 리스크 관리 도구</li>
           <li><span className={"ck"}>○</span> 전용 온보딩 · 우선 지원</li>
         </ul>
-        <a className={"btn ghost"} href={"#"}>출시 알림 받기</a>
+        <a className={"btn ghost"} href={"/notices/"}>출시 소식 보기</a>
       </div>
     </div>
 

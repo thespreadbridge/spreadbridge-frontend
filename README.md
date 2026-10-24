@@ -55,8 +55,8 @@ HTML. The refresh cookie is limited to `/api/session`. Logout revokes the backen
 session and expires both cookies. Session state is checked on focus and every minute.
 `/api/member/summary/` independently verifies membership before returning private data.
 
-`SPREADBRIDGE_API_URL` is server-only and defaults to the existing API at
-`https://dollarflow.growbee.ai/v1`, using real member and subscription records.
+`SPREADBRIDGE_API_URL` is server-only and defaults to the deployed API at
+`https://api.thespreadbridge.com/v1`, using that server's member and subscription records.
 `.env.example` documents an explicit local API override for isolated test accounts.
 No Google client secret or API signing secret belongs in this frontend.
 `SPREADBRIDGE_SITE_ORIGIN` optionally supplies a canonical origin behind a proxy.
@@ -64,9 +64,9 @@ No Google client secret or API signing secret belongs in this frontend.
 For local review, open **http://127.0.0.1:3210/** rather than localhost. The API's
 existing loopback OAuth flow returns a short-lived code to this origin; the frontend
 immediately forwards it to its own callback, sets the session and removes the code
-from the final URL. The backend's registered Google callback still passes through
-its existing growbee.ai endpoint. The Google consent-screen service name is also
-managed in that existing Google Cloud OAuth registration.
+from the final URL. The deployed backend's registered Google callback is
+`https://api.thespreadbridge.com/v1/auth/google/desktop/callback`. The Google
+consent-screen service name is managed in the Spreadbridge Cloud OAuth registration.
 
 ### Google consent branding (2026-10-24)
 
@@ -78,8 +78,8 @@ the `spreadbridge` Google Cloud project (project number `343250169455`) and its
 The Google Auth Platform branding homepage and privacy links have been changed to
 `https://thespreadbridge.com/` and `https://thespreadbridge.com/privacy/` and the
 branding authorized-domain list now contains only `thespreadbridge.com`;
-`growbee.ai` was removed at the user's request. The existing API callback URI
-remains registered separately in the server OAuth client, and a fresh Google
+`growbee.ai` was removed at the user's request. The API callback URI
+is registered separately in the server OAuth client, and a fresh Google
 authorization request still opens the Spreadbridge account chooser. The public homepage and privacy URLs both return HTTP 200;
 the unpublished terms draft is not linked from Google branding.
 
@@ -96,10 +96,9 @@ through the Google Cloud console's invitation flow, and the invitation was accep
 Both `roles/owner` bindings were confirmed in the project's actual IAM policy.
 
 For public HTTPS deployment, the API's web OAuth return URL must match
-`https://<this-site>/api/session/google/callback`. The existing API currently fixes
-that return URL to its `APP_PUBLIC_URL`. Configure/deploy support for the new site's
-allowed web callback and verify the Google OAuth registration before enabling login
-on another public origin. This frontend checks the API's returned destination and
+`https://<this-site>/api/session/google/callback`. The API fixes that return URL to
+its `APP_PUBLIC_URL`, configured for `https://thespreadbridge.com` in the deployed backend.
+Local review uses the separate loopback flow above. This frontend checks the API's returned destination and
 shows its own error page if it would otherwise return the user to the legacy site.
 Changing only frontend environment variables does not alter the API's callback rules.
 
@@ -136,15 +135,35 @@ npm start -- --hostname 127.0.0.1 --port 3210
 
 Vercel should use its Next.js preset, Node.js 24.x and framework-detected output.
 Set a reachable server-only API origin and the correct site origin for the deployment.
-Resolve the web OAuth callback configuration above before publishing this branch.
+Verify the web OAuth callback configuration above when using another public origin.
 Keep existing DNS nameservers and Google Workspace mail records when managing domains.
 
 The repository's production branch is `main`; this work remains on
 `codex/html-home-v6`. No remote push or production deployment is part of this change.
-Installers remain on the existing CloudFront distribution. Published release metadata
-and the public pricing catalog in `src/generated/` are build-time snapshots; the signed-in
-billing page reads the current API catalog. Versioned installer URLs must continue to
-reference immutable release files.
+The homepage, `/pricing/`, and `/payments/` all fetch `/public/subscriptions/catalog`
+from the configured API without a stored-price fallback. Only enabled products are
+shown; lookup failures are distinct from an empty catalog. Checkout requires a valid
+HTTPS URL from the server. `/download/` fetches `/desktop/updates/latest` for each
+platform and architecture, validates published artifact metadata, and displays only
+the API's current releases. The historical JSON in `src/generated/` is no longer used
+by these pages. Versioned installer URLs must reference immutable release files.
+
+### Local API verification (2026-10-24)
+
+The dedicated API reports `ready` with `database: ok`. Local Google sign-in returns
+through the new API callback and retains the original `/payments/` destination.
+The signed-in account is currently unsubscribed (0 slots); the homepage, header and
+subscription page agree, and the private member summary rejects the unsubscribed
+session. Real paid-account behavior still needs an entitled account; automated tests
+cover paid rendering, trade retrieval, expiry and access restrictions.
+
+The deployed catalog currently has three products and no checkout URL. No published
+installers are currently registered on the new server. Payment configuration and a
+new desktop release are required before those actions can be exercised. Announcements
+and policy/blog content remain site content; the API has no announcement CMS or
+launch-alert registration endpoint. The future-product action links to announcements.
+The countdown still uses the provisional review deadline documented above; it is not
+a server-managed promotion schedule.
 
 ## Blog navigation and articles
 

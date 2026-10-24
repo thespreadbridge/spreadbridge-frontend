@@ -3,10 +3,10 @@ import { subscriptionCatalog } from '@/lib/subscription-catalog';
 import { SitePage } from '@/components/site/SitePage';
 
 export default async function Pricing() {
-  const { products } = await subscriptionCatalog();
+  const catalog = await subscriptionCatalog();
   return <SitePage title="필요한 슬롯만큼 월 구독으로." eyebrow="SPREADBRIDGE · MONTHLY MEMBERSHIP" width="wide" description="거래금액별 크레딧 차감 없이 월 구독료만 부과합니다.">
     <div className="site-card-grid">
-      {products.map(plan => <section className="site-card" key={plan.code}>
+      {!catalog ? <p role="status">요금 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.</p> : !catalog.products.length ? <p role="status">현재 판매 중인 구독 상품이 없습니다.</p> : catalog.products.map(plan => <section className="site-card" key={plan.code}>
         <span className="site-tag">{plan.promotion_label}</span>
         <h2>{plan.name}</h2><p>Spreadbridge 월 구독</p>
         <div className="site-plan-price"><strong>{plan.monthly_krw.toLocaleString('ko-KR')}원</strong><span>/ 월</span></div>
