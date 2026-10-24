@@ -152,10 +152,14 @@ by these pages. Versioned installer URLs must reference immutable release files.
 
 The dedicated API reports `ready` with `database: ok`. Local Google sign-in returns
 through the new API callback and retains the original `/payments/` destination.
-The signed-in account is currently unsubscribed (0 slots); the homepage, header and
-subscription page agree, and the private member summary rejects the unsubscribed
-session. Real paid-account behavior still needs an entitled account; automated tests
-cover paid rendering, trade retrieval, expiry and access restrictions.
+Initial verification used an unsubscribed account (0 slots): the homepage, header and
+subscription page agreed, and the private member summary rejected that session.
+Following the owner's explicit request, the same account received an administrator
+grant named `테스트 구독 · 5슬롯` with 5 slots and no expiration date. This creates no
+payment receipt or recurring charge. The real API session, paid homepage, subscription
+page and protected trade summary all reflected the grant. With no recorded trades,
+the report correctly displayed zero realized P&L, zero entries and an empty history.
+Automated tests also cover subscription expiry and access restrictions.
 
 The deployed catalog currently has three products and no checkout URL. No published
 installers are currently registered on the new server. Payment configuration and a
