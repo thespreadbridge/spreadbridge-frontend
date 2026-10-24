@@ -11,6 +11,7 @@ export interface Membership {
   planName: string | null;
   maxActiveSlots: number;
   expiresAt: string | null;
+  testData?: boolean;
 }
 export type SiteSession =
   | { status: 'guest' | 'refresh_required' | 'unavailable'; user: null; subscription: null }

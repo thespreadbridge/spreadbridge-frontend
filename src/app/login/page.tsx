@@ -24,7 +24,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
       {params.error ? <p className="site-form-error" role="alert">{errors[params.error] ?? errors.oauth_error}</p> : null}
       <a className="btn primary" href={`/api/session/google/start/?next=${encodeURIComponent(returnTo)}`}>Google로 계속하기</a>
       <p className="site-login-note">처음 접속하면 계정이 생성됩니다. 로그인 과정에서 기본 Google 계정 정보를 확인합니다.</p>
-      <p><Link href="/privacy/">개인정보처리방침</Link></p>
+      <p><Link href="/terms/">이용약관</Link> · <Link href="/privacy/">개인정보처리방침</Link></p>
     </div>
   </SitePage>;
 }

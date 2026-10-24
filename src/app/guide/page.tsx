@@ -1,5 +1,4 @@
-import { PublicHeader } from '@/components/public-header';
-import { SiteFooter } from '@/components/landing/SiteFooter';
+import { SitePage } from '@/components/site/SitePage';
 import { icons } from '@/components/landing/icons';
 
 const sections = [
@@ -12,37 +11,14 @@ const sections = [
 ];
 
 export default function Guide() {
-  return (
-    <div className="marketing-page">
-      <PublicHeader />
-      <main>
-        <section className="simple-hero shell">
-          <span className="eyebrow">
-            <span /> GETTING STARTED
-          </span>
-          <h1>
-            안전한 연결부터
-            <br />
-            <em>차근차근.</em>
-          </h1>
-          <p>고객 자산을 맡기지 않습니다. 출금 권한 없는 API로 고객 계좌에서 직접 실행합니다.</p>
-        </section>
-        <section className="guide-list shell">
-          {sections.map(([number, title, body, icon]) => (
-            <article key={number}>
-              <span className="guide-icon">{icons[icon]}</span>
-              <div>
-                <span className="guide-step">STEP {number}</span>
-                <h2>{title}</h2>
-                <p>{body}</p>
-              </div>
-            </article>
-          ))}
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
-  );
+  return <SitePage title="안전한 연결부터 차근차근." eyebrow="SPREADBRIDGE · GETTING STARTED" description="고객 자산을 맡기지 않습니다. 출금 권한 없는 API로 고객 계좌에서 직접 실행합니다.">
+    <ol className="site-steps">
+      {sections.map(([number, title, body, icon]) => <li className="site-step" key={number}>
+        <span className="site-step-icon">{icons[icon]}</span>
+        <div><span className="site-step-number">STEP {number}</span><h2>{title}</h2><p>{body}</p></div>
+      </li>)}
+    </ol>
+  </SitePage>;
 }
 
-export const metadata = { alternates: { canonical: 'https://thespreadbridge.com/guide/' } };
+export const metadata = { title: '온보딩 안내', alternates: { canonical: 'https://thespreadbridge.com/guide/' } };

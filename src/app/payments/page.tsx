@@ -4,9 +4,9 @@ import { SitePage } from '@/components/site/SitePage';
 import { backend } from '@/lib/auth/backend';
 import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { serverSession } from '@/lib/auth/session';
+import { checkoutTarget, subscriptionCatalog } from '@/lib/subscription-catalog';
+import { SubscriptionHistory, type SubscriptionReceipt } from '@/components/site/SubscriptionHistory';
 
-interface Catalog { products: { code: string; name: string; slots: number; monthly_krw: number; promotion_label: string }[]; checkoutUrl: string | null }
-interface Receipt { id: string; total_slots: number; amount: number; period_start: string; period_end: string; revoked_at: string | null }
 const date = (value: string) => new Date(value).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 export const metadata = { title: '구독 관리', robots: { index: false, follow: false } };
 
@@ -15,20 +15,17 @@ export default async function Payments() {
   if (session.status === 'guest' || session.status === 'refresh_required') redirect('/login/?next=%2Fpayments%2F');
   if (session.status !== 'authenticated' || !session.subscription) return <SitePage title="구독 관리" eyebrow="SPREADBRIDGE · MEMBERSHIP" description="회원과 구독 정보를 확인합니다."><p role="status">구독 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</p></SitePage>;
   const token = (await cookies()).get(ACCESS_COOKIE)?.value;
-  let catalog: Catalog | null = null;
-  let receipts: Receipt[] | null = null;
+  const [catalog, history] = await Promise.all([
+    subscriptionCatalog(),
+    backend('/subscriptions/history', { headers: { Authorization: `Bearer ${token}` } }).catch(() => null),
+  ]);
+  let receipts: SubscriptionReceipt[] | null = null;
   try {
-    const [plans, history] = await Promise.all([
-      backend('/subscriptions/catalog', { headers: { Authorization: `Bearer ${token}` } }),
-      backend('/subscriptions/history', { headers: { Authorization: `Bearer ${token}` } }),
-    ]);
-    if (plans.ok) catalog = await plans.json();
-    if (history.ok) receipts = await history.json();
+    if (history?.ok) receipts = await history.json();
   } catch { /* Preserve the verified membership and show an explicit unavailable state below. */ }
   const member = session.subscription;
   const eligible = session.user.role === 'OWNER' && session.user.emailVerified && session.user.customerStatus === 'ACTIVE';
-  let checkout: URL | null = null;
-  try { if (catalog?.checkoutUrl) { const url = new URL(catalog.checkoutUrl); if (url.protocol === 'https:') checkout = url; } } catch { /* Invalid checkout configuration is unavailable. */ }
+  const checkout = checkoutTarget(catalog?.checkoutUrl ?? null);
   return <SitePage title="구독 관리" eyebrow="SPREADBRIDGE · MEMBERSHIP" width="wide" description={`${session.user.displayName} 님의 구독 상태와 이용 내역을 확인하세요.`}>
     <div className="site-summary-grid">
       <article><h2>현재 플랜</h2><p>{member.active ? member.planName ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
@@ -36,7 +33,7 @@ export default async function Payments() {
       <article><h2>이용 기한</h2><p>{member.expiresAt ? date(member.expiresAt) : member.active ? '관리자 지정 이용권' : '—'}</p></article>
     </div>
     <div className="site-card-grid">
-      {catalog ? catalog.products.map(plan => {
+      {catalog ? !catalog.products.length ? <p role="status">현재 판매 중인 구독 상품이 없습니다.</p> : catalog.products.map(plan => {
         const target = checkout ? new URL(checkout) : null;
         target?.searchParams.set('plan', plan.code);
         return <section key={plan.code} className="site-card"><span className="site-tag">{plan.promotion_label}</span><h2>{plan.name}</h2>
@@ -46,9 +43,9 @@ export default async function Payments() {
         </section>;
       }) : <p role="status">상품 정보를 불러오지 못했습니다.</p>}
     </div>
-    {!checkout ? <p>결제 사이트 연결을 준비하고 있습니다. 결제나 자동 갱신 청구는 발생하지 않습니다.</p> : null}
+    {catalog && !checkout ? <p>결제 사이트 연결을 준비하고 있습니다. 결제나 자동 갱신 청구는 발생하지 않습니다.</p> : null}
     <section><h2>구독 이용 내역</h2>
-      {receipts === null ? <p role="status">구독 이용 내역을 불러오지 못했습니다.</p> : !receipts.length ? <p>아직 구독 결제 내역이 없습니다.</p> : <div className="site-table-wrap"><table><thead><tr><th scope="col">플랜</th><th scope="col">금액</th><th scope="col">이용 기간</th><th scope="col">상태</th></tr></thead><tbody>{receipts.map(item => <tr key={item.id}><td>{item.total_slots}슬롯</td><td>{item.amount.toLocaleString('ko-KR')}원</td><td>{date(item.period_start)} ~ {date(item.period_end)}</td><td>{item.revoked_at ? '취소' : Date.parse(item.period_end) > Date.now() ? '이용 중' : '만료'}</td></tr>)}</tbody></table></div>}
+      <SubscriptionHistory receipts={receipts} />
     </section>
   </SitePage>;
 }

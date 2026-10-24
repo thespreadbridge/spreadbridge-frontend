@@ -5,8 +5,9 @@ import localFont from 'next/font/local';
 
 import '../styles/tokens.css';
 import './globals.css';
-import '../styles/landing.css';
-import '../styles/account.css';
+import '../styles/site.css';
+import '../styles/insights.css';
+import '../components/home-v6/home-v6.css';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const session = await serverSession();
   return (
-    <html lang="ko" className={`${pretendard.variable} ${mono.variable}`}>
+    <html lang="ko" data-scroll-behavior="smooth" className={`${pretendard.variable} ${mono.variable}`}>
       <body><SessionProvider initialSession={session}>{children}</SessionProvider></body>
     </html>
   );

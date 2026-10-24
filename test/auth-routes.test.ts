@@ -115,4 +115,16 @@ describe('same-site login and session endpoints', () => {
     expect((await memberSummary(request('/api/member/summary/?view=paid'))).status).toBe(401);
     vi.stubGlobal('fetch', fetchAccount(false)); expect((await memberSummary(request('/api/member/summary/?view=paid', { [ACCESS_COOKIE]: tokens.accessToken }))).status).toBe(403);
   });
+  it('loads only the signed-in paid member trade summary using their server credential', async () => {
+    const account = fetchAccount();
+    const history = { summary: { realizedPnl: 4200, entries: 2, exits: 1, missingPnlCount: 0 }, items: [{ id: 'trade-1', action: 'EXIT', realizedPnl: 4200 }] };
+    vi.stubGlobal('fetch', vi.fn(async (input: string, init: RequestInit) => {
+      if (new URL(input).pathname !== '/v1/history/trades') return account(input);
+      expect(new URL(input).search).toBe('?month=all&limit=5&source=SPREADBRIDGE');
+      expect(init.headers).toMatchObject({ Authorization: `Bearer ${tokens.accessToken}` });
+      return Response.json(history);
+    }));
+    const response = await memberSummary(request('/api/member/summary/', { [ACCESS_COOKIE]: tokens.accessToken }));
+    expect(response.status).toBe(200); expect(await response.json()).toEqual(history);
+  });
 });
