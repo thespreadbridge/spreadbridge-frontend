@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 const FRAMES = [
   { futures: 1386.9, usdt: 1387.3, label: '두 시장의 가격을 잽니다', tone: 'measure' },
-  { futures: 1386.9, usdt: 1387.1, label: '좁혀졌을 때 진입 · 선물 매수 · USDT 매도', tone: 'enter' },
-  { futures: 1385.6, usdt: 1388.7, label: '벌어지면 정리 · 그 차이만큼 수익 확정', tone: 'close' },
+  { futures: 1386.9, usdt: 1387.1, label: '진입 예시 · 선물 매도 → USDT 매수', tone: 'enter' },
+  { futures: 1385.6, usdt: 1388.7, label: '청산 예시 · 선물 매수 → USDT 매도', tone: 'close' },
 ];
 
 export function PrincipleAnimation() {

@@ -17,9 +17,9 @@ show an unavailable state and never unlock paid data. The guest report card cont
 invented earnings and spread distribution are not presented as live member data.
 
 The countdown uses one shared deadline in `src/lib/launch-promotion.ts`, temporarily
-October 31, 2026 at 23:59:59 KST for local review. Confirm that deadline before
-publishing. Refreshing does not reset it. Reference copy (including stop-loss) and
-proposed pricing are retained for discussion. The review homepage remains noindex.
+October 31, 2026 at 23:59:59 KST. Refreshing does not reset it. Reference copy
+(including stop-loss) is retained. The published homepage allows search indexing;
+login and private account pages remain excluded.
 
 The footer also links to `/notices/`, `/terms/`, `/risk/`, and `/api-consent/`.
 These pages share the dark homepage theme and cross-link to the other policies.
@@ -138,8 +138,8 @@ Set a reachable server-only API origin and the correct site origin for the deplo
 Verify the web OAuth callback configuration above when using another public origin.
 Keep existing DNS nameservers and Google Workspace mail records when managing domains.
 
-The repository's production branch is `main`; this work remains on
-`codex/html-home-v6`. No remote push or production deployment is part of this change.
+The repository's production branch is `main`. The reviewed `codex/html-home-v6`
+homepage is merged into `main` for the owner's requested production release.
 The homepage, `/pricing/`, and `/payments/` all fetch `/public/subscriptions/catalog`
 from the configured API without a stored-price fallback. Only enabled products are
 shown; lookup failures are distinct from an empty catalog. Checkout requires a valid
@@ -191,7 +191,7 @@ The few article inline layout styles were moved into the shared blog stylesheet.
 `src/content/insights.json` contains the reviewed content. The build runs
 `scripts/generate-content.mjs` to regenerate the 14-item RSS feed and a sitemap
 covering public pages and all articles. Login and private account routes are
-excluded from the sitemap. No live production deployment is part of this change.
+excluded from the sitemap.
 
 Blog introductions and excerpts use the public site's concise product guidance tone.
 `src/components/blog/BlogStart.tsx` owns the shared installation/guide call to action

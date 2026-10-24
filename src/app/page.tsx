@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
 export const metadata = {
   title: { absolute: 'Spreadbridge — 달러 격차를 자동으로' },
-  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Spreadbridge 홈페이지 v6 시안.',
+  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Spreadbridge의 작동 방식과 요금, 시작 방법을 확인하세요.',
   alternates: { canonical: 'https://thespreadbridge.com/' },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
