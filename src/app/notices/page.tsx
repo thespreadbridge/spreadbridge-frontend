@@ -1,12 +1,8 @@
-import type { Metadata } from 'next';
+import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
 
-export const metadata: Metadata = {
-  title: '공지사항',
-  description: 'Spreadbridge의 서비스 변경, 점검 및 업데이트 공지사항을 확인하세요.',
-  alternates: { canonical: 'https://thespreadbridge.com/notices/' },
-};
+export const metadata = publicPageMetadata('/notices/');
 
 export default function NoticesPage() {
   return <InformationPage title="공지사항" eyebrow="SPREADBRIDGE · NOTICE" description="서비스 변경, 점검 및 업데이트 소식을 안내합니다.">

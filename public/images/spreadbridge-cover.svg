@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#080b10"/><stop offset="1" stop-color="#111d31"/></linearGradient><linearGradient id="line"><stop stop-color="#52a8ff"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="100" r="300" fill="#52a8ff" opacity=".04"/>
+  <text x="72" y="112" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#eef3f8">Spread<tspan fill="#52a8ff">bridge</tspan></text>
+  <text x="76" y="198" font-family="Arial,sans-serif" font-size="16" letter-spacing="3" fill="#52a8ff">USD FUTURES · USDT</text>
+  <text x="72" y="292" font-family="Arial,sans-serif" font-size="76" font-weight="700" fill="#eef3f8">Price gaps.</text>
+  <text x="72" y="384" font-family="Arial,sans-serif" font-size="76" font-weight="700" fill="#eef3f8">Your rules.</text>
+  <text x="76" y="478" font-family="Arial,sans-serif" font-size="22" fill="#9aa8b6">Spreadbridge desktop trading software</text>
+  <text x="76" y="564" font-family="Arial,sans-serif" font-size="18" fill="#9aa8b6">thespreadbridge.com</text>
+  <rect x="780" y="220" width="350" height="270" rx="24" fill="#141a22" stroke="#2e3745"/>
+  <path d="M810 420 860 375 900 394 946 320 988 346 1034 288 1098 256" fill="none" stroke="url(#line)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M810 449 860 423 900 438 946 398 988 416 1034 366 1098 347" fill="none" stroke="#626e7c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,14 +1,10 @@
-import type { Metadata } from 'next';
+import { publicPageMetadata } from '@/lib/seo';
 import { InformationPage } from '@/components/information/InformationPage';
 
-export const metadata: Metadata = {
-  title: '개인정보처리방침',
-  description: 'Spreadbridge의 개인정보 수집·이용, Google 로그인 정보 처리, 보관·삭제 및 문의 방법을 안내합니다.',
-  alternates: { canonical: 'https://thespreadbridge.com/privacy' },
-};
+export const metadata = publicPageMetadata('/privacy/');
 
 export default function PrivacyPage() {
-  return <InformationPage title="개인정보처리방침" eyebrow="SPREADBRIDGE · PRIVACY" updatedAt="2026-09-07" dateLabel="시행일" description="Spreadbridge 웹사이트와 데스크톱 앱에서 개인정보를 어떻게 처리하는지 안내합니다.">
+  return <InformationPage title="개인정보처리방침" eyebrow="SPREADBRIDGE · PRIVACY" updatedAt="2026-10-24" dateLabel="최종 변경일" description="Spreadbridge 웹사이트와 데스크톱 앱에서 개인정보를 어떻게 처리하는지 안내합니다.">
         <section>
           <h2>1. 운영자와 문의 창구</h2>
           <p>Spreadbridge 운영자는 회원 가입, 로그인 및 고객 계좌에서 실행하는 차익거래 자동매매 서비스 제공에 필요한 개인정보를 처리합니다.</p>
@@ -47,9 +43,9 @@ export default function PrivacyPage() {
         </section>
         <section>
           <h2>5. 외부 서비스와 정보 제공</h2>
-          <p>Google 계정 인증에는 Google을, 웹 요청 전달과 보안에는 Cloudflare를 이용합니다. Google은 인증 요청 및 계정 선택 정보를 처리하고, Cloudflare는 요청 전달 과정에서 IP 주소, 요청 주소와 네트워크 정보를 처리할 수 있습니다. 이들 서비스의 글로벌 인프라 특성상 정보가 국외에서 처리될 수 있습니다.</p>
+          <p>Google 계정 인증과 웹사이트 이용 분석에는 Google을, 웹사이트 호스팅에는 Vercel을, API와 회원 데이터 운영에는 Amazon Web Services를 이용합니다. 각 서비스는 제공하는 기능에 따라 인증 정보, 접속 IP, 요청 주소와 운영 데이터를 처리합니다. 글로벌 인프라 이용 과정에서 정보가 국외에서 처리될 수 있습니다.</p>
           <p>사용자가 거래소 연결과 거래 실행을 요청하면 해당 거래소에 인증·계좌 조회·주문에 필요한 정보가 전달됩니다. 결제 기능을 이용하는 경우에는 결제 화면에 안내된 결제 서비스가 결제 처리를 수행합니다.</p>
-          <p>서비스 제공에 필요한 처리, 사용자 동의 또는 법령상 근거가 있는 경우를 제외하고 개인정보를 외부에 제공하지 않습니다. 개인정보를 판매하지 않으며, 외부 서비스의 정보 처리에 대해서는 각 서비스의 정책도 확인할 수 있습니다: <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google 개인정보처리방침</a>, <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">Cloudflare 개인정보처리방침</a>.</p>
+          <p>서비스 제공에 필요한 처리, 사용자 동의 또는 법령상 근거가 있는 경우를 제외하고 개인정보를 외부에 제공하지 않습니다. 개인정보를 판매하지 않으며, 외부 서비스의 정보 처리에 대해서는 각 서비스의 정책도 확인할 수 있습니다: <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google 개인정보처리방침</a>, <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Vercel 개인정보 안내</a>, <a href="https://aws.amazon.com/privacy/" target="_blank" rel="noreferrer">AWS 개인정보 안내</a>.</p>
         </section>
         <section>
           <h2>6. 보관 기간과 파기</h2>
@@ -63,7 +59,13 @@ export default function PrivacyPage() {
           <p>데스크톱 앱의 자동 로그인 정보는 로컬 암호화 저장소에 보관됩니다. 자동 로그인 해제 또는 로그아웃으로 저장된 세션의 사용을 중단할 수 있습니다.</p>
         </section>
         <section>
-          <h2>8. 이용자의 권리와 방침 변경</h2>
+          <h2>8. 웹사이트 이용 분석</h2>
+          <p>웹사이트의 유입 경로와 이용 흐름을 개선하기 위해 Google Analytics 4를 사용합니다. 방문 페이지, 주요 버튼 클릭, 스크롤, 기기·브라우저 정보와 유입 사이트·캠페인 정보를 분석합니다. 로그인 회원의 이용 흐름은 이메일과 구분되는 서비스 내부 식별자(User-ID) 및 로그인·구독 상태와 함께 분석합니다.</p>
+          <p>이메일, 이름, 계좌번호, 거래소 API 키, 개별 거래 기록과 손익은 분석 이벤트로 전송하지 않습니다. 로그인 인증 코드·토큰이 들어 있는 주소는 분석 대상에서 제외하고, 주소의 불필요한 매개변수를 제거합니다. Google 측의 이메일·인증 매개변수 삭제 설정도 적용합니다.</p>
+          <p>Google Analytics 쿠키의 유지 기간은 1년으로 설정하며, 분석 데이터는 Google의 글로벌 인프라에서 처리될 수 있습니다. 광고 개인 최적화와 Google Signals는 사용하지 않습니다. 브라우저의 추적 금지(Do Not Track) 또는 Global Privacy Control 신호가 켜져 있으면 분석 태그를 로드하지 않습니다. <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noreferrer">Google Analytics 차단 도구</a>와 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noreferrer">Google의 파트너 사이트 데이터 처리 안내</a>도 확인할 수 있습니다.</p>
+        </section>
+        <section>
+          <h2>9. 이용자의 권리와 방침 변경</h2>
           <p>개인정보 열람·정정·삭제·처리정지와 동의 철회를 요청할 수 있습니다. 요청은 <a href="mailto:contact@thespreadbridge.com">contact@thespreadbridge.com</a>으로 접수하며, 확인 과정에서 비밀번호나 거래소 API 비밀키를 보내지 마세요. 법령상 의무 또는 진행 중인 거래·정산으로 처리가 제한되는 경우에는 이유를 안내합니다.</p>
           <p>정보 처리 방식이 바뀌면 이 페이지의 내용과 시행일을 갱신합니다. 수집 목적이나 제공 범위 등 중요한 변경은 웹사이트 또는 앱에서 안내하고, 추가 동의가 필요한 경우 별도로 요청합니다.</p>
         </section>

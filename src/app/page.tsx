@@ -1,6 +1,7 @@
 import { HomeContent } from '@/components/home-v6/HomeContent';
 import { HomeExperience } from '@/components/home-v6/HomeExperience';
 import { redirect } from 'next/navigation';
+import { publicPageMetadata } from '@/lib/seo';
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
@@ -15,8 +16,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 }
 
 export const metadata = {
-  title: { absolute: 'Spreadbridge — 달러 격차를 자동으로' },
-  description: '달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. Spreadbridge의 작동 방식과 요금, 시작 방법을 확인하세요.',
-  alternates: { canonical: 'https://thespreadbridge.com/' },
+  ...publicPageMetadata('/'),
+  title: { absolute: '스프레드브릿지(Spreadbridge) | 달러선물·USDT 스프레드 자동매매' },
   robots: { index: true, follow: true },
 };

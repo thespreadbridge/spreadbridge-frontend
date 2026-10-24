@@ -1,3 +1,4 @@
+import { publicPageMetadata } from '@/lib/seo';
 import { SitePage } from '@/components/site/SitePage';
 import { downloadTargets, publishedRelease } from '@/lib/published-releases';
 
@@ -14,7 +15,7 @@ export default async function Download() {
           <h2>{target.name}</h2><p>{target.detail}</p>
           {release ? <>
             <p>v{release.version} · {installationLabel(release.installationMode)}</p>
-            <a className="btn primary" href={release.artifactUrl}>설치파일 다운로드</a>
+            <a data-analytics-id={"download_" + target.platform + "_" + target.architecture} data-analytics-event="file_download" data-analytics-platform={target.platform} className="btn primary" href={release.artifactUrl}>설치파일 다운로드</a>
           </> : <p role="status">{status === 'unavailable' ? '배포 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.' : '현재 등록된 설치파일이 없습니다. 새 배포본을 준비 중입니다.'}</p>}
         </section>;
       })}
@@ -25,4 +26,4 @@ export default async function Download() {
   </SitePage>;
 }
 
-export const metadata = { title: '다운로드', alternates: { canonical: 'https://thespreadbridge.com/download/' } };
+export const metadata = publicPageMetadata('/download/');

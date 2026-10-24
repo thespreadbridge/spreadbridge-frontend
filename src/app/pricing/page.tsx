@@ -1,3 +1,4 @@
+import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { subscriptionCatalog } from '@/lib/subscription-catalog';
 import { SitePage } from '@/components/site/SitePage';
@@ -12,7 +13,7 @@ export default async function Pricing() {
         <div className="site-plan-price"><strong>{plan.monthly_krw.toLocaleString('ko-KR')}원</strong><span>/ 월</span></div>
         <p>월 구독 · 매월 갱신</p>
         <ul className="site-features"><li>등록·동시 실행 슬롯 최대 {plan.slots}개</li><li>거래금액별 서비스 수수료 없음</li><li>거래소·증권사 수수료 별도</li><li>유료 구독 회원 전용</li></ul>
-        <Link href="/payments/" className="btn primary">구독 관리</Link>
+        <Link data-analytics-id={"plan_" + plan.code.toLowerCase()} href="/payments/" className="btn primary">구독 관리</Link>
       </section>)}
     </div>
     <div className="site-summary-grid">
@@ -23,4 +24,4 @@ export default async function Pricing() {
   </SitePage>;
 }
 
-export const metadata = { title: '요금', alternates: { canonical: 'https://thespreadbridge.com/pricing/' } };
+export const metadata = publicPageMetadata('/pricing/');

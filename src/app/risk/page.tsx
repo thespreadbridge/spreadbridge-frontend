@@ -1,12 +1,8 @@
-import type { Metadata } from 'next';
+import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
 
-export const metadata: Metadata = {
-  title: '위험고지',
-  description: '자동매매 이용 전 확인해야 할 시장, 체결, 증거금, 시스템 및 API 연결 위험을 안내합니다.',
-  alternates: { canonical: 'https://thespreadbridge.com/risk/' },
-};
+export const metadata = publicPageMetadata('/risk/');
 
 export default function RiskPage() {
   return <InformationPage title="위험고지" eyebrow="SPREADBRIDGE · RISK" updatedAt="2026-10-24" description="자동매매는 투자 위험을 없애지 않습니다. 거래를 시작하기 전에 아래 내용을 확인해 주세요.">

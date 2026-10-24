@@ -1,12 +1,8 @@
-import type { Metadata } from 'next';
+import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
 
-export const metadata: Metadata = {
-  title: '이용약관',
-  description: 'Spreadbridge의 서비스 이용, 계정 관리, 구독 및 결제, 이용 제한과 문의 절차를 안내합니다.',
-  alternates: { canonical: 'https://thespreadbridge.com/terms/' },
-};
+export const metadata = publicPageMetadata('/terms/');
 
 export default function TermsPage() {
   return <InformationPage title="이용약관" eyebrow="SPREADBRIDGE · TERMS" updatedAt="2026-10-24" description="Spreadbridge 웹사이트와 데스크톱 앱의 이용 조건을 안내합니다.">

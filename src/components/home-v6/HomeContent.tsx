@@ -1,26 +1,27 @@
 import { LaunchCountdown } from './LaunchCountdown';
 import { subscriptionCatalog } from '@/lib/subscription-catalog';
+import { softwareSchema } from '@/lib/seo';
+import { jsonLd } from '@/lib/insights';
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
 export async function HomeContent() {
   const catalog = await subscriptionCatalog();
   const startingPlan = catalog?.products[0];
   return <>
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchema) }} />
 <header className={"hero view-guest"}>
   <div className={"hero-glow"}></div>
   <div className={"wrap hero-grid"}>
     <div>
-      <div className={"eyebrow"}><span className={"dot"}></span> 24시간 멈추지 않는 나만의 매매 에이전트</div>
-      <h1 className={"hero-title"}>미국 달러의 시장 격차,<br /><span className={"hl"}>공략해서 수익을 냅니다</span></h1>
+      <div className={"eyebrow"}><span className={"dot"}></span> Spreadbridge · 달러 스프레드 자동매매</div>
+      <h1 className={"hero-title"}>달러선물·USDT 가격 차이를,<br /><span className={"hl"}>내 PC에서 자동으로</span></h1>
       <p className={"hero-sub"}>
-        국제 기준통화인 달러, 그리고 그와 똑같은 가치를 지닌 디지털 달러.
-        제도와 국경 때문에 한국에서 이 둘의 값은 늘 어긋납니다.
-        그 격차가 벌어질 때 사고 좁혀질 때 팔아 수익을 내는 일을,
-        당신만의 에이전트들이 24시간 쉬지 않고 대신합니다.
+        스프레드브릿지는 업비트 USDT와 한국투자증권 달러선물의 가격 차이를 확인하고,
+        내가 정한 조건에 따라 내 PC에서 실행하는 자동매매 소프트웨어입니다.
       </p>
       <div className={"hero-actions"}>
-        <a className={"btn primary lg"} href={"#product"}>Spreadbridge 시작하기</a>
-        <a className={"btn ghost lg"} href={"#how"}>작동 방식 보기</a>
+        <a data-analytics-id="hero_start" className={"btn primary lg"} href={"#product"}>Spreadbridge 시작하기</a>
+        <a data-analytics-id="hero_how" className={"btn ghost lg"} href={"#how"}>작동 방식 보기</a>
       </div>
       <div className={"hero-trust"}>
         <span className={"t"}><span className={"ic"}>◆</span> 내 PC에서 실행</span>
@@ -49,7 +50,7 @@ export async function HomeContent() {
         <div className={"lock-ic"}>🔒</div>
         <div className={"lock-title"}>내 거래 기록을 확인하세요</div>
         <div className={"lock-sub"}>로그인과 구독 확인 후 내 계정의<br />거래 기록과 실현손익을 확인할 수 있습니다</div>
-        <a className={"btn primary"} href={"/login/"}>로그인하고 확인하기</a>
+        <a data-analytics-id="report_login" className={"btn primary"} href={"/login/"}>로그인하고 확인하기</a>
       </div>
       <div className={"board-foot"}>내 계정에서 서버에 수신된 거래 기록을 표시합니다</div>
     </div>
@@ -134,7 +135,7 @@ export async function HomeContent() {
           <li><span className={"ck"}>✓</span> IP 변경 자동 감지 · 재등록 안내</li>
           <li><span className={"ck"}>✓</span> 모의거래 모드 · 실시간 리포트</li>
         </ul>
-        <a className={"btn primary"} href={"/payments/"}>Spreadbridge 시작하기</a>
+        <a data-analytics-id="product_start" className={"btn primary"} href={"/payments/"}>Spreadbridge 시작하기</a>
       </div>
 
       <div className={"prod-card"}>
@@ -188,23 +189,23 @@ export async function HomeContent() {
     <h2 className={"sec-title"}>궁금한 것들</h2>
     <div className={"faq"}>
       <div className={"faq-item open"}>
-        <div className={"faq-q"} role={"button"} tabIndex={0}>제 돈을 맡기는 건가요? <span className={"plus"}>+</span></div>
+        <div data-analytics-id="faq_custody" className={"faq-q"} role={"button"} tabIndex={0}>제 돈을 맡기는 건가요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>아닙니다. 프로그램은 당신의 PC에서 당신의 거래소 계정으로 직접 매매합니다. Spreadbridge는 당신의 자금을 받거나 보관하지 않고, 계좌에 접근할 수도 없습니다. 우리는 소프트웨어를 제공할 뿐입니다.</div>
       </div>
       <div className={"faq-item"}>
-        <div className={"faq-q"} role={"button"} tabIndex={0}>수익이 보장되나요? <span className={"plus"}>+</span></div>
+        <div data-analytics-id="faq_returns" className={"faq-q"} role={"button"} tabIndex={0}>수익이 보장되나요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>보장하지 않습니다. 이 프로그램은 정해진 조건에 따라 매매를 자동화할 뿐이며, 시장 상황과 당신의 설정에 따라 손실이 발생할 수 있습니다. 수익을 약속하는 어떤 표현도 하지 않습니다.</div>
       </div>
       <div className={"faq-item"}>
-        <div className={"faq-q"} role={"button"} tabIndex={0}>컴퓨터를 계속 켜둬야 하나요? <span className={"plus"}>+</span></div>
+        <div data-analytics-id="faq_pc_uptime" className={"faq-q"} role={"button"} tabIndex={0}>컴퓨터를 계속 켜둬야 하나요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>네. 프로그램이 당신의 PC에서 실행되므로, 자동 운용 중에는 컴퓨터가 켜져 있어야 합니다. 전기 소모가 적은 미니PC를 두고 상시 운용하는 방식을 권장합니다.</div>
       </div>
       <div className={"faq-item"}>
-        <div className={"faq-q"} role={"button"} tabIndex={0}>전략이 정확히 뭔가요? <span className={"plus"}>+</span></div>
+        <div data-analytics-id="faq_strategy" className={"faq-q"} role={"button"} tabIndex={0}>전략이 정확히 뭔가요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>달러와 관련된 두 시장 사이의 가격 격차를 이용합니다. 세부 산식과 실행 방식은 Spreadbridge의 핵심 자산이라 공개하지 않지만, 프로그램 안에서 당신이 조정할 수 있는 조건은 모두 투명하게 열려 있습니다.</div>
       </div>
       <div className={"faq-item"}>
-        <div className={"faq-q"} role={"button"} tabIndex={0}>프로그래밍을 몰라도 되나요? <span className={"plus"}>+</span></div>
+        <div data-analytics-id="faq_setup" className={"faq-q"} role={"button"} tabIndex={0}>프로그래밍을 몰라도 되나요? <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>됩니다. 설치부터 연결, 전략 등록까지 화면 안내를 따라가면 되고, 초기 설정은 1:1 온보딩으로 도와드립니다.</div>
       </div>
     </div>
@@ -217,7 +218,7 @@ export async function HomeContent() {
   <div className={"wrap"}>
     <h2>격차는 지금도 벌어지고 있습니다</h2>
     <p>사람이 밤새 지켜볼 수 없는 순간을, 기계에게 맡기세요.</p>
-    <a className={"btn primary lg"} href={"/login/"}>Spreadbridge 시작하기</a>
+    <a data-analytics-id="final_start" className={"btn primary lg"} href={"/login/"}>Spreadbridge 시작하기</a>
   </div>
 </section>
 

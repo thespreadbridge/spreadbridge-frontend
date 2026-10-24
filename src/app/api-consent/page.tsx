@@ -1,12 +1,8 @@
-import type { Metadata } from 'next';
+import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
 
-export const metadata: Metadata = {
-  title: 'API 사용동의',
-  description: '거래소 API 연결의 이용 목적, 권한 범위, 정보 보관과 연결 해제 방법을 안내합니다.',
-  alternates: { canonical: 'https://thespreadbridge.com/api-consent/' },
-};
+export const metadata = publicPageMetadata('/api-consent/');
 
 export default function ApiConsentPage() {
   return <InformationPage title="API 사용동의" eyebrow="SPREADBRIDGE · API CONNECTION" updatedAt="2026-10-24" description="거래소·증권사 API를 연결하기 전에 이용 목적, 허용 권한과 해제 방법을 확인해 주세요.">

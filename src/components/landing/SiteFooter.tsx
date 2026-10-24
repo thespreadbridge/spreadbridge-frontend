@@ -34,7 +34,7 @@ export function SiteFooter() {
           Spreadbridge는 매매 자동화 소프트웨어를 제공하는 회사이며, 투자중개·투자자문·투자일임 서비스를 제공하지 않습니다.
           본 소프트웨어는 수익을 보장하지 않으며, 모든 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다.
           파생상품 거래에는 원금 손실 위험이 있습니다.<br />
-          © 2026 Spreadbridge. 사업자등록번호 000-00-00000 · 문의 <a href="mailto:contact@thespreadbridge.com">contact@thespreadbridge.com</a>
+          © 2026 Spreadbridge. 문의 <a href="mailto:contact@thespreadbridge.com">contact@thespreadbridge.com</a>
         </div>
       </div>
     </footer>

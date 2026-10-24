@@ -42,18 +42,18 @@ export function RaceBoard() {
   return <section className="race-board" aria-live="polite">
     <div className="race-tools">
       <label className="race-select">월물
-        <select value={symbol} onChange={event => setSymbol(event.target.value)}>
+        <select data-analytics-id="race_month_filter" value={symbol} onChange={event => setSymbol(event.target.value)}>
           {months.map(month => <option key={month} value={month}>{raceMonthLabel(month)}</option>)}
         </select>
       </label>
       <div className="race-sort" role="group" aria-label="정렬 기준">
         {([['people', '인원순'], ['slots', '슬롯순']] as const).map(([id, label]) => (
-          <button key={id} type="button" aria-pressed={metric === id} onClick={() => setMetric(id)}>{label}</button>
+          <button data-analytics-id={"race_sort_" + id} key={id} type="button" aria-pressed={metric === id} onClick={() => setMetric(id)}>{label}</button>
         ))}
       </div>
       <div className="race-updated">
         <span>{summary ? `${kstTime(summary.updatedAt)} 집계` : status === 'loading' ? '집계 조회 중' : '—'}</span>
-        <button type="button" className="btn ghost" onClick={() => setTick(n => n + 1)}>새로고침</button>
+        <button data-analytics-id="race_refresh" type="button" className="btn ghost" onClick={() => setTick(n => n + 1)}>새로고침</button>
       </div>
     </div>
 

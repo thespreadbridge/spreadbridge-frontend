@@ -6,6 +6,7 @@ import { serverSession } from '@/lib/auth/session';
 
 export const metadata: Metadata = {
   title: '진입갭 레이스',
+  robots: { index: false, follow: false },
   description: '회원들이 정해둔 진입 조건이 어느 격차 구간에 모여 있는지 월물별로 보여줍니다.',
   alternates: { canonical: 'https://thespreadbridge.com/race/' },
 };

@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { guestSession, type SiteSession } from '@/lib/auth/types';
+import { sendAnalyticsEvent } from '@/lib/analytics';
 
 type SessionContextValue = { session: SiteSession; refresh: () => Promise<void>; logout: () => Promise<void>; busy: boolean };
 const SessionContext = createContext<SessionContextValue | null>(null);
@@ -52,6 +53,7 @@ export function SessionProvider({ initialSession, children }: { initialSession: 
       await flight.current;
       const response = await fetch('/api/session/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'logout' }) });
       if (!response.ok) throw new Error('Logout unavailable');
+      sendAnalyticsEvent('logout', { method: 'manual' });
       current.current = guestSession; setSession(guestSession);
       router.replace('/'); router.refresh();
     } finally { setBusy(false); }

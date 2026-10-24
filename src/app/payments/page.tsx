@@ -40,7 +40,7 @@ export default async function Payments({ searchParams }: { searchParams: Promise
         return <section key={plan.code} className="site-card"><span className="site-tag">{plan.promotion_label}</span><h2>{plan.name}</h2>
           <div className="site-plan-price"><strong>{plan.monthly_krw.toLocaleString('ko-KR')}원</strong><span>/ 월</span></div>
           <p>최대 {plan.slots}슬롯 · 거래소·증권사 수수료 별도</p>
-          {target && eligible ? <a href={target.toString()} className="btn primary" target="_blank" rel="noopener noreferrer">구독하기</a> : <button type="button" className="btn ghost" disabled>{eligible ? '결제 준비 중' : '계정 상태 확인 필요'}</button>}
+          {target && eligible ? <a data-analytics-id={"checkout_" + plan.code.toLowerCase()} data-analytics-event="begin_checkout" href={target.toString()} className="btn primary" target="_blank" rel="noopener noreferrer">구독하기</a> : <button type="button" className="btn ghost" disabled>{eligible ? '결제 준비 중' : '계정 상태 확인 필요'}</button>}
         </section>;
       }) : <p role="status">상품 정보를 불러오지 못했습니다.</p>}
     </div>

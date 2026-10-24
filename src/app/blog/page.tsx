@@ -1,3 +1,4 @@
+import { publicPageMetadata } from '@/lib/seo';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleCard } from '@/components/blog/ArticleCard';
@@ -5,10 +6,8 @@ import { BlogStart } from '@/components/blog/BlogStart';
 import { insightCategories, insightPath, insights, jsonLd, siteOrigin } from '@/lib/insights';
 
 export const metadata: Metadata = {
-  title: '블로그 | 스프레드 거래와 Spreadbridge 사용 가이드',
-  description: '스프레드 거래의 기본 원리와 계좌 준비, 앱 설정 및 운용 정보를 안내합니다.',
-  alternates: { canonical: `${siteOrigin}/blog/`, types: { 'application/rss+xml': `${siteOrigin}/feed.xml` } },
-  openGraph: { title: 'Spreadbridge 블로그', description: '스프레드 거래의 원리부터 Spreadbridge 설정과 운용까지 필요한 정보를 안내합니다.', url: `${siteOrigin}/blog/`, type: 'website', locale: 'ko_KR', images: [{ url: `${siteOrigin}/images/insights-cover.png`, width: 1200, height: 630, alt: 'Spreadbridge 인사이트' }] },
+  ...publicPageMetadata('/blog/'),
+  alternates: { canonical: siteOrigin + '/blog/', types: { 'application/rss+xml': siteOrigin + '/feed.xml' } },
 };
 
 export default function BlogIndex() {

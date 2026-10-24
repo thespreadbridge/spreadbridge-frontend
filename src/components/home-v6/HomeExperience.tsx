@@ -27,10 +27,10 @@ export function HomeExperience({ children }: { children: ReactNode }) {
     onClick={event => { if (event.target instanceof Element) activate(event.target, event); }}
     onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && event.target instanceof Element && event.target.matches('.faq-q')) activate(event.target, event); }}>
     <PublicHeader />
-    {view === 'pending' ? <div className="site-container session-status" role="status"><p>회원·구독 정보를 확인하지 못했습니다.</p><button type="button" className="btn ghost" onClick={() => void refresh()}>다시 확인</button></div> : null}
+    {view === 'pending' ? <div className="site-container session-status" role="status"><p>회원·구독 정보를 확인하지 못했습니다.</p><button data-analytics-id="session_retry" type="button" className="btn ghost" onClick={() => void refresh()}>다시 확인</button></div> : null}
     <MemberHome />
     {children}
     <SiteFooter />
-    {notice ? <div className="preview-toast" role="status">{notice}<button type="button" onClick={() => setNotice('')} aria-label="안내 닫기">×</button></div> : null}
+    {notice ? <div className="preview-toast" role="status">{notice}<button data-analytics-id="notice_dismiss" type="button" onClick={() => setNotice('')} aria-label="안내 닫기">×</button></div> : null}
   </div>;
 }

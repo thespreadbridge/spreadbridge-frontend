@@ -32,7 +32,7 @@ export function PublicHeader() {
   }}>
     <div className="site-container site-header-inner">
       <Brand />
-      <button ref={toggleRef} type="button" className="btn ghost site-menu-toggle" aria-expanded={menuOpen} aria-controls={menuId} aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'} onClick={() => setMenuOpen(open => !open)}>
+      <button data-analytics-id="menu_toggle" ref={toggleRef} type="button" className="btn ghost site-menu-toggle" aria-expanded={menuOpen} aria-controls={menuId} aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'} onClick={() => setMenuOpen(open => !open)}>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">{menuOpen ? <path d="m4 4 10 10M14 4 4 14" /> : <path d="M2 4h14M2 9h14M2 14h14" />}</svg>메뉴
       </button>
       <div className="site-menu" id={menuId} data-open={menuOpen}>
@@ -41,14 +41,14 @@ export function PublicHeader() {
         </nav>
         <div className="site-actions" onClick={() => setMenuOpen(false)}>
           {session.status === 'authenticated' ? <>
-            <Link className="member-chip" href="/payments/" aria-label={`${session.user.displayName} 님 구독 관리`}>
+            <Link data-analytics-id="account_profile" className="member-chip" href="/payments/" aria-label={`${session.user.displayName} 님 구독 관리`}>
               <span className="member-avatar" aria-hidden="true">{session.user.displayName.slice(0, 1)}</span><span>{session.user.displayName} 님</span>
             </Link>
             <Link href="/payments/" className="btn ghost">구독 관리</Link>
-            <button className="btn ghost" type="button" disabled={busy} onClick={() => { setLogoutError(false); void logout().catch(() => setLogoutError(true)); }}>{busy ? '로그아웃 중' : '로그아웃'}</button>
+            <button data-analytics-id="logout" className="btn ghost" type="button" disabled={busy} onClick={() => { setLogoutError(false); void logout().catch(() => setLogoutError(true)); }}>{busy ? '로그아웃 중' : '로그아웃'}</button>
           </> : session.status === 'unavailable' || session.status === 'refresh_required' ? <>
             <span className="member-status">로그인 정보 확인 {session.status === 'unavailable' ? '실패' : '중'}</span>
-            <button className="btn ghost" type="button" onClick={() => void refresh()}>다시 확인</button>
+            <button data-analytics-id="session_retry" className="btn ghost" type="button" onClick={() => void refresh()}>다시 확인</button>
           </> : <>
             <Link href="/login/" className="btn ghost">로그인</Link><Link href="/login/" className="btn primary">시작하기</Link>
           </>}

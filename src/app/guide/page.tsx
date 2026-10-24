@@ -1,3 +1,4 @@
+import { publicPageMetadata } from '@/lib/seo';
 import { SitePage } from '@/components/site/SitePage';
 import { icons } from '@/components/landing/icons';
 
@@ -21,4 +22,4 @@ export default function Guide() {
   </SitePage>;
 }
 
-export const metadata = { title: '온보딩 안내', alternates: { canonical: 'https://thespreadbridge.com/guide/' } };
+export const metadata = publicPageMetadata('/guide/');
