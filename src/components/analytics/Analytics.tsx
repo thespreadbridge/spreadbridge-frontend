@@ -25,7 +25,7 @@ function area(element: Element) {
   if (element.closest('.hero')) return 'hero';
   if (element.closest('#product')) return 'pricing';
   if (element.closest('#faq')) return 'faq';
-  if (element.closest('.insight-body, .insight-toc')) return 'article';
+  if (element.closest('.insight-body, .insight-toc, .insight-sources')) return 'article';
   return 'content';
 }
 
@@ -89,10 +89,12 @@ export function Analytics({ measurementId, pageTitles }: { measurementId: string
       const href = control instanceof HTMLAnchorElement ? control.getAttribute('href') : null;
       const destination = href ? safeDestination(href, location.origin, pageTitles) : null;
       const specified = control.dataset.analyticsId;
+      const uiArea = area(control);
+      const position = [...document.querySelectorAll('a, button, [role="button"], summary')].filter(element => area(element) === uiArea).indexOf(control) + 1;
       const controlId = specified && /^[a-z][a-z0-9_]{0,63}$/.test(specified) ? specified
-        : destination?.control_id ?? (control.tagName === 'SUMMARY' ? 'article_details_' + ([...document.querySelectorAll('summary')].indexOf(control) + 1) : 'button_' + ([...document.querySelectorAll('button, [role="button"]')].indexOf(control) + 1));
+        : (destination?.control_id ?? (control.tagName === 'SUMMARY' ? 'article_details' : 'button')) + '_' + position;
       tracker.current?.event('ui_click', { control_id: controlId, control_type: control.tagName.toLowerCase(),
-        ui_area: area(control), destination_path: destination?.destination_path, link_domain: destination?.link_domain });
+        ui_area: uiArea, destination_path: destination?.destination_path, link_domain: destination?.link_domain });
       if (destination?.control_id === 'google_login') {
         storageMarker('start'); tracker.current?.event('login_start', { method: 'Google' });
       }
