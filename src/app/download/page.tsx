@@ -2,7 +2,7 @@ import { PublicHeader } from '@/components/public-header';
 import { SiteFooter } from '@/components/landing/SiteFooter';
 
 import releases from '@/generated/releases.json';
-type Release = { version: string; artifactUrl: string; installationMode?: string; releaseNotes: string };
+type Release = { version: string; artifactUrl: string; installationMode?: string };
 const installationLabels: Record<string, string> = { MANUAL: '수동 설치', AUTO_UNSIGNED: '자동 업데이트 지원 · 인증서 없음', AUTO: '자동 업데이트 지원' };
 const installationLabel = (mode?: string) => installationLabels[mode ?? 'AUTO'] ?? '수동 설치';
 const targets = [

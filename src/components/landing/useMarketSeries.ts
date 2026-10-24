@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// 정교한 목업 시계열. 스프레드가 뚜렷하게 "벌어졌다 채워지는" 사이클을 그리도록
-// 사인파 + 소량 노이즈로 구성한다. 실데이터 연동 시 이 생성부를 교체하면 된다.
+// 홈페이지 차트용 예시 데이터입니다.
 const POINTS = 48;
 const BASE_PRICE = 1386; // KIS 달러선물 기준가 (원)
 const BASE_SPREAD = 0.18; // 스프레드 (%)
@@ -45,7 +44,7 @@ export function useMarketSeries(intervalMs = 700) {
     const timer = setInterval(() => {
       const i = tick.current;
       tick.current += 1;
-      const f = futuresAt(i) + (Math.random() - 0.5) * 0.3; // 소량 노이즈(라이브 느낌)
+      const f = futuresAt(i) + (Math.random() - 0.5) * 0.3;
       const s = Math.max(0.03, spreadAt(i) + (Math.random() - 0.5) * 0.02);
       setData((prev) => ({
         futures: [...prev.futures.slice(1), f],

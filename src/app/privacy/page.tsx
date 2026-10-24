@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         <section>
           <h2>1. 운영자와 문의 창구</h2>
           <p>Spreadbridge 운영자는 회원 가입, 로그인 및 고객 계좌에서 실행하는 차익거래 자동매매 서비스 제공에 필요한 개인정보를 처리합니다.</p>
-          <p>개인정보 관련 문의, 열람·정정·삭제·처리정지 및 회원 탈퇴 요청은 <a href="mailto:hoho0443@gmail.com">hoho0443@gmail.com</a>으로 보내주세요. 요청자 본인 여부와 처리 범위를 확인한 후 안내합니다.</p>
+          <p>개인정보 관련 문의, 열람·정정·삭제·처리정지 및 회원 탈퇴 요청은 <a href="mailto:contact@thespreadbridge.com">contact@thespreadbridge.com</a>으로 보내주세요. 요청자 본인 여부와 처리 범위를 확인한 후 안내합니다.</p>
         </section>
         <section>
           <h2>2. 처리하는 정보와 이용 목적</h2>
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
         </section>
         <section>
           <h2>8. 이용자의 권리와 방침 변경</h2>
-          <p>개인정보 열람·정정·삭제·처리정지와 동의 철회를 요청할 수 있습니다. 요청은 <a href="mailto:hoho0443@gmail.com">hoho0443@gmail.com</a>으로 접수하며, 확인 과정에서 비밀번호나 거래소 API 비밀키를 보내지 마세요. 법령상 의무 또는 진행 중인 거래·정산으로 처리가 제한되는 경우에는 이유를 안내합니다.</p>
+          <p>개인정보 열람·정정·삭제·처리정지와 동의 철회를 요청할 수 있습니다. 요청은 <a href="mailto:contact@thespreadbridge.com">contact@thespreadbridge.com</a>으로 접수하며, 확인 과정에서 비밀번호나 거래소 API 비밀키를 보내지 마세요. 법령상 의무 또는 진행 중인 거래·정산으로 처리가 제한되는 경우에는 이유를 안내합니다.</p>
           <p>정보 처리 방식이 바뀌면 이 페이지의 내용과 시행일을 갱신합니다. 수집 목적이나 제공 범위 등 중요한 변경은 웹사이트 또는 앱에서 안내하고, 추가 동의가 필요한 경우 별도로 요청합니다.</p>
         </section>
       </main>
