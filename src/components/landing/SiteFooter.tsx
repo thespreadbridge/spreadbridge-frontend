@@ -11,6 +11,7 @@ export function SiteFooter() {
         <Link href="/#principle">원리</Link>
         <Link href="/pricing">요금</Link>
         <Link href="/guide">가이드</Link>
+        <Link href="/blog/">인사이트</Link>
         <Link href="/privacy">개인정보처리방침</Link>
         <span className="sb-disclaimer">투자에는 원금 손실 위험이 있습니다. 과거·예시 수치는 미래 수익을 보장하지 않습니다.</span>
       </div>

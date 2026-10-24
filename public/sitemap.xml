@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://thespreadbridge.com/</loc></url><url><loc>https://thespreadbridge.com/download/</loc></url><url><loc>https://thespreadbridge.com/guide/</loc></url><url><loc>https://thespreadbridge.com/pricing/</loc></url><url><loc>https://thespreadbridge.com/privacy/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://thespreadbridge.com/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/download/</loc></url>
+  <url><loc>https://thespreadbridge.com/guide/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/pricing/</loc></url>
+  <url><loc>https://thespreadbridge.com/privacy/</loc></url>
+  <url><loc>https://thespreadbridge.com/blog/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/why-usdt-and-usd-prices-differ/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/usdt-and-usd-futures/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/spread-and-profit/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/before-you-start/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/upbit-kis-account-api-setup/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/capital-and-margin/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/reading-the-dashboard/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/slot-strategy-basics/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/entry-exit-stop-loss/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/pause-cancel-and-close/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/slippage-and-partial-fills/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/margin-expiry-and-rollover/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/multiple-slots-and-total-exposure/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+  <url><loc>https://thespreadbridge.com/blog/troubleshooting-order-status/</loc><lastmod>2026-10-24T11:45:29+09:00</lastmod></url>
+</urlset>

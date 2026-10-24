@@ -1,0 +1,756 @@
+{
+  "categories": [
+    {
+      "id": "principles",
+      "name": "원리",
+      "description": "테더와 달러선물, 두 가격의 차이와 손익을 이해합니다."
+    },
+    {
+      "id": "preparation",
+      "name": "시작 준비",
+      "description": "계좌와 API, 매수대금과 증거금을 차근차근 확인합니다."
+    },
+    {
+      "id": "usage",
+      "name": "사용과 설정",
+      "description": "화면을 읽고 거래 조건과 중단 범위를 구분합니다."
+    },
+    {
+      "id": "operations",
+      "name": "체결과 운영",
+      "description": "실제 주문 결과, 만기와 전체 노출, 오류 대응을 살펴봅니다."
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "slug": "why-usdt-and-usd-prices-differ",
+      "title": "환율과 USDT 가격은 왜 다를까요?",
+      "description": "달러와 연결된 상품인데도, 어디서 거래하느냐에 따라 원화 값이 조금씩 다릅니다.",
+      "category": "principles",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "같은 달러를 보는데, 숫자는 다릅니다"
+        },
+        {
+          "id": "section-3",
+          "title": "이 값의 차이를 ‘갭’이라고 부릅니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>Spreadbridge의 모든 것은 이 질문에서 출발합니다. <strong>“달러와 연결된 상품인데 왜 값이 다르지?”</strong> 이걸 이해하면, 테더와 달러선물을 함께 보는 이유도 훨씬 쉽게 풀립니다.</p><h2 id=\"section-2\">같은 달러를 보는데, 숫자는 다릅니다</h2><p>환율을 확인했는데 업비트의 테더 가격은 다른 숫자로 보인 적 있으신가요? 둘 중 하나가 틀린 게 아닙니다. <span class=\"hl\">서로 다른 시장, 서로 다른 상품의 값</span>을 보고 있기 때문이에요.</p><p>은행의 달러 환율, 테더 가격, 달러선물 가격은 모두 달러와 연결되어 있습니다. 하지만 테더에는 발행사와 거래소의 조건이, 선물에는 만기와 금리 등의 조건이 반영됩니다. 참여하는 사람과 주문도 다르고요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>같은 곳으로 가더라도 택시와 기차의 요금은 다르죠. 목적지는 연결되어 있어도 이용하는 수단의 조건은 다르니까요. 달러 관련 상품도 공통된 기준이 있지만, 각자의 조건으로 값이 매겨집니다.</p></div><h2 id=\"section-3\">이 값의 차이를 ‘갭’이라고 부릅니다</h2><p>아래처럼 테더가 1,413원, 달러선물의 1달러당 가격이 1,400원이라면 차이는 13원입니다. 이 글에서는 <strong>테더 가격에서 선물 가격을 뺀 값</strong>을 원화 갭이라고 부를게요.</p><p>중요한 건 테더가 올랐는지만 보는 데서 한 걸음 더 나아가는 것입니다. 선물과 비교했을 때 얼마나 달라졌는지도 함께 보는 거죠.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"scale-demo\">\n<div class=\"scale-row\">\n<div class=\"coin us\">\n<div class=\"disc\">테더<br/>(USDT)</div>\n<div class=\"price\">1,413.0<span style=\"font-size:13px;color:var(--ink-3)\">원</span></div>\n<div class=\"plabel\">업비트에서</div>\n</div>\n<div class=\"gap-badge\">\n<div class=\"gv\">+13.0원</div>\n<div class=\"gl\">테더 − 선물 = 갭</div>\n</div>\n<div class=\"coin kr\">\n<div class=\"disc\">달러선물</div>\n<div class=\"price\">1,400.0<span style=\"font-size:13px;color:var(--ink-3)\">원</span></div>\n<div class=\"plabel\">한국투자증권에서</div>\n</div>\n</div>\n<p style=\"font-size:13px;color:var(--ink-3);margin-top:10px\">※ 예시 숫자입니다. 두 시장의 값 차이가 바로 Spreadbridge이 주목하는 지점입니다.</p>\n</div>\n<h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>환율과 USDT 가격은 왜 다를까요? · 비교표</caption><thead><tr><th scope=\"col\">비교 대상</th><th scope=\"col\">원화 가격</th></tr></thead><tbody><tr><td>테더 1개</td><td>1,413원</td></tr><tr><td>달러선물의 1달러당 가격</td><td>1,400원</td></tr><tr><td>테더 가격에서 선물 가격을 뺀 차이</td><td>13원</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>테더 가격과 달러선물 가격을 같은 시점에 확인합니다.</li><li>테더 가격에서 선물의 1달러당 가격을 뺍니다.</li><li>단순 가격 차이와 실제 주문 가능한 호가의 차이를 구분합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 차이가 보이면 바로 거래할 수 있나요?</summary><div class=\"mc\">화면의 최근 체결가는 이미 지나간 거래의 값입니다. 지금 원하는 수량을 그 값에 사고팔 수 있다는 뜻은 아니에요. 실제로는 양쪽의 매수·매도 호가와 수량, 거래 비용을 함께 봐야 합니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>화면에 보이는 최근 체결가로 원하는 수량을 거래할 수 있다는 뜻은 아닙니다. 실제 거래에서는 매수·매도 호가와 수량을 확인해야 합니다. 가격 차이가 있다는 사실만으로 수익이 확정되는 것도 아닙니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>달러와 연결된 상품도 서로 다른 시장에서 가격이 형성됩니다.</li><li>이 가이드의 원화 갭은 테더 가격에서 선물 가격을 뺀 값입니다.</li><li>갭을 볼 때는 시점, 월물, 실제 거래 가능한 호가를 함께 봅니다.</li></ul></div>",
+      "relatedIds": [
+        2,
+        3
+      ],
+      "sources": [
+        {
+          "title": "Tether · 토큰 이용·상환 약관",
+          "url": "https://tether.to/en/legal/"
+        },
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "usdt-and-usd-futures",
+      "title": "테더(USDT)와 미국달러선물의 차이",
+      "description": "테더는 달러에 연결된 토큰, 달러선물은 달러를 거래하는 계약입니다. 이 둘부터 알아볼게요.",
+      "category": "principles",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 테더 — 달러에 가치를 연결한 토큰"
+        },
+        {
+          "id": "section-3",
+          "title": "② 달러선물 — 미래의 달러 거래를 약속하는 계약"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>1편에서 시장마다 값이 다를 수 있다는 걸 봤습니다. 그럼 Spreadbridge은 <strong>어떤 두 상품</strong>을 함께 보는 걸까요? 바로 테더와 미국달러선물입니다. 용어가 낯설어도 괜찮아요. 핵심만 짚어드릴게요.</p><h2 id=\"section-2\">① 테더 — 달러에 가치를 연결한 토큰</h2><p>테더의 종목 표기는 USDT입니다. <span class=\"hl\">미국 달러와 1대1로 가치를 연동하도록 설계된 토큰</span>이에요. 업비트에서는 원화로 거래합니다.</p><p>다만 달러 지폐나 은행의 달러 예금과 같은 자산은 아닙니다. 거래소에서 언제나 정확히 1달러에 거래되는 것도 아니고요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>테더를 달러에 가치를 연결한 디지털 교환권으로 생각해 보세요. 이해를 돕는 비유일 뿐, 실제 권리와 상환 조건은 발행사의 약관을 따릅니다. 달러 현금과 같다고 생각하면 안 돼요.</p></div><h2 id=\"section-3\">② 달러선물 — 미래의 달러 거래를 약속하는 계약</h2><p>달러선물은 정해진 조건으로 미래에 달러를 거래하는 계약입니다. 매수 포지션은 가격 상승에, 매도 포지션은 가격 하락에 유리합니다. <strong>매도 포지션을 ‘숏’</strong>이라고도 부릅니다.</p><p>미국달러선물은 계약 수로 거래합니다. 1계약이 대표하는 달러 규모는 10,000달러예요. 이 전체 규모와 거래에 필요한 증거금은 서로 다른 개념입니다.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"scale-demo\"><div class=\"scale-row\"><div class=\"coin us\"><div class=\"disc\">테더<br/>USDT</div><div class=\"price\">10,000개</div><div class=\"plabel\">달러 연동 토큰 · 매수</div></div><div class=\"gap-badge\"><div class=\"gv\">⇄</div><div class=\"gl\">달러 규모 맞추기</div></div><div class=\"coin kr\"><div class=\"disc\">미국달러<br/>선물</div><div class=\"price\">1계약</div><div class=\"plabel\">10,000달러 규모 · 매도</div></div></div><p class=\"figure-note\">개념 예시입니다. 두 상품의 조건과 위험은 서로 다릅니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>테더(USDT)와 미국달러선물의 차이 · 비교표</caption><thead><tr><th scope=\"col\">구분</th><th scope=\"col\">테더</th><th scope=\"col\">미국달러선물</th></tr></thead><tbody><tr><td>형태</td><td>달러 연동 토큰</td><td>달러를 거래하는 선물 계약</td></tr><tr><td>수량</td><td>토큰 개수</td><td>계약 수</td></tr><tr><td>이 가이드의 예시 역할</td><td>매수해 보유</td><td>매도 포지션 보유</td></tr><tr><td>살펴볼 조건</td><td>발행사, 거래소, 호가</td><td>월물, 증거금, 호가</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>USDT와 미국달러선물이 서로 다른 상품이라는 점을 확인합니다.</li><li>테더 매수와 선물 매도의 가격 노출을 구분합니다.</li><li>포지션을 정리할 때는 각각 반대 거래가 필요하다는 점을 기억합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 두 상품을 함께 보는 이유는?</summary><div class=\"mc\">테더를 매수하고 같은 달러 규모의 선물을 매도하면, 공통된 달러 가격 움직임에 대한 노출을 줄이면서 두 값의 차이를 볼 수 있습니다. 다만 두 상품은 완전히 같지 않아요. 달러 연동 상태, 만기, 체결 수량에 따른 위험은 남습니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>두 상품이 달러와 연결되어 있어도 가격 변동이 완전히 같지는 않습니다. 테더의 달러 연동 이탈, 거래소 문제, 선물의 증거금과 만기 조건을 따로 살펴봐야 합니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>테더는 달러 연동을 목표로 하는 토큰이며 달러 현금과 다릅니다.</li><li>선물 매도 포지션은 선물 가격이 내려갈 때 유리합니다.</li><li>같은 달러 규모를 맞춰도 두 상품의 차이에서 생기는 위험은 남습니다.</li></ul></div>",
+      "relatedIds": [
+        3,
+        5
+      ],
+      "sources": [
+        {
+          "title": "Tether · 토큰 이용·상환 약관",
+          "url": "https://tether.to/en/legal/"
+        },
+        {
+          "title": "한국거래소 · 미국달러선물 상품 명세",
+          "url": "https://open.krx.co.kr/contents/OPN/01/01040601/OPN01040601.jsp"
+        },
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "spread-and-profit",
+      "title": "테더 매수·달러선물 매도, 갭과 손익의 관계",
+      "description": "테더 매수 + 선물 매도. 이 조합에서는 진입 때보다 갭이 커질수록 비용 차감 전 손익에 유리합니다.",
+      "category": "principles",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "방향부터 맞춰볼게요"
+        },
+        {
+          "id": "section-3",
+          "title": "진입과 청산을 그림으로 보면"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        },
+        {
+          "id": "section-7",
+          "title": "호가와 실제 체결가로 계산합니다"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>1편에서 ‘갭’을, 2편에서 ‘두 상품’을 봤습니다. 이제 마지막 조각이에요. <strong>어떤 변화가 내 포지션에 유리할까요?</strong> 두 손익을 나란히 놓으면 방향이 보입니다.</p><h2 id=\"section-2\">방향부터 맞춰볼게요</h2><p>테더를 사두면 테더 값이 오를 때 유리합니다. 반대로 달러선물을 매도하면 선물 값이 내릴 때 유리하죠. 달러 규모를 맞춰 두 손익을 더하면 <span class=\"hl\">두 값의 차이가 얼마나 달라졌는지</span>가 중요해집니다.</p><p>이 글의 갭은 테더 가격에서 선물의 1달러당 가격을 뺀 값입니다. 따라서 이 조합에서는 갭이 진입 때보다 커지면 유리하고, 작아지면 불리합니다.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>두 사람이 같은 에스컬레이터를 타고 올라간다고 생각해 보세요. 함께 올라가는 움직임과 두 사람 사이의 높이 차이는 따로 볼 수 있죠. 갭 거래도 공통된 가격 움직임과 상대적인 차이를 나누어 보는 방식입니다.</p></div><h2 id=\"section-3\">진입과 청산을 그림으로 보면</h2><p>테더를 매수하고 선물을 매도해 포지션을 만듭니다. 이후 정리할 때는 테더를 팔고 선물 매도 포지션을 되사서 청산해요. <strong>진입과 청산의 방향</strong>을 함께 기억해 주세요.</p><p>갭의 변화가 전부 내 순이익이 되는 것은 아닙니다. 실제 체결가와 수량을 확인하고, 양쪽의 수수료 등 비용까지 빼야 최종 결과가 나옵니다.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"ts-chart\"><svg aria-label=\"원화 갭의 변화 방향을 보여주는 개념도. 실제 시세가 아닙니다.\" role=\"img\" style=\"width:100%;height:auto;display:block\" viewbox=\"0 0 680 220\"><defs><lineargradient id=\"gap-fill\" x1=\"0\" x2=\"0\" y1=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2563c9\" stop-opacity=\".25\"></stop><stop offset=\"1\" stop-color=\"#2563c9\" stop-opacity=\"0\"></stop></lineargradient></defs><line stroke=\"#e2e9f2\" x1=\"36\" x2=\"670\" y1=\"198\" y2=\"198\"></line><line stroke=\"#e2e9f2\" x1=\"36\" x2=\"670\" y1=\"121.3\" y2=\"121.3\"></line><line stroke=\"#e2e9f2\" x1=\"36\" x2=\"670\" y1=\"44.7\" y2=\"44.7\"></line><path d=\"M 36.0 179.6 L 59.5 170.4 L 83.0 184.2 L 106.4 164.3 L 129.9 175.0 L 153.4 155.1 L 176.9 178.1 L 200.4 167.3 L 223.9 144.3 L 247.3 113.7 L 270.8 63.1 L 294.3 102.9 L 317.8 152.0 L 341.3 170.4 L 364.7 159.7 L 388.2 176.5 L 411.7 147.4 L 435.2 167.3 L 458.7 133.6 L 482.1 90.7 L 505.6 37.0 L 529.1 78.4 L 552.6 136.7 L 576.1 164.3 L 599.6 173.5 L 623.0 156.6 L 646.5 178.1 L 670.0 168.9 L 670 198 L 36 198 Z\" fill=\"url(#gap-fill)\"></path><path d=\"M 36.0 179.6 L 59.5 170.4 L 83.0 184.2 L 106.4 164.3 L 129.9 175.0 L 153.4 155.1 L 176.9 178.1 L 200.4 167.3 L 223.9 144.3 L 247.3 113.7 L 270.8 63.1 L 294.3 102.9 L 317.8 152.0 L 341.3 170.4 L 364.7 159.7 L 388.2 176.5 L 411.7 147.4 L 435.2 167.3 L 458.7 133.6 L 482.1 90.7 L 505.6 37.0 L 529.1 78.4 L 552.6 136.7 L 576.1 164.3 L 599.6 173.5 L 623.0 156.6 L 646.5 178.1 L 670.0 168.9\" fill=\"none\" stroke=\"#2563c9\" stroke-linejoin=\"round\" stroke-width=\"2.5\"></path><circle cx=\"270.8\" cy=\"63.1\" fill=\"#2563c9\" r=\"3.5\"></circle><circle cx=\"505.6\" cy=\"37.0\" fill=\"#2563c9\" r=\"3.5\"></circle></svg><div class=\"ts-legend\"><span><span class=\"ts-sw\" style=\"background:var(--blue)\"></span> 갭 변화의 개념도</span><span class=\"ts-note\">설명용 그림</span></div><p class=\"figure-note\">실제 시장 관측값이나 수익률이 아닙니다. 갭의 크기와 변화 방향을 이해하기 위한 그림입니다.</p></div><div class=\"gap-track\"><div class=\"mech-row\"><div class=\"mech-box enter\"><div class=\"mech-h\">진입 — 두 포지션 만들기</div><div class=\"mech-line\">테더 <b class=\"long\">매수</b><br/>달러선물 <b class=\"short\">매도</b></div></div><div class=\"mech-arrow\">갭 변화 확인 →</div><div class=\"mech-box exit\"><div class=\"mech-h\">청산 — 두 포지션 정리하기</div><div class=\"mech-line\">테더 <b class=\"short\">매도</b><br/>달러선물 매도 포지션 <b class=\"long\">청산</b></div></div></div><div class=\"gap-example\"><div><small>진입 시 갭</small><b>+3원</b></div><span>→</span><div><small>청산 시 갭</small><b>+10원</b></div><div class=\"gap-result\"><small>갭 변화</small><b>+7원</b></div></div><p class=\"figure-note\">설명용 숫자입니다. 같은 달러 규모를 전제로 한 비용 차감 전 유리한 변화이며, 순손익은 실제 체결과 비용으로 확인합니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>테더 매수·달러선물 매도, 갭과 손익의 관계 · 비교표</caption><thead><tr><th scope=\"col\">원화 갭의 변화</th><th scope=\"col\">이 예시 포지션의 비용 차감 전 손익 방향</th></tr></thead><tbody><tr><td>진입 때보다 커짐</td><td>유리</td></tr><tr><td>진입 때보다 작아짐</td><td>불리</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>테더 매수와 선물 매도라는 방향을 먼저 확인합니다.</li><li>진입 때와 청산 때의 갭을 같은 정의로 비교합니다.</li><li>실제 체결 손익에서 수수료 등 비용을 차감합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 갭이 음수여도 같은가요?</summary><div class=\"mc\">같은 정의를 쓰면 됩니다. 예를 들어 -10원에서 -3원으로 바뀌어도 갭은 7원 커진 것입니다. ‘두 가격이 얼마나 멀어졌는지’보다, 테더 가격에서 선물 가격을 뺀 값이 증가했는지 보는 게 정확해요.</div></details><h2 id=\"section-7\">호가와 실제 체결가로 계산합니다</h2><p>실제 주문을 비교할 때 진입 갭은 <strong>USDT 최우선 매도호가(살 때의 가격) − 선물 최우선 매수호가(팔 때의 가격)</strong>, 청산 갭은 <strong>USDT 최우선 매수호가(팔 때의 가격) − 선물 최우선 매도호가(살 때의 가격)</strong>로 봅니다. 최근 체결가끼리 뺀 값과는 다를 수 있습니다.</p><p>같은 월물과 수량을 유지하고 양쪽이 모두 체결됐다고 가정하면, 비용 차감 전 합산 손익은 <strong>(실제 체결가로 구한 청산 갭 − 실제 체결가로 구한 진입 갭) × USDT 수량</strong>으로 설명할 수 있습니다. 예를 들어 갭이 3원에서 10원으로 늘고 수량이 10,000개라면 70,000원입니다. 설명용 계산이며, 실제 순손익은 체결 내역과 비용으로 확인합니다.</p><p>앱은 선물 주문의 체결을 확인한 뒤 대응 현물 주문을 진행합니다. 두 시장에서 같은 순간에 원하는 가격으로 체결되는 구조는 아닙니다.</p><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>이 구조는 환율 방향에 대한 노출을 줄이려는 방식이지만, 갭이 원하는 방향으로 움직인다는 보장은 없습니다. 두 주문의 체결 시점과 수량이 다를 수 있고, 선물 계좌에는 별도로 증거금이 필요합니다. 고정된 순이익을 미리 확보하는 거래와 구분해야 합니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>이 글은 테더 매수와 달러선물 매도 조합을 설명합니다.</li><li>원화 갭이 커지면 유리하고 작아지면 불리합니다.</li><li>최종 결과는 실제 체결가, 수량, 비용으로 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        9,
+        11
+      ],
+      "sources": [
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        },
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "before-you-start",
+      "title": "스프레드 거래 시작 전 체크리스트",
+      "description": "설치가 끝났다고 준비까지 끝난 건 아닙니다. 원리·계좌·자금·중단 방법, 네 가지만 먼저 봐주세요.",
+      "category": "preparation",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 원리와 계좌부터 확인합니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 거래 자금과 멈추는 방법을 봅니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>바로 시작하고 싶은 마음, 이해합니다. 그래도 몇 가지만 먼저 짚어두면 이후 화면이 훨씬 덜 낯설어요. <strong>어떻게 거래하고, 어떤 상황에서 멈출지</strong> 알고 시작해볼까요?</p><h2 id=\"section-2\">① 원리와 계좌부터 확인합니다</h2><p>테더 매수와 선물 매도가 각각 어떤 방향인지 설명할 수 있나요? 다음으로 업비트와 증권사 계좌에서 필요한 조회와 거래 준비가 되어 있는지 확인합니다.</p><p>앱이 연결되었다는 것과 주문이 가능한 상태라는 건 다를 수 있어요. 계좌 구분과 이용 권한도 함께 확인해 주세요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>자동차에 시동을 걸기 전에 연료와 브레이크를 확인하죠. 거래도 비슷합니다. 시작 버튼을 누를 수 있는지뿐 아니라, 계속 움직일 준비와 멈출 방법까지 알아두는 거예요.</p></div><h2 id=\"section-3\">② 거래 자금과 멈추는 방법을 봅니다</h2><p>테더를 살 돈, 선물 증거금, 예비 자금을 나누어 생각합니다. 시작 금액만 맞추는 게 아니라, 거래를 유지할 여유도 봐야 해요.</p><p>그리고 중단 뒤 미체결 주문과 보유 포지션이 어떻게 되는지 확인합니다. 화면의 중단 표시와 실제 거래 상태를 함께 보는 습관이 필요해요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"flow\"><div class=\"flow-item\"><span>1</span><strong>원리</strong><small>테더 매수 + 선물 매도</small></div><div class=\"flow-item\"><span>2</span><strong>계좌</strong><small>거래 준비와 권한</small></div><div class=\"flow-item\"><span>3</span><strong>자금</strong><small>매수대금 + 증거금 + 여유</small></div><div class=\"flow-item\"><span>4</span><strong>중단</strong><small>주문·포지션 처리 확인</small></div></div></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>스프레드 거래 시작 전 체크리스트 · 비교표</caption><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">확인할 내용</th></tr></thead><tbody><tr><td>원리</td><td>포지션 방향과 갭의 정의</td></tr><tr><td>계좌</td><td>거래 가능 여부와 필요한 요건</td></tr><tr><td>자금</td><td>매수대금, 증거금, 예비 자금</td></tr><tr><td>운영</td><td>중단, 청산, 오류 확인 방법</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>1편부터 3편까지 읽고 손익 방향을 확인합니다.</li><li>거래소와 증권사에서 자신의 계좌 상태를 확인합니다.</li><li>사용할 자금과 손실 허용 범위, 대응 방법을 기록합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 모의 환경이면 바로 익숙해질 수 있나요?</summary><div class=\"mc\">모의 환경은 화면과 순서를 익히는 데 도움이 됩니다. 다만 실거래의 호가, 체결 속도, 수수료와 증거금 조건은 다를 수 있어요. 사용 중인 환경과 계좌를 먼저 구분해 주세요.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>계좌를 연결했다고 바로 주문을 시작할 필요는 없습니다. 자신에게 적용되는 거래 요건이나 중단 후 포지션 상태를 설명하기 어렵다면 먼저 해당 내용을 확인하세요.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>원리와 계좌와 자금과 중단 방법을 각각 확인합니다.</li><li>설치와 연결 완료를 거래 준비 완료로 보지 않습니다.</li><li>시작 전 확인은 계좌에 적용되는 실제 조건을 기준으로 합니다.</li></ul></div>",
+      "relatedIds": [
+        5,
+        6
+      ],
+      "sources": [
+        {
+          "title": "업비트 · API 이용 준비와 권한",
+          "url": "https://docs.upbit.com/kr/docs/api-setup"
+        },
+        {
+          "title": "한국투자증권 · 장내파생상품 거래설명서",
+          "url": "https://file.truefriend.com/Storage/customer/guide/regards/service_06_1.html"
+        },
+        {
+          "title": "Spreadbridge · 시작 가이드",
+          "url": "/guide/"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "slug": "upbit-kis-account-api-setup",
+      "title": "업비트·한국투자증권 계좌와 API 연결 준비",
+      "description": "두 기관의 계좌 준비와 앱 연결을 나누어 보면, 복잡한 절차도 조금씩 정리됩니다.",
+      "category": "preparation",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 각 기관의 거래 준비부터"
+        },
+        {
+          "id": "section-3",
+          "title": "② 연결한 뒤에는 조회 상태를 봅니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        },
+        {
+          "id": "section-7",
+          "title": "API 권한과 허용 IP를 확인합니다"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>계좌, 교육, 연결 설정. 한꺼번에 보면 복잡하죠. <strong>기관에서 해야 할 준비</strong>와 <strong>앱에서 확인할 연결</strong>을 나누어 생각하면 훨씬 편합니다.</p><h2 id=\"section-2\">① 각 기관의 거래 준비부터</h2><p>업비트에서는 본인 계정과 테더 거래 준비를 확인합니다. 증권사에서는 미국달러선물 거래가 가능한 계좌와 현재 적용되는 이용 요건을 확인해요.</p><p>교육이나 예탁금 등 필요한 조건은 개인과 기관 안내에 따라 달라질 수 있습니다. 발행 시점의 공식 안내를 기준으로 준비해 주세요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>새 집에 들어갈 때 계약과 열쇠 받기, 실제 문 열기는 각각 다른 단계죠. 거래 준비도 계좌를 갖추는 단계와 앱에서 연결을 확인하는 단계가 따로 있습니다.</p></div><h2 id=\"section-3\">② 연결한 뒤에는 조회 상태를 봅니다</h2><p>앱에 정보를 입력했다면 연결 결과와 조회 상태를 먼저 확인합니다. 실전과 모의 계좌를 혼동하지 않았는지도 보고요.</p><p>인증 정보는 연결에 필요한 권한만 사용합니다. 인증 키와 비밀번호를 공개 게시글에 올리지 않는 것도 꼭 기억해 주세요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"mech-row\"><div class=\"mech-box enter\"><div class=\"mech-h\">업비트</div><div class=\"mech-line\">계정과 테더 거래 준비<br/>연결에 필요한 권한</div></div><div class=\"mech-box exit\"><div class=\"mech-h\">한국투자증권</div><div class=\"mech-line\">선물 계좌와 이용 요건<br/>실전·모의 계좌 구분</div></div></div><div class=\"bridge\">↓ 각각 준비한 뒤</div><div class=\"bridge-box\">앱 연결 확인 → 조회 상태 확인 → 거래 가능 조건 확인</div><p class=\"figure-note\">준비 순서의 개념도입니다. 실제 절차는 각 기관과 사용 버전의 안내를 확인하세요.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>업비트·한국투자증권 계좌와 API 연결 준비 · 비교표</caption><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">완료 기준</th></tr></thead><tbody><tr><td>계좌 준비</td><td>해당 기관에서 계정과 계좌 이용 가능</td></tr><tr><td>거래 준비</td><td>거래하려는 상품의 요건 충족</td></tr><tr><td>연결 준비</td><td>필요한 인증과 권한 확인</td></tr><tr><td>상태 확인</td><td>현재 잔고와 연결 상태 확인</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>두 기관에서 계좌와 거래 가능 상태를 확인합니다.</li><li>현재 배포된 Spreadbridge 버전의 연결 안내에 따라 설정합니다.</li><li>연결 결과와 잔고 조회 결과를 확인한 뒤 거래 설정을 검토합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 연결 성공이면 주문도 가능한가요?</summary><div class=\"mc\">연결 성공은 조회나 인증이 된 상태를 뜻할 수 있습니다. 실제 거래 권한, 계좌 종류, 거래 가능 시간과 자금 조건도 함께 확인해야 해요. 연결 표시 하나만으로 거래 준비가 모두 끝났다고 생각하지 마세요.</div></details><h2 id=\"section-7\">API 권한과 허용 IP를 확인합니다</h2><p>잔고·주문 조회와 주문 실행에 필요한 권한을 확인하고, 출금 권한은 부여하지 않습니다. 허용 IP를 요구하는 경우 실제로 API를 호출하는 앱의 네트워크 주소를 등록합니다. 홈페이지 서버 주소와 혼동하지 마세요. 사용하는 환경의 안내에 따라 확인합니다.</p><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>실제 계좌와 모의 계좌를 혼동하지 않아야 합니다. 인증 정보는 게시글이나 댓글에 올리지 마세요. 교육 시간, 예탁금, 인증 화면은 변할 수 있으므로 기관의 현재 안내를 기준으로 준비합니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>계좌 준비와 거래 준비와 연결 준비를 나눕니다.</li><li>로그인 성공만으로 주문 가능 상태를 판단하지 않습니다.</li><li>실제 계좌인지 모의 계좌인지 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        4,
+        6
+      ],
+      "sources": [
+        {
+          "title": "업비트 · API 이용 준비와 권한",
+          "url": "https://docs.upbit.com/kr/docs/api-setup"
+        },
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        },
+        {
+          "title": "Spreadbridge · 시작 가이드",
+          "url": "/guide/"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "slug": "capital-and-margin",
+      "title": "테더 매수대금·선물 증거금·예비 자금 구분하기",
+      "description": "테더 매수대금 + 선물 증거금 + 예비 자금. 시작 전에 세 칸으로 나누어 생각해 보세요.",
+      "category": "preparation",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 거래 규모와 넣어두는 돈은 다릅니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 예비 자금을 따로 생각합니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>“선물 증거금만 있으면 되는 거 아닌가요?” 처음에 많이 헷갈리는 부분입니다. <strong>계약이 대표하는 금액</strong>과 <strong>계약을 유지하는 데 필요한 돈</strong>은 다르거든요.</p><h2 id=\"section-2\">① 거래 규모와 넣어두는 돈은 다릅니다</h2><p>이 콘텐츠의 개념 예시에서는 미국달러선물 1계약의 달러 규모와 테더 10,000개를 맞춥니다. 테더에는 매수대금이, 선물에는 증거금이 각각 필요해요.</p><p>증거금이 전체 계약 규모보다 작다고 해서 거래 규모도 작은 것은 아닙니다. 가격이 움직이면 필요한 자금 여유도 달라질 수 있어요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>여행 예산을 교통비 하나로 정하지 않죠. 숙박비와 식비, 예상 밖의 지출까지 나누어 봅니다. 거래 자금도 시작에 필요한 돈과 계속 유지할 여유를 함께 생각하는 거예요.</p></div><h2 id=\"section-3\">② 예비 자금을 따로 생각합니다</h2><p>처음 진입할 돈만 계산하지 말고 거래 비용과 추가 자금 요구에 대응할 여유도 봅니다. 현재 증거금 조건은 증권사 안내로 확인해 주세요.</p><p>여러 슬롯을 함께 쓰려면 수량을 합쳐 봐야 합니다. 한 슬롯이 가능한 것과 여러 슬롯이 동시에 가능한 것은 다르니까요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"funds\"><div class=\"fund green\"><span>₮</span><strong>테더 매수대금</strong><small>토큰을 사는 데 필요한 돈</small></div><div class=\"fund blue\"><span>$</span><strong>선물 증거금</strong><small>계약을 유지하기 위한 돈</small></div><div class=\"fund amber\"><span>+</span><strong>예비 자금</strong><small>비용과 추가 요구에 대응</small></div></div><p class=\"figure-note\">정해진 배분 비율을 뜻하지 않습니다. 현재 거래 조건과 전체 규모로 확인합니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>테더 매수대금·선물 증거금·예비 자금 구분하기 · 비교표</caption><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">살펴볼 내용</th></tr></thead><tbody><tr><td>테더 매수대금</td><td>수량과 실제 매수 가격</td></tr><tr><td>선물 증거금</td><td>계좌의 현재 요구액</td></tr><tr><td>거래 비용</td><td>양쪽 수수료와 체결 비용</td></tr><tr><td>예비 자금</td><td>추가 증거금과 운영 여유</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>계약 수를 달러 규모로 환산합니다.</li><li>그 규모에 맞는 테더 매수대금과 선물 증거금을 따로 확인합니다.</li><li>비용과 추가 자금 여유를 반영한 뒤 감당 가능한 범위인지 판단합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 테더 쪽 이익을 증거금으로 볼 수 있나요?</summary><div class=\"mc\">테더 쪽에 평가이익이 있어도 그 금액이 선물 계좌의 증거금에 자동으로 반영되는 것은 아닙니다. 두 계좌의 자금은 따로 확인해 주세요. 전체 손익과 선물 계좌의 여유는 다른 질문입니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>모든 이용자에게 맞는 고정 금액이나 자금 비율은 없습니다. 예탁금 요건과 증거금은 다를 수 있으며, 계좌 간 자금 이동에 걸리는 시간도 고려해야 합니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>계약 규모와 납부하는 증거금을 구분합니다.</li><li>테더 매수대금과 선물 계좌 자금은 각각 준비합니다.</li><li>예비 자금까지 포함해 전체 거래 규모를 판단합니다.</li></ul></div>",
+      "relatedIds": [
+        12,
+        13
+      ],
+      "sources": [
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        },
+        {
+          "title": "한국투자증권 · 장내파생상품 거래설명서",
+          "url": "https://file.truefriend.com/Storage/customer/guide/regards/service_06_1.html"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "slug": "reading-the-dashboard",
+      "title": "스프레드 거래 대시보드 읽는 순서",
+      "description": "연결 → 포지션 → 주문 → 자금과 손익. 숫자가 많아도 이 순서로 읽으면 됩니다.",
+      "category": "usage",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 연결과 실제 보유 상태부터"
+        },
+        {
+          "id": "section-3",
+          "title": "② 주문을 보고, 손익을 읽습니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>화면을 열면 손익부터 눈에 들어오죠. 하지만 그 숫자가 <strong>언제 갱신되었고, 무엇을 기준으로 계산됐는지</strong> 먼저 알아야 정확히 읽을 수 있어요.</p><h2 id=\"section-2\">① 연결과 실제 보유 상태부터</h2><p>연결이 정상인지, 마지막 갱신 시점은 언제인지 봅니다. 그다음 테더와 선물에 무엇을 얼마나 보유했는지 각각 확인해요.</p><p>전략이 실행 중이라는 표시와 실제 포지션을 보유한 상태는 다릅니다. 과거 진입 기록이 있어도 이후 청산됐을 수 있으니 현재 잔고를 함께 봅니다.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>자동차 계기판에서 속도만 보지는 않죠. 연료와 경고등도 함께 봅니다. 거래 화면도 손익 하나보다 연결·주문·자금 상태를 같이 읽어야 전체 상황이 보여요.</p></div><h2 id=\"section-3\">② 주문을 보고, 손익을 읽습니다</h2><p>미체결 주문이나 일부만 체결된 주문이 있는지 확인합니다. 주문이 접수됐다는 것과 거래가 끝났다는 것은 다르거든요.</p><p>마지막으로 증거금 여유와 손익의 기준을 봅니다. 평가손익과 실현손익을 구분하고, 수수료가 반영됐는지도 확인해 주세요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"flow\"><div class=\"flow-item\"><span>1</span><strong>연결</strong><small>조회 정상 · 갱신 시점</small></div><div class=\"flow-item\"><span>2</span><strong>포지션</strong><small>양쪽 실제 보유 수량</small></div><div class=\"flow-item\"><span>3</span><strong>주문</strong><small>미체결 · 부분체결</small></div><div class=\"flow-item\"><span>4</span><strong>자금·손익</strong><small>증거금 · 계산 기준</small></div></div><p class=\"figure-note\">화면을 읽는 순서의 개념도입니다. 실제 앱 화면 캡처가 아닙니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>스프레드 거래 대시보드 읽는 순서 · 비교표</caption><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">읽는 기준</th></tr></thead><tbody><tr><td>연결과 갱신</td><td>현재 조회가 정상인지</td></tr><tr><td>포지션</td><td>양쪽에 무엇을 얼마나 보유했는지</td></tr><tr><td>주문</td><td>미체결이나 부분체결이 있는지</td></tr><tr><td>자금과 손익</td><td>증거금 여유와 손익의 기준이 무엇인지</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>연결 상태와 데이터 갱신 시점을 확인합니다.</li><li>실제 포지션과 주문 상태를 각각 확인합니다.</li><li>손익의 구분과 비용 반영 여부를 확인합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 평가손익과 실현손익은 어떻게 다른가요?</summary><div class=\"mc\">평가손익은 현재 가격을 기준으로 본 값이고, 실현손익은 거래를 정리한 결과입니다. 계산에 사용한 가격과 비용 반영 범위가 다를 수 있으니 화면의 기준을 함께 확인해 주세요.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>진입 거래가 완료됐다는 과거 기록만으로 현재도 보유 중이라고 판단하면 안 됩니다. 이후 청산 여부와 현재 잔고를 함께 확인하세요.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>연결 상태와 데이터 시점을 먼저 확인합니다.</li><li>전략 상태와 포지션 상태와 주문 상태를 구분합니다.</li><li>평가손익과 실현손익의 계산 기준을 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        11,
+        14
+      ],
+      "sources": [
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        },
+        {
+          "title": "Spreadbridge · 현재 배포 앱 다운로드",
+          "url": "/download/"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "slug": "slot-strategy-basics",
+      "title": "슬롯 전략이란? 조건·수량·전체 노출 관리",
+      "description": "슬롯은 거래 대상·조건·수량을 한 묶음으로 관리하는 단위입니다.",
+      "category": "usage",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 이름보다 안에 담을 조건이 중요합니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 저장과 실행은 다른 단계입니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>슬롯이라는 이름이 낯설어도 괜찮습니다. <strong>“어떤 조건에서, 얼마나 거래하고, 언제 정리할까?”</strong> 이 질문에 답하는 작은 거래 계획이라고 생각해 보세요.</p><h2 id=\"section-2\">① 이름보다 안에 담을 조건이 중요합니다</h2><p>어떤 상품과 선물 월물을 거래할지, 무엇을 기준으로 진입하고 청산할지, 수량은 얼마인지 한 계획으로 묶습니다. 적용 가능한 종료 조건도 함께 봐요.</p><p>이름을 구분해 두면 여러 계획을 비교하기 편합니다. 다만 이름이 다르다고 자금이 분리되거나 위험이 자동으로 분산되는 것은 아닙니다.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>작업 지시서에는 대상과 시작 조건, 완료 조건이 함께 들어갑니다. 슬롯도 비슷해요. 거래에 필요한 조건을 한 장에 묶어 관리하는 작업 지시서인 셈입니다.</p></div><h2 id=\"section-3\">② 저장과 실행은 다른 단계입니다</h2><p>조건을 저장한 슬롯과 실행 중인 슬롯, 실제로 체결된 포지션을 나누어 봅니다. 실행 가능 여부는 연결과 권한, 자금 등 현재 조건에 따라 달라질 수 있어요.</p><p>다른 슬롯까지 동시에 진입할 때 전체 수량은 얼마인지 확인해 주세요. 개별 계획과 전체 합계를 함께 보는 게 핵심입니다.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"slot-sheet\"><div class=\"sheet-title\">📋 슬롯 = 하나의 거래 계획</div><div class=\"sheet-grid\"><div><small>대상</small><strong>상품 · 선물 월물</strong></div><div><small>진입</small><strong>시작할 조건</strong></div><div><small>청산·종료</small><strong>정리할 조건</strong></div><div><small>수량</small><strong>거래할 규모</strong></div></div></div><p class=\"figure-note\">슬롯을 이해하기 위한 개념 카드입니다. 실제 등록 항목은 사용 버전에서 확인하세요.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>슬롯 전략이란? 조건·수량·전체 노출 관리 · 비교표</caption><thead><tr><th scope=\"col\">정할 항목</th><th scope=\"col\">확인할 의미</th></tr></thead><tbody><tr><td>대상과 월물</td><td>어떤 상품과 계약을 거래하는지</td></tr><tr><td>조건</td><td>무엇을 기준으로 진입하고 청산하는지</td></tr><tr><td>수량</td><td>전체 포지션이 얼마나 늘어나는지</td></tr><tr><td>종료 기준</td><td>손실이나 이상 상황에 어떻게 대응하는지</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>사용할 대상과 월물, 갭의 표시 단위를 확인합니다.</li><li>진입과 청산과 수량을 하나의 계획으로 기록합니다.</li><li>다른 슬롯까지 포함한 전체 자금과 노출을 검토합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 슬롯을 나누면 돈도 따로 쓰나요?</summary><div class=\"mc\">슬롯을 나누어도 같은 계좌의 자금과 증거금 여유를 사용할 수 있습니다. 여러 슬롯이 비슷한 조건이면 동시에 진입할 수도 있어요. 등록 가능한 개수와 전체 거래 규모를 따로 확인해 주세요.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>여러 슬롯이 비슷한 조건을 쓰면 동시에 진입할 수 있습니다. 슬롯을 나눈 것만으로 위험이 분산되지는 않습니다. 실제 등록 화면의 항목과 적용 가능한 기능은 사용 중인 버전에서 확인하세요.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>슬롯은 조건과 수량을 묶는 관리 단위입니다.</li><li>등록과 실행과 실제 체결은 서로 다른 단계입니다.</li><li>여러 슬롯의 수량을 합쳐 전체 노출을 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        9,
+        13
+      ],
+      "sources": [
+        {
+          "title": "Spreadbridge · 시작 가이드",
+          "url": "/guide/"
+        },
+        {
+          "title": "Spreadbridge · 현재 배포 앱 다운로드",
+          "url": "/download/"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "slug": "entry-exit-stop-loss",
+      "title": "진입·청산·손절 조건과 단위 이해하기",
+      "description": "들어갈 조건, 나올 조건, 불리할 때 정리할 조건. 세 숫자는 각자 역할이 다릅니다.",
+      "category": "usage",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 시작과 목표, 비상 기준을 나눕니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 숫자 앞에 단위부터 확인합니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>설정 화면의 숫자만 외우면 헷갈리기 쉽습니다. <strong>그 숫자가 어떤 동작을 뜻하는지</strong>부터 읽어볼까요? 목적을 알면 조건의 관계도 보입니다.</p><h2 id=\"section-2\">① 시작과 목표, 비상 기준을 나눕니다</h2><p>진입은 포지션을 만드는 조건입니다. 청산은 보유한 포지션을 정리하는 조건이고요. 손절은 예상과 반대로 움직일 때 손실을 제한하려는 기준입니다.</p><p>이 글의 테더 매수 + 선물 매도 조합에서는 진입 때보다 원화 갭이 커지는 것이 비용 차감 전 손익에 유리합니다. 구체적인 값은 비용과 수량, 감당 가능한 손실을 함께 고려해야 해요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>목적지로 가는 경로와 비상시에 멈출 곳은 따로 정하죠. 거래에서도 목표 청산과 손절은 역할이 다릅니다. 같은 ‘정리’라도 왜 정리하는지부터 나누어 보는 거예요.</p></div><h2 id=\"section-3\">② 숫자 앞에 단위부터 확인합니다</h2><p>원화 갭과 백분율 갭은 같은 숫자로 비교할 수 없습니다. 어느 단위를 쓰는지, 무엇을 기준 가격으로 삼는지, 조건이 이상인지 이하인지 확인해 주세요.</p><p>조건이 충족되어도 원하는 가격에 전량 체결된다는 뜻은 아닙니다. 조건 발생 뒤 실제 주문과 체결 상태까지 봐야 해요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"flow\"><div class=\"flow-item\"><span>1</span><strong>진입</strong><small>포지션을 만듭니다</small></div><div class=\"flow-item\"><span>2</span><strong>청산</strong><small>목표 조건에서 정리합니다</small></div><div class=\"flow-item\"><span>3</span><strong>손절</strong><small>불리한 상황에 대응합니다</small></div></div><div class=\"unit-note\">숫자와 함께 <strong>단위 · 비교 방향 · 작동 후 상태</strong>를 확인해 주세요.</div></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>진입·청산·손절 조건과 단위 이해하기 · 비교표</caption><thead><tr><th scope=\"col\">표현</th><th scope=\"col\">뜻</th></tr></thead><tbody><tr><td>원화 갭</td><td>테더 가격에서 선물 가격을 뺀 원화 차이</td></tr><tr><td>백분율 갭</td><td>가격 차이를 기준 가격으로 나눈 비율</td></tr><tr><td>진입과 청산과 손절</td><td>각 조건이 작동하는 서로 다른 목적</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>값의 단위와 매수·매도 방향을 확인합니다.</li><li>진입과 청산 조건의 관계를 읽어봅니다.</li><li>손절 조건과 발생 후의 상태를 확인합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 손절을 정하면 손실도 딱 고정되나요?</summary><div class=\"mc\">손절은 손실을 제한하려는 조건입니다. 실제 체결 가격은 시장과 연결 상태의 영향을 받아요. 설정값만으로 최종 손실 금액이 정확히 고정되는 것은 아닙니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>설정한 조건이 충족되었다고 그 가격에 전량 체결되는 것은 아닙니다. 손절 주문도 시장 상황과 연결 상태의 영향을 받으므로 손실 금액을 정확히 고정하는 장치는 아닙니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>진입과 청산과 손절은 목적이 다릅니다.</li><li>숫자와 함께 단위와 비교 방향을 확인합니다.</li><li>설정 가격과 실제 체결 결과를 구분합니다.</li></ul></div>",
+      "relatedIds": [
+        3,
+        11
+      ],
+      "sources": [
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        },
+        {
+          "title": "Spreadbridge · 현재 배포 앱 다운로드",
+          "url": "/download/"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "slug": "pause-cancel-and-close",
+      "title": "자동매매 중단·주문 취소·포지션 청산의 차이",
+      "description": "신규 진입 중단, 주문 취소, 포지션 청산은 각각 다른 동작입니다.",
+      "category": "usage",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 기능의 이름보다 범위를 봅니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 다시 시작하기 전에도 확인합니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>자동 거래를 멈췄다면 모든 거래가 정리된 걸까요? <strong>‘중단’이라는 이름만으로는 알 수 없습니다.</strong> 어떤 동작을 멈추고 무엇을 남기는지 확인해 봐요.</p><h2 id=\"section-2\">① 기능의 이름보다 범위를 봅니다</h2><p>리스크 한도는 거래 규모나 손실 범위를 제한하는 기준입니다. Kill Switch는 비상 상황에서 거래 동작을 제한하기 위한 기능을 뜻해요.</p><p>현재 버전에서 신규 진입을 제한하는지, 미체결 주문을 처리하는지, 보유 포지션에 영향을 주는지 각각 확인합니다. 세 동작이 모두 수행된다고 가정하면 안 돼요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>기계의 전원을 끄는 일과 작업 중인 물건을 치우는 일은 다르죠. 거래도 마찬가지예요. 새 주문을 멈추는 것과 기존 주문·포지션을 정리하는 것은 별개의 동작입니다.</p></div><h2 id=\"section-3\">② 다시 시작하기 전에도 확인합니다</h2><p>중단 원인이 해결됐는지부터 봅니다. 그다음 양쪽 잔고, 미체결 주문, 연결 상태를 다시 확인해요.</p><p>화면의 중단 표시와 거래소·증권사의 실제 상태를 함께 보는 게 기준입니다. 멈춘 뒤 남은 것을 알아야 재개도 판단할 수 있어요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"switch-title\"><span>⏸</span><strong>중단 뒤 무엇이 남는지 확인해요</strong></div><div class=\"flow\"><div class=\"flow-item\"><span>1</span><strong>신규 진입</strong><small>추가 포지션을 만들지 않기</small></div><div class=\"flow-item\"><span>2</span><strong>주문 취소</strong><small>미체결 주문 처리하기</small></div><div class=\"flow-item\"><span>3</span><strong>포지션 청산</strong><small>이미 보유한 거래 정리하기</small></div></div><p class=\"figure-note\">서로 다른 동작입니다. 현재 기능이 어디까지 처리하는지 각각 확인해야 합니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>자동매매 중단·주문 취소·포지션 청산의 차이 · 비교표</caption><thead><tr><th scope=\"col\">구분</th><th scope=\"col\">확인할 내용</th></tr></thead><tbody><tr><td>신규 진입</td><td>추가 포지션 생성이 제한되는지</td></tr><tr><td>미체결 주문</td><td>기존 주문을 어떻게 처리하는지</td></tr><tr><td>보유 포지션</td><td>유지되는지, 별도 청산이 필요한지</td></tr><tr><td>재개</td><td>확인해야 할 조건과 절차가 무엇인지</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>현재 버전에서 지원하는 한도와 비상 정지 기능을 확인합니다.</li><li>작동 후 주문과 포지션이 어떻게 되는지 확인합니다.</li><li>재개 전에 잔고와 주문과 연결 상태를 다시 확인합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 어떤 기능이 적용되는지 어디서 보나요?</summary><div class=\"mc\">사용 중인 버전의 화면과 안내에서 지원 항목, 발동 조건, 주문·포지션 처리 범위를 확인해 주세요. 실제 기능의 범위는 버전에 따라 달라질 수 있습니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>자동 중단 기능도 통신과 주문 시스템의 영향을 받습니다. 비상 정지 뒤에는 거래소와 증권사에서 실제 주문과 포지션 상태를 확인해야 합니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>리스크 한도와 비상 정지는 역할이 다릅니다.</li><li>진입 차단과 주문 취소와 청산을 구분합니다.</li><li>재개 전에는 실제 잔고와 주문 상태를 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        7,
+        14
+      ],
+      "sources": [
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        },
+        {
+          "title": "Spreadbridge · 현재 배포 앱 다운로드",
+          "url": "/download/"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "slug": "slippage-and-partial-fills",
+      "title": "슬리피지와 부분체결, 주문 결과 확인 방법",
+      "description": "본 가격과 체결된 가격, 주문한 수량과 체결된 수량. 두 차이를 나누어 보면 쉽습니다.",
+      "category": "operations",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 가격 차이 — 슬리피지"
+        },
+        {
+          "id": "section-3",
+          "title": "② 수량 차이 — 부분체결"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>조건에 맞는 가격을 보고 주문했는데 결과가 다를 수 있습니다. <strong>화면을 본 순간과 체결되는 순간 사이에도 시장이 움직이기</strong> 때문이에요.</p><h2 id=\"section-2\">① 가격 차이 — 슬리피지</h2><p>예상하거나 기준으로 삼은 가격과 실제 체결 가격의 차이를 슬리피지라고 부릅니다. 한 가격의 물량이 부족하면 여러 가격에 걸쳐 체결될 수도 있어요.</p><p>그래서 화면의 갭과 실제 체결 결과를 구분해 봐야 합니다. 비용뿐 아니라 체결 가격의 차이도 결과에 영향을 줍니다.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>빵 열 개를 주문했는데 여섯 개만 먼저 받았다고 생각해 보세요. 주문이 접수된 것과 열 개를 모두 받은 것은 다르죠. 부분체결도 같은 식으로 이해하면 됩니다.</p></div><h2 id=\"section-3\">② 수량 차이 — 부분체결</h2><p>주문한 수량 중 일부만 거래되면 부분체결입니다. 두 시장을 함께 거래할 때는 양쪽의 결과를 따로 확인해요.</p><p>한쪽은 전량 체결됐는데 다른 쪽은 일부만 체결됐다면 의도한 수량 균형이 맞지 않을 수 있습니다. 체결 수량과 남은 주문을 함께 확인해 주세요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"fill-title\"><strong>주문 10개</strong><span>→</span><strong>체결 6개</strong><span>+</span><strong class=\"muted\">남은 4개</strong></div><div aria-label=\"설명용 주문 10개 중 6개 체결, 4개 미체결\" class=\"fill-units\" role=\"img\"><span class=\"filled\">✓</span><span class=\"filled\">✓</span><span class=\"filled\">✓</span><span class=\"filled\">✓</span><span class=\"filled\">✓</span><span class=\"filled\">✓</span><span class=\"pending\">…</span><span class=\"pending\">…</span><span class=\"pending\">…</span><span class=\"pending\">…</span></div><p class=\"figure-note\">부분체결을 설명하는 예시입니다. 양쪽의 체결 수량과 남은 주문을 따로 확인하세요.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>슬리피지와 부분체결, 주문 결과 확인 방법 · 비교표</caption><thead><tr><th scope=\"col\">상황</th><th scope=\"col\">확인할 내용</th></tr></thead><tbody><tr><td>양쪽 전량 체결</td><td>실제 체결가와 수량</td></tr><tr><td>한쪽 부분체결</td><td>남은 주문과 수량 불일치</td></tr><tr><td>한쪽 체결 미확인</td><td>주문 접수 여부와 실제 거래 결과</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>주문 접수와 체결 완료를 구분합니다.</li><li>양쪽의 실제 체결 수량과 남은 주문을 확인합니다.</li><li>결과가 확인되지 않았다면 중복 주문 전에 조회로 대조합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 주문 응답이 없으면 미체결인가요?</summary><div class=\"mc\">응답을 받지 못했다고 주문이 없었다고 단정하면 안 됩니다. 실제 접수 여부와 체결 수량, 남은 주문을 조회해서 확인해 주세요. 결과 확인 없이 반복하면 중복 주문이 될 수 있습니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>응답이 늦거나 오류가 났다고 주문이 없었다고 단정하면 안 됩니다. 반대로 화면에 주문이 보인다고 전량 체결된 것도 아닙니다. <a href=\"https://docs.upbit.com/kr/reference/get-order\">업비트 개별 주문 조회 안내</a></p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>실제 체결 가격은 예상 가격과 다를 수 있습니다.</li><li>부분체결은 주문 전체의 완료와 다릅니다.</li><li>양쪽 수량과 미체결 주문을 함께 확인합니다.</li></ul></div>",
+      "relatedIds": [
+        9,
+        14
+      ],
+      "sources": [
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "margin-expiry-and-rollover",
+      "title": "달러선물 증거금·마진콜·만기·롤오버",
+      "description": "합산 손익과 선물 계좌의 자금 여유는 다릅니다. 증거금과 일정도 함께 봐주세요.",
+      "category": "operations",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 증거금은 선물 계좌에서 따로 봅니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 만기와 월물 변경도 거래의 일부입니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>테더와 선물의 손익을 합쳐 보면 괜찮아 보일 수 있습니다. 그런데 <strong>선물 계좌만 보면 필요한 돈이 부족할 수도 있어요.</strong> 두 계좌는 하나의 지갑이 아니니까요.</p><h2 id=\"section-2\">① 증거금은 선물 계좌에서 따로 봅니다</h2><p>선물에는 증거금과 일일정산이 적용됩니다. 불리한 가격 변화로 계좌 여유가 줄면 추가 자금이 요구될 수 있어요. 흔히 마진콜이라고 부르는 상황입니다.</p><p>테더 쪽에 평가이익이 있어도 선물 계좌의 증거금으로 자동 반영되는 것은 아닙니다. 구체적인 조건과 대응 시한은 증권사 안내를 확인해 주세요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>물이 두 통에 나뉘어 있다면, 한 통이 가득 차 있어도 다른 통의 부족이 저절로 해결되지는 않죠. 테더 쪽 평가이익과 선물 계좌의 자금 여유도 따로 확인해야 합니다.</p></div><h2 id=\"section-3\">② 만기와 월물 변경도 거래의 일부입니다</h2><p>선물에는 월물별 거래 종료와 결제 일정이 있습니다. 만기는 단순히 달력의 날짜 하나가 바뀌는 게 아니에요.</p><p>다음 월물로 옮기는 롤오버는 기존 계약을 정리하고 새 계약을 거래하는 과정입니다. 가격과 비용이 달라질 수 있으니 적용 방식과 일정을 함께 봅니다.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"wallets\"><div class=\"wallet green\"><strong>테더 쪽</strong><div class=\"water high\"></div><small>평가손익 확인</small></div><div class=\"wallet-separator\">≠<small>자동으로 합쳐지지 않아요</small></div><div class=\"wallet blue\"><strong>선물 계좌</strong><div class=\"water low\"></div><small>증거금 여유 확인</small></div></div><p class=\"figure-note\">서로 다른 자금 상태를 보여주는 비유입니다. 실제 잔고나 권장 비율이 아닙니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>달러선물 증거금·마진콜·만기·롤오버 · 비교표</caption><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">확인할 내용</th></tr></thead><tbody><tr><td>증거금</td><td>현재 요구액과 계좌 여유</td></tr><tr><td>추가 자금</td><td>요구 발생 여부와 대응 시한</td></tr><tr><td>만기</td><td>보유 월물의 최종거래와 결제 일정</td></tr><tr><td>롤오버</td><td>적용 방식과 비용과 새 월물 가격</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>선물 계좌의 증거금 여유를 별도로 확인합니다.</li><li>보유 월물의 거래 종료와 결제 일정을 확인합니다.</li><li>만기 전에 정리하거나 옮길 계획을 검토합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 롤오버 기능이면 일정은 신경 안 써도 되나요?</summary><div class=\"mc\">자동 기능을 사용해도 적용 대상과 실제 처리 방식을 확인해야 합니다. 보유 월물의 최종거래·결제 일정, 기존 계약과 새 계약의 주문 상태를 함께 봐주세요.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>롤오버를 지원하더라도 실행 방식과 적용 범위를 확인해야 합니다. 미국달러선물에는 인수도결제 조건이 있으므로 만기를 단순한 날짜 변경으로 생각하면 안 됩니다. <a href=\"https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp\">한국투자증권 미국달러선물 소개</a> 선물 거래에서는 투자원금을 초과하는 손실이 발생할 수 있고, 증거금 부족 시 반대매매가 이루어질 수 있습니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>선물 계좌의 증거금은 별도로 관리합니다.</li><li>추가 자금 요구에 적용되는 조건과 시한을 확인합니다.</li><li>월물 변경은 새로운 거래와 비용을 수반할 수 있습니다.</li></ul></div>",
+      "relatedIds": [
+        6,
+        13
+      ],
+      "sources": [
+        {
+          "title": "한국투자증권 · 미국달러선물 상품 소개",
+          "url": "https://securities.koreainvestment.com/main/bond/domestic/_static/TF03bd030100.jsp"
+        },
+        {
+          "title": "한국투자증권 · 장내파생상품 거래설명서",
+          "url": "https://file.truefriend.com/Storage/customer/guide/regards/service_06_1.html"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "slug": "multiple-slots-and-total-exposure",
+      "title": "여러 슬롯의 수량과 자금을 합산하는 법",
+      "description": "슬롯 수보다 중요한 건, 함께 진입할 때의 전체 수량과 남는 자금입니다.",
+      "category": "operations",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 동시에 진입하면 모두 더해집니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 이용 한도와 내 운영 규모는 다릅니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>계획을 여러 슬롯으로 나누면 관리하기 편해집니다. 하지만 <strong>편해진 것과 위험이 분산된 것은 다릅니다.</strong> 개수보다 합계를 먼저 볼까요?</p><h2 id=\"section-2\">① 동시에 진입하면 모두 더해집니다</h2><p>비슷한 조건의 슬롯은 함께 진입할 수 있습니다. 이름이 달라도 같은 테더와 선물 월물을 거래하면 비슷한 시장 변화의 영향을 받을 수 있어요.</p><p>각 슬롯의 수량을 합쳐 봅니다. 그때 필요한 테더 매수대금과 선물 증거금은 얼마인지, 예비 자금이 남는지도 함께 확인해요.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>같은 물통에 수도꼭지를 여러 개 달아도 물의 총량이 늘지는 않죠. 슬롯이 여러 개여도 같은 계좌의 자금과 증거금 여유를 사용한다는 점을 기억해 주세요.</p></div><h2 id=\"section-3\">② 이용 한도와 내 운영 규모는 다릅니다</h2><p>플랜에서 허용하는 동시 실행 개수는 이용 가능한 기능의 범위입니다. 그 개수까지 거래하는 것이 누구에게나 적절하다는 뜻은 아니에요.</p><p>여러 주문의 상태를 확인하고 이상 상황에 대응할 수 있는지도 생각해 보세요. 자금 여유와 관리 가능한 범위를 함께 보는 게 기준입니다.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"slot-total\"><div class=\"mini-slots\"><span>슬롯 A</span><b>+</b><span>슬롯 B</span><b>+</b><span>슬롯 C</span></div><div class=\"bridge\">↓ 함께 진입할 수 있다면</div><div class=\"bridge-box\">전체 수량 · 매수대금 · 증거금 · 예비 자금</div></div><p class=\"figure-note\">슬롯을 나누어도 전체 거래 규모와 필요한 자금은 합쳐서 봅니다.</p></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>여러 슬롯의 수량과 자금을 합산하는 법 · 비교표</caption><thead><tr><th scope=\"col\">살펴볼 항목</th><th scope=\"col\">판단 기준</th></tr></thead><tbody><tr><td>동시 진입</td><td>함께 조건을 충족할 수 있는 슬롯</td></tr><tr><td>전체 수량</td><td>체결될 수량의 합계</td></tr><tr><td>자금 여유</td><td>매수대금과 증거금과 예비 자금</td></tr><tr><td>운영 부담</td><td>상태 확인과 이상 상황 대응 가능성</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>각 슬롯의 조건과 수량을 한곳에 정리합니다.</li><li>함께 진입할 경우의 전체 노출을 계산합니다.</li><li>자금 여유와 관리 가능한 범위를 비교합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 슬롯 이름이 다르면 다른 위험인가요?</summary><div class=\"mc\">이름보다 거래 대상과 월물, 진입 조건과 수량이 중요합니다. 같은 시장의 비슷한 조건이라면 함께 움직일 수 있어요. 각각 보는 것과 전체를 합쳐 보는 것이 모두 필요합니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>플랜의 동시 실행 한도는 서비스 이용 한도입니다. 그 개수까지 거래하는 것이 개인에게 적절하다는 뜻은 아닙니다. 슬롯 수만으로 기대 손익을 계산할 수도 없습니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>슬롯별 수량을 합쳐 전체 거래 규모를 봅니다.</li><li>비슷한 조건은 동시에 작동할 수 있습니다.</li><li>이용 한도와 개인의 적정 거래 규모를 구분합니다.</li></ul></div>",
+      "relatedIds": [
+        8,
+        6
+      ],
+      "sources": [
+        {
+          "title": "한국투자증권 · 장내파생상품 거래설명서",
+          "url": "https://file.truefriend.com/Storage/customer/guide/regards/service_06_1.html"
+        },
+        {
+          "title": "Spreadbridge · 시작 가이드",
+          "url": "/guide/"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "slug": "troubleshooting-order-status",
+      "title": "거래 오류 대응: 재시도 전 주문·체결·잔고 확인",
+      "description": "오류가 보이면 이전 동작의 실제 결과부터 확인합니다. 그다음 필요한 동작을 결정해요.",
+      "category": "operations",
+      "publishedAt": "2026-10-24T11:45:29+09:00",
+      "updatedAt": "2026-10-24T11:45:29+09:00",
+      "readingMinutes": 4,
+      "toc": [
+        {
+          "id": "section-1",
+          "title": "왜 알아야 하나요"
+        },
+        {
+          "id": "section-2",
+          "title": "① 어디에서 멈췄는지 나눕니다"
+        },
+        {
+          "id": "section-3",
+          "title": "② 문의할 정보도 함께 정리합니다"
+        },
+        {
+          "id": "section-4",
+          "title": "그림으로 보면"
+        },
+        {
+          "id": "section-5",
+          "title": "나란히 놓고 확인해요"
+        },
+        {
+          "id": "section-6",
+          "title": "이렇게 확인하세요"
+        }
+      ],
+      "bodyHtml": "<h2 id=\"section-1\">왜 알아야 하나요</h2><p>오류 메시지가 보이면 재시도부터 누르고 싶어지죠. 그래도 거래에서는 <strong>“이전 주문이 어디까지 진행됐을까?”</strong>를 먼저 확인해야 합니다.</p><h2 id=\"section-2\">① 어디에서 멈췄는지 나눕니다</h2><p>연결 단계라면 인증과 조회 상태를 봅니다. 주문 단계라면 접수 여부, 실제 체결 수량, 남은 주문을 확인해요.</p><p>잔고가 다르게 보이면 각 기관의 현재 정보와 앱의 마지막 갱신 시점을 대조합니다. 화면의 응답과 실제 처리 결과가 다를 수 있기 때문입니다.</p><div class=\"analogy\"><div class=\"ah\">💡 쉽게 비유하면</div><p>온라인 쇼핑에서 결제 완료 화면을 못 봤다고 바로 다시 결제하지는 않죠. 주문 내역부터 확인합니다. 거래에서도 같은 순서예요. 화면에 오류가 보여도 실제 처리는 진행됐을 수 있습니다.</p></div><h2 id=\"section-3\">② 문의할 정보도 함께 정리합니다</h2><p>발생 시각, 오류 문구, 사용 버전, 확인한 주문 상태를 기록해 두면 설명하기 쉽습니다. 인증 키와 비밀번호, 전체 계좌번호 같은 민감 정보는 가려주세요.</p><p>재시작이 기존 주문을 취소하거나 보유 포지션을 정리하는 동작이라고 생각하면 안 됩니다. 결과가 불명확한 주문은 거래소와 증권사의 실제 상태부터 확인해요.</p><h2 id=\"section-4\">그림으로 보면</h2><div class=\"diagram\"><div class=\"flow\"><div class=\"flow-item\"><span>1</span><strong>기록</strong><small>시각 · 오류 문구 · 버전</small></div><div class=\"flow-item\"><span>2</span><strong>대조</strong><small>접수 · 체결 · 주문 · 잔고</small></div><div class=\"flow-item\"><span>3</span><strong>다음 동작</strong><small>확인 결과에 맞춰 결정</small></div></div><div class=\"unit-note\">주문 결과가 불명확하면 <strong>실제 상태부터 확인</strong>해 주세요.</div></div><h2 id=\"section-5\">나란히 놓고 확인해요</h2><div class=\"table-scroll\"><table class=\"cmp\"><caption>거래 오류 대응: 재시도 전 주문·체결·잔고 확인 · 비교표</caption><thead><tr><th scope=\"col\">상황</th><th scope=\"col\">먼저 확인할 내용</th></tr></thead><tbody><tr><td>연결 실패</td><td>계좌 구분, 인증 상태, 조회 결과</td></tr><tr><td>주문 거절</td><td>해당 기관의 오류 안내와 주문 조건</td></tr><tr><td>체결 미확인</td><td>주문 접수와 체결 수량과 미체결 잔량</td></tr><tr><td>잔고 불일치</td><td>양쪽 실제 잔고와 갱신 시점</td></tr></tbody></table></div><h2 id=\"section-6\">이렇게 확인하세요</h2><ol class=\"steps\"><li>오류 발생 시각과 화면 메시지를 기록합니다.</li><li>거래소와 증권사에서 주문과 체결과 잔고를 대조합니다.</li><li>확인 결과에 맞는 안내를 따르고, 해결되지 않으면 진단 정보를 정리해 문의합니다.</li></ol><details class=\"more\"><summary>더 알아보기 — 문의할 때 무엇을 준비하면 좋나요?</summary><div class=\"mc\">사용 버전, 발생 시각, 오류 문구, 주문·체결·잔고를 확인한 결과를 준비해 주세요. 화면을 첨부할 때는 인증 정보와 전체 계좌번호를 가립니다. 어느 단계에서 멈췄는지 함께 적으면 상황을 전달하기 쉽습니다.</div></details><div class=\"caution\"><div class=\"ch\">⚠ 미리 알아두세요</div><p>인증 키, 비밀번호, 전체 계좌번호는 공개 게시글에 올리지 마세요. 지원 문의에는 사용 버전, 발생 시각, 오류 문구와 민감 정보를 가린 상태 자료를 준비하면 도움이 됩니다. 재시작이 기존 주문이나 포지션을 취소하는 동작이라고 가정하면 안 됩니다.</p></div><div class=\"recap\"><div class=\"rh\">핵심만 다시</div><ul><li>연결 오류와 주문 오류와 잔고 차이를 구분합니다.</li><li>결과가 불명확한 주문은 실제 상태부터 조회합니다.</li><li>문의 자료에는 필요한 상태를 담고 민감 정보는 가립니다.</li></ul></div>",
+      "relatedIds": [
+        10,
+        11
+      ],
+      "sources": [
+        {
+          "title": "업비트 · 개별 주문 조회",
+          "url": "https://docs.upbit.com/kr/reference/get-order"
+        },
+        {
+          "title": "Spreadbridge · 현재 배포 앱 다운로드",
+          "url": "/download/"
+        }
+      ]
+    }
+  ]
+}

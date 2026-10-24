@@ -9,6 +9,7 @@ export function PublicHeader() {
         <Link href="/#principle">원리</Link>
         <Link href="/pricing">요금</Link>
         <Link href="/guide">가이드</Link>
+        <Link href="/blog/">인사이트</Link>
         <Link href="/download">앱 다운로드</Link>
       </nav>
       <div className="header-actions">
