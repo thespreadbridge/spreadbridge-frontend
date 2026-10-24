@@ -5,11 +5,11 @@ export function FinalCta() {
     <section className="sb-section">
       <div className="shell sb-cta">
         <div>
-          <span className="sb-eyebrow">INVITATION BETA</span>
-          <h2 className="sb-h2">최대 20명,<br />먼저 시작합니다.</h2>
+          <span className="sb-eyebrow">GET STARTED</span>
+          <h2 className="sb-h2">내 계좌에서,<br />지금 시작하세요.</h2>
         </div>
         <div className="sb-cta-side">
-          <p>내부 검증을 마친 초대 고객부터 함께합니다.</p>
+          <p>Google 계정으로 가입한 뒤 앱을 설치하고 거래 조건을 설정하세요.</p>
           <Link href="https://dollarflow.growbee.ai/login" className="button button-blue">Google로 시작하기</Link>
         </div>
       </div>
