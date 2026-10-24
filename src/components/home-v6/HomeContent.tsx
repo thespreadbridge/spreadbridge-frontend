@@ -1,5 +1,6 @@
 import { SpreadChart } from './SpreadChart';
 import { LaunchCountdown } from './LaunchCountdown';
+import { policyLinks } from '@/lib/information-links';
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
 export function HomeContent() {
@@ -516,14 +517,11 @@ export function HomeContent() {
         <a href={"#faq"}>FAQ</a>
         <a href={"mailto:contact@thespreadbridge.com"}>고객센터</a>
         <a href={"/guide/"}>온보딩 안내</a>
-        <a href={"#"}>공지사항</a>
+        <a href={"/notices/"}>공지사항</a>
       </div>
       <div className={"foot-col"}>
         <h4>정책</h4>
-        <a href={"#"}>이용약관</a>
-        <a href={"#"}>위험고지</a>
-        <a href={"/privacy/"}>개인정보처리방침</a>
-        <a href={"#"}>API 사용동의</a>
+        {policyLinks.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}
       </div>
     </div>
     <div className={"foot-legal"}>

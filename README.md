@@ -21,6 +21,14 @@ Spreadbridge branding and contact information are applied. Reference copy (inclu
 for discussion. The review homepage is marked noindex. Existing login, billing,
 download, guide, and privacy destinations are connected where available.
 
+The footer also links to `/notices/`, `/terms/`, `/risk/`, and `/api-consent/`.
+These pages share the dark homepage theme and cross-link to the other policies.
+Notices currently has an empty list; no publication history is invented. The policy
+texts are local review drafts based on current product behavior, not approved
+published terms. Confirm operator details, commercial/refund conditions, effective
+dates and final legal wording before production publication. Reading the API
+information page does not collect consent or activate a trading connection.
+
 ## Development
 
 Requires Node.js 24.
