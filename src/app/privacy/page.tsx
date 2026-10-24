@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           <h2>8. 웹사이트 이용 분석</h2>
           <p>웹사이트의 유입 경로와 이용 흐름을 개선하기 위해 Google Analytics 4를 사용합니다. 방문 페이지, 주요 버튼 클릭, 스크롤, 기기·브라우저 정보와 유입 사이트·캠페인 정보를 분석합니다. 로그인 회원의 이용 흐름은 이메일과 구분되는 서비스 내부 식별자(User-ID) 및 로그인·구독 상태와 함께 분석합니다.</p>
           <p>이메일, 이름, 계좌번호, 거래소 API 키, 개별 거래 기록과 손익은 분석 이벤트로 전송하지 않습니다. 로그인 인증 코드·토큰이 들어 있는 주소는 분석 대상에서 제외하고, 주소의 불필요한 매개변수를 제거합니다. Google 측의 이메일·인증 매개변수 삭제 설정도 적용합니다.</p>
-          <p>Google Analytics 쿠키의 유지 기간은 1년으로 설정하며, 분석 데이터는 Google의 글로벌 인프라에서 처리될 수 있습니다. 광고 개인 최적화와 Google Signals는 사용하지 않습니다. 브라우저의 추적 금지(Do Not Track) 또는 Global Privacy Control 신호가 켜져 있으면 분석 태그를 로드하지 않습니다. <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noreferrer">Google Analytics 차단 도구</a>와 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noreferrer">Google의 파트너 사이트 데이터 처리 안내</a>도 확인할 수 있습니다.</p>
+          <p>이벤트·사용자 단위 분석 데이터의 보관 기간은 14개월, Google Analytics 쿠키의 유지 기간은 1년으로 설정하며, 분석 데이터는 Google의 글로벌 인프라에서 처리될 수 있습니다. 광고 개인 최적화와 Google Signals는 사용하지 않습니다. 브라우저의 추적 금지(Do Not Track) 또는 Global Privacy Control 신호가 켜져 있으면 분석 태그를 로드하지 않습니다. <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noreferrer">Google Analytics 차단 도구</a>와 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noreferrer">Google의 파트너 사이트 데이터 처리 안내</a>도 확인할 수 있습니다.</p>
         </section>
         <section>
           <h2>9. 이용자의 권리와 방침 변경</h2>

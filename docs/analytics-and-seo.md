@@ -33,7 +33,7 @@ Registered event-scoped dimensions: `control_id`, `control_type`, `ui_area`, `de
 
 Authenticated API `userId` UUIDs use GA's built-in `user_id`. Do not register `user_id` as a custom dimension. Identity is cleared when the session is guest/unknown or enters an auth callback. No email, display name, account number, API key, individual trade or P&L is sent. Unknown URLs/control destinations are replaced with fixed safe labels; arbitrary query parameters and hashes are not page-view data. Safe campaign/ad-click parameters are retained. OAuth/own API referrers are ignored. Google Signals and ad personalization are disabled; DNT/GPC are honored.
 
-Google-side email and query redaction supplements the client allowlist. Analytics cookies are configured for one year. Local QA: `NEXT_PUBLIC_GA_DEBUG_MODE=true npm run dev -- --webpack --port 3211`. Production QA: `?ga_debug=1`. Debug console output reports only whether an ID is set, never its raw value. Verify receipt in GA DebugView; standard reports/custom definitions can need processing time.
+Google-side email and query redaction supplements the client allowlist. Event/user-level retention is 14 months; analytics cookies are configured for one year. Local QA: `NEXT_PUBLIC_GA_DEBUG_MODE=true npm run dev -- --webpack --port 3211`. Production QA: `?ga_debug=1`. The active `Spreadbridge Developer QA` developer-traffic filter excludes debug-marked events from normal reporting; it does not retroactively remove earlier QA events. Debug console output reports only whether an ID is set, never its raw value. Verify receipt in GA DebugView; standard reports/custom definitions can need processing time.
 
 ## Acquisition
 
@@ -48,7 +48,7 @@ Keep campaign names stable and exclude personal identifiers from UTM values. Ref
 
 Public page titles/descriptions/canonicals share `src/lib/site-pages.ts` and `src/lib/seo.ts`. Public pages have OG/Twitter images, Korean document language, Organization/WebSite/SoftwareApplication structured data. Blog posts retain article/breadcrumb metadata and primary source references. Login, payments and member race pages are noindex and excluded from sitemap. Auth API paths are disallowed in robots.txt.
 
-`node scripts/generate-content.mjs` (also run by build) generates the 24-URL canonical sitemap and blog RSS. Keep actual article update dates; do not invent reviews or ratings for structured data. Search Console domain property: `sc-domain:thespreadbridge.com`.
+`node scripts/generate-content.mjs` (also run by build) generates the 24-URL canonical sitemap and blog RSS. Keep actual article update dates; do not invent reviews or ratings for structured data. Search Console domain property: `sc-domain:thespreadbridge.com`, linked to this GA4 web stream under the same owner.
 
 Legacy `www` CloudFront distribution `E1STP7ULOKCRWK` uses `infra/cloudfront/www-canonical.js` for permanent canonical website redirects. S3 installers/assets keep their existing URI and routing; DNS and mail records are unchanged. Distribution config/function snapshots for rollback are held in the private diagnostics directory, outside Git. Restore the prior viewer-request function association to roll back the redirect.
 
