@@ -1,4 +1,5 @@
 import { SpreadChart } from './SpreadChart';
+import { LaunchCountdown } from './LaunchCountdown';
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
 export function HomeContent() {
@@ -358,15 +359,7 @@ export function HomeContent() {
           </div>
           <span className={"amt"}>₩99,000</span><span className={"per"}> / 월</span>
           <div className={"price-note"}>얼리버드 한정가 · 이후 정상가로 조정됩니다</div>
-          <div className={"countdown"}>
-            <span className={"cd-label"}>🔥 런칭 할인 종료까지</span>
-            <div className={"cd-clock"}>
-              <span className={"cd-box"}><b id={"cd-d"}>06</b><i>일</i></span>
-              <span className={"cd-box"}><b id={"cd-h"}>14</b><i>시</i></span>
-              <span className={"cd-box"}><b id={"cd-m"}>22</b><i>분</i></span>
-              <span className={"cd-box"}><b id={"cd-s"}>08</b><i>초</i></span>
-            </div>
-          </div>
+          <LaunchCountdown />
         </div>
         <ul className={"prod-feat"}>
           <li><span className={"ck"}>✓</span> 슬롯 단위 전략 등록 · 동시 운용</li>

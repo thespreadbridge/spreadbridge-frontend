@@ -11,8 +11,11 @@ the React implementation and scoped styles live in `src/components/home-v6/`.
 Run `npm run dev -- --hostname 127.0.0.1 --port 3210` to review it locally.
 The navigation switch previews guest, unsubscribed, and subscribed screens. These
 are presentation states, not authentication or access-control checks. Leaderboard,
-spread distribution, account details, and the countdown are fixed reference data;
-random profit increases and resetting countdown scripts are not executed. Live
+spread distribution and account details are fixed reference data;
+random profit increases are not executed. The countdown uses one shared deadline
+in `src/lib/launch-promotion.ts`, temporarily October 31, 2026 at 23:59:59 KST for
+local review. Confirm that deadline before publishing. Refreshing does not reset
+the timer; expiration stops at zero and displays an ended message. Live
 data and authenticated subscription access still require backend integration.
 Spreadbridge branding and contact information are applied. Reference copy (including stop-loss) and proposed pricing are retained
 for discussion. The review homepage is marked noindex. Existing login, billing,
