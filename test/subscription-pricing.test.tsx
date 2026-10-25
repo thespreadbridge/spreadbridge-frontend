@@ -125,3 +125,16 @@ describe('member subscription routes', () => {
     expect(await response.json()).toEqual({ cancelled: true }); expect(sent?.method).toBe('DELETE'); expect(sent?.body).toBe('{}');
   });
 });
+
+describe('plan change and refund rules in terms and FAQ', () => {
+  it('states the upgrade formula, no downgrade refund and prorated cancellation refund', async () => {
+    const { default: Terms } = await import('@/app/terms/page');
+    const { Faq } = await import('@/components/landing/Faq');
+    const terms = renderToStaticMarkup(<SessionProvider initialSession={guestSession}><Terms /></SessionProvider>);
+    expect(terms).toContain('(변경 후 월 요금 − 기존 월 요금) × 남은 일수 ÷ 현재 결제 주기 일수');
+    expect(terms).toContain('이미 결제한 이용료의 차액은 환불하지 않습니다');
+    expect(terms).toContain('결제한 월 요금 × 남은 일수 ÷ 현재 결제 주기 일수를 환불합니다');
+    const faq = renderToStaticMarkup(<Faq />);
+    expect(faq).toContain('요금제를 바꾸거나 슬롯을 추가하면'); expect(faq).toContain('구독을 바로 해지하면 환불되나요?');
+  });
+});

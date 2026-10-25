@@ -54,7 +54,10 @@ export default async function Payments({ searchParams }: { searchParams: Promise
       {refund ? <p>지금 해지하면 남은 {refund.remainingDays}일분 이용료 <b>{won(refund.refundAmount)}</b>을 환불합니다. 해지 즉시 신규 진입은 중단되고, 보유 포지션의 청산은 계속 가능합니다.</p> : <p role="status">환불 예정액을 불러오지 못했습니다.</p>}
       {refund && checkout && eligible
         ? <a className="btn ghost" href={checkoutLink(checkout, { action: 'cancel', quotedAt: refund.quotedAt })} target="_blank" rel="noopener noreferrer" data-analytics-id="subscription_cancel">해지 신청</a>
-        : <button type="button" className="btn ghost" disabled>{eligible ? '결제 준비 중' : '계정 상태 확인 필요'}</button>}
+        : refund && eligible
+          ? <a className="btn ghost" href={`mailto:contact@thespreadbridge.com?subject=${encodeURIComponent('구독 즉시 해지·환불 신청')}`} data-analytics-id="subscription_cancel_email">이메일로 해지 신청</a>
+          : <button type="button" className="btn ghost" disabled>{eligible ? '환불 예정액 확인 필요' : '계정 상태 확인 필요'}</button>}
+      {refund && !checkout ? <p>결제 사이트 연결 전에는 고객센터 이메일로 해지를 신청해 주세요. 결제 내역과 남은 일수를 확인한 뒤 위 기준으로 환불합니다.</p> : null}
     </section> : null}
     <section id="subscription-history"><h2>구독 이용 내역</h2>
       <SubscriptionHistory receipts={receipts} page={Array.isArray(params.historyPage) ? params.historyPage[0] : params.historyPage} />

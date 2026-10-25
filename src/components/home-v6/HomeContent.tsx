@@ -1,4 +1,4 @@
-import { subscriptionExpiryFaq } from '@/lib/public-faq';
+import { cancellationRefundFaq, planChangeFaq, subscriptionExpiryFaq } from '@/lib/public-faq';
 import { LaunchCountdown } from './LaunchCountdown';
 import { subscriptionCatalog } from '@/lib/subscription-catalog';
 import { softwareSchema } from '@/lib/seo';
@@ -213,6 +213,14 @@ export async function HomeContent() {
       <div className={"faq-item"}>
         <div data-analytics-id={"faq_" + subscriptionExpiryFaq.id} className={"faq-q"} role={"button"} tabIndex={0}>{subscriptionExpiryFaq.question} <span className={"plus"}>+</span></div>
         <div className={"faq-a"}>{subscriptionExpiryFaq.answer}</div>
+      </div>
+      <div className={"faq-item"}>
+        <div data-analytics-id={"faq_" + planChangeFaq.id} className={"faq-q"} role={"button"} tabIndex={0}>{planChangeFaq.question} <span className={"plus"}>+</span></div>
+        <div className={"faq-a"}>{planChangeFaq.answer}</div>
+      </div>
+      <div className={"faq-item"}>
+        <div data-analytics-id={"faq_" + cancellationRefundFaq.id} className={"faq-q"} role={"button"} tabIndex={0}>{cancellationRefundFaq.question} <span className={"plus"}>+</span></div>
+        <div className={"faq-a"}>{cancellationRefundFaq.answer}</div>
       </div>
     </div>
   </div>
