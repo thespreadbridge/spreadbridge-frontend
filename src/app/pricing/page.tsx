@@ -14,7 +14,7 @@ export default async function Pricing() {
         <h2>{plan.name}</h2><p>Spreadbridge 월 구독</p>
         <div className="site-plan-price"><strong>{won(plan.monthly_krw)}</strong><span>/ 월</span></div>
         <p>월 구독 · 매월 갱신</p>
-        <ul className="site-features"><li>등록·동시 실행 슬롯 최대 {plan.slots}개</li>{addon ? <li>필요하면 {addon.max_quantity}슬롯까지 1개씩 추가</li> : null}<li>거래금액별 서비스 수수료 없음</li><li>거래소·증권사 수수료 별도</li><li>유료 구독 회원 전용</li></ul>
+        <ul className="site-features"><li>등록·동시 실행 슬롯 최대 {plan.slots}개</li>{addon ? <li>추가 슬롯 1개씩 최대 {addon.max_quantity}개 (월 {won(addon.monthly_krw)})</li> : null}<li>거래금액별 서비스 수수료 없음</li><li>거래소·증권사 수수료 별도</li><li>유료 구독 회원 전용</li></ul>
         <Link data-analytics-id={"plan_" + plan.code.toLowerCase()} href="/payments/" className="btn primary">구독 관리</Link>
       </section>)}
     </div>
