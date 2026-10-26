@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title, description: post.description, alternates: { canonical: url },
     authors: [{ name: '스프레드브리지', url: `${siteOrigin}/blog/` }],
-    openGraph: { title: post.title, description: post.description, url, type: 'article', locale: 'ko_KR', publishedTime: post.publishedAt, modifiedTime: post.updatedAt, authors: ['스프레드브리지'], images: [{ url: `${siteOrigin}/images/insights-cover.png`, width: 1200, height: 630, alt: '스프레드브리지 인사이트' }] },
+    openGraph: { siteName: '스프레드브리지', title: post.title, description: post.description, url, type: 'article', locale: 'ko_KR', publishedTime: post.publishedAt, modifiedTime: post.updatedAt, authors: ['스프레드브리지'], images: [{ url: `${siteOrigin}/images/insights-cover.png`, width: 1200, height: 630, alt: '스프레드브리지 인사이트' }] },
     twitter: { card: 'summary_large_image', title: post.title, description: post.description, images: [`${siteOrigin}/images/insights-cover.png`] },
   };
 }

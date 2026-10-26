@@ -14,6 +14,11 @@ describe('public search metadata', () => {
     }
     for (const path of Object.keys(ACCOUNT_PAGE_TITLES)) expect(PUBLIC_PAGES).not.toHaveProperty(path);
   });
+  it('includes the brand on article social previews', async () => {
+    const { generateMetadata } = await import('@/app/blog/[slug]/page');
+    const meta = await generateMetadata({ params: Promise.resolve({ slug: insights[0].slug }) });
+    expect(meta.openGraph).toMatchObject({ siteName: '스프레드브리지' });
+  });
   it('uses only public route titles for analytics and includes all published articles', () => {
     for (const post of insights) expect(pageTitles[insightPath(post.slug)]).toBe(post.title);
     expect(Object.values(pageTitles).every(title => !title.includes('@'))).toBe(true);
