@@ -1,3 +1,5 @@
+> 후속 업데이트: 이 보고서는 최초 프런트 검수 당시 기록이다. API/PG 후속 구현은 [토스 월 구독 연결](subscription-checkout.md)을 참고한다. 토스 상점 키 등록과 실제 토스 테스트는 별도 확인이 필요하다.
+
 # 홈페이지 수정 계획 · 2026-10-26
 
 원본: Google Drive `1G-2l_mvMPtE4OnIGUVSAkYsGWVNXnl3N` (24쪽).

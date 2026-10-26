@@ -117,7 +117,10 @@ Changing only frontend environment variables does not alter the API's callback r
 `/payments/` also stays on this site. It reads the real subscription catalog and
 account receipts. Checkout is available only if the API supplies an HTTPS checkout
 URL and the verified active account has OWNER access. A missing checkout URL is
-shown as unavailable and does not create an order.
+shown as unavailable and does not create an order. The same-site Toss card registration,
+checkout, immediate cancellation and operation-status flow is documented in
+[docs/subscription-checkout.md](docs/subscription-checkout.md). Production billing
+remains disabled until the backend has contracted live Toss billing API keys.
 
 ## Development and verification
 
@@ -183,7 +186,8 @@ period so the website can render both remaining days and a dated expiration.
 The seed transaction records its prior membership and exact inserted IDs for
 scoped cleanup. No other account's data or published catalog is modified.
 
-The deployed catalog currently has three products and no checkout URL. No published
+The following paragraph records the initial 2026-10-24 state, not the current release catalog.
+At that time the deployed catalog had three products and no checkout URL. No published
 installers are currently registered on the new server. Payment configuration and a
 new desktop release are required before those actions can be exercised. Announcements
 and policy/blog content remain site content; the API has no announcement CMS or
