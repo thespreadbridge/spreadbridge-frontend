@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "@/components/auth/SessionProvider";
 import { billingRequest } from "@/lib/subscription-checkout";
 import { validConfig } from "@/lib/subscription-billing";
 import { CHECKOUT_RETURN } from "@/lib/toss-sdk";
 export function BillingCardCallback() {
+  const { refresh } = useSession();
   const started = useRef(false),
     [message, setMessage] = useState("카드 등록 결과를 확인하고 있습니다."),
     [href, setHref] = useState("/payments/");
@@ -34,7 +36,11 @@ export function BillingCardCallback() {
       );
       return;
     }
-    void billingRequest("authorizations/", { sessionId, authKey, customerKey })
+    // Refresh the same session before consuming the one-time provider authKey.
+    void refresh()
+      .then(() =>
+        billingRequest("authorizations/", { sessionId, authKey, customerKey }),
+      )
       .then((result) =>
         setMessage(
           result.registered
@@ -47,7 +53,7 @@ export function BillingCardCallback() {
           "카드 등록 결과를 확인하지 못했습니다. 구독 관리에서 카드 상태를 확인해 주세요.",
         ),
       );
-  }, []);
+  }, [refresh]);
   return (
     <>
       <p role="status">{message}</p>

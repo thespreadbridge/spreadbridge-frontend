@@ -56,7 +56,11 @@ export function SubscriptionCheckout({
         );
       setQuote(q);
       setStatus(b);
-      if (b.latestOperation && !settled(b.latestOperation.status))
+      if (
+        b.latestOperation &&
+        (!settled(b.latestOperation.status) ||
+          b.latestOperation.status === "REVIEW_REQUIRED")
+      )
         setOperation(b.latestOperation);
     } catch (e) {
       setError((e as Error).message);
