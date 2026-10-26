@@ -3,10 +3,10 @@ export function apiBaseUrl() {
   const value = configured ?? 'https://api.thespreadbridge.com/v1';
   return value.replace(/\/$/, '');
 }
-export function backend(path: string, init: RequestInit = {}) {
+export function backend(path: string, init: RequestInit = {}, timeoutMs = 10000) {
   return fetch(`${apiBaseUrl()}${path}`, {
     ...init,
     headers: { 'Content-Type': 'application/json', ...init.headers },
-    cache: 'no-store', redirect: init.redirect ?? 'error', signal: AbortSignal.timeout(10000),
+    cache: 'no-store', redirect: init.redirect ?? 'error', signal: AbortSignal.timeout(timeoutMs),
   });
 }

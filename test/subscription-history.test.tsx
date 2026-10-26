@@ -7,6 +7,10 @@ const receipt: SubscriptionReceipt = { id: 'test', total_slots: 5, amount: 99000
 describe('subscription receipt states', () => {
   it.each([
     [receipt, '이용 중'],
+    [{ ...receipt, cancellation_status:'REFUNDING' }, '해지·환불 처리 중'],
+    [{ ...receipt, cancellation_status:'PARTIAL' }, '해지·환불 처리 중'],
+    [{ ...receipt, cancellation_status:'REFUNDED' }, '해지·환불 완료'],
+    [{ ...receipt, cancellation_status:'REVIEW_REQUIRED' }, '해지·환불 확인 필요'],
     [{ ...receipt, period_start: '2026-11-01T00:00:00Z', period_end: '2026-12-01T00:00:00Z' }, '시작 예정'],
     [{ ...receipt, period_end: new Date(now).toISOString() }, '만료'],
     [{ ...receipt, revoked_at: '2026-10-20T00:00:00Z' }, '취소'],

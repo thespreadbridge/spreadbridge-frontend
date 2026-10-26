@@ -13,3 +13,6 @@ svg { max-width: 100%; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.site-billing-consent { display:flex; align-items:flex-start; gap:12px; margin:24px 0; line-height:1.8; cursor:pointer; }
+.site-billing-consent input { flex:0 0 auto; width:18px; height:18px; margin-top:6px; accent-color:var(--accent, #4da3ff); }

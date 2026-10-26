@@ -15,5 +15,5 @@ export const PUBLIC_PAGES: Record<string, { title: string; description: string }
   '/api-consent/': { title: 'API 사용동의 | 거래소 연결과 권한 안내', description: '스프레드브리지의 거래소·증권사 API 연결 목적, 조회·주문 권한, 키 관리와 연결 해제 방법을 안내합니다.' },
 };
 export const ACCOUNT_PAGE_TITLES: Record<string, string> = {
-  '/login/': '로그인 | 스프레드브리지', '/payments/': '구독 관리 | 스프레드브리지', '/race/': '진입갭 레이스 | 스프레드브리지',
+  '/login/': '로그인 | 스프레드브리지', '/payments/': '구독 관리 | 스프레드브리지', '/payments/checkout/': '구독 결제 | 스프레드브리지', '/race/': '진입갭 레이스 | 스프레드브리지',
 };

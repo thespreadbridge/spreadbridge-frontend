@@ -1,4 +1,4 @@
-import { backend } from '@/lib/auth/backend';
+import { backend, apiBaseUrl } from '@/lib/auth/backend';
 
 export interface SubscriptionProduct {
   code: string;
@@ -27,7 +27,9 @@ export interface SubscriptionCatalog {
 export function checkoutTarget(value: string | null): URL | null {
   try {
     const url = new URL(value ?? '');
-    return url.protocol === 'https:' && !url.username && !url.password && !url.hash ? url : null;
+    const local = new URL(apiBaseUrl());
+    const loopback = local.protocol === 'http:' && local.hostname === '127.0.0.1' && url.protocol === 'http:' && url.hostname === '127.0.0.1' && Number(url.port) >= 1024 && url.pathname === '/payments/checkout/';
+    return (url.protocol === 'https:' || loopback) && !url.username && !url.password && !url.hash ? url : null;
   } catch { return null; }
 }
 

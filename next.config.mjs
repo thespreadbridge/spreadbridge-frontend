@@ -6,5 +6,5 @@ export default {
   turbopack: { root: projectRoot },
   trailingSlash: true, poweredByHeader: false,
   images: { unoptimized: true },
-  logging: { incomingRequests: { ignore: [/\/api\/session\/google\//, /^\/\?.*(?:code|state)=/] } },
+  logging: { incomingRequests: { ignore: [/\/api\/session\/google\//, /\/payments\/billing\/callback\//, /^\/\?.*(?:code|state)=/] } },
 };

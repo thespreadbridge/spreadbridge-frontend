@@ -7,6 +7,7 @@ export interface CurrentBilling {
 }
 export type ChangeDirection = 'NEW' | 'UPGRADE' | 'DOWNGRADE' | 'NONE';
 export interface ChangeQuote {
+  quoteToken?: string;
   direction: ChangeDirection;
   target: { baseCode: string; baseName: string; addonSlots: number; totalSlots: number; monthlyKrw: number };
   current: { baseCode: string; baseName: string; addonSlots: number; totalSlots: number; paidMonthlyKrw: number } | null;
@@ -16,7 +17,7 @@ export interface ChangeQuote {
 export const REFUND_POLICY_VERSION = 'PER_RECEIPT_KST_V1';
 export interface RefundAllocation { receiptId: string; amount: number; periodStart: string; periodEnd: string; periodDays: number; remainingDays: number; refundableBalance: number; refundAmount: number }
 export interface CancellationQuote {
-  policyVersion: typeof REFUND_POLICY_VERSION; refundAmount: number; cancellationDate: string;
+  quoteToken?: string; processingStatus?: string; policyVersion: typeof REFUND_POLICY_VERSION; refundAmount: number; cancellationDate: string;
   unusedFrom: string; periodEnd: string; quotedAt: string; allocations: RefundAllocation[];
 }
 
@@ -61,8 +62,8 @@ export function parseQuote(raw: unknown): ChangeQuote | null {
   const current = c && str(c.baseCode) && str(c.baseName) && int(c.addonSlots) !== null && int(c.totalSlots, 1) && int(c.paidMonthlyKrw, 1)
     ? { baseCode: c.baseCode as string, baseName: c.baseName as string, addonSlots: c.addonSlots as number, totalSlots: c.totalSlots as number, paidMonthlyKrw: c.paidMonthlyKrw as number } : null;
   if (direction !== 'NEW' && !current) return null;
-  return { direction: direction as ChangeDirection, target: target as ChangeQuote['target'], current,
-    removedAddonSlots: int(q.removedAddonSlots) ?? 0, remainingDays: int(q.remainingDays, 1), periodDays: int(q.periodDays, 1),
+  return { ...(typeof q.quoteToken === 'string' && /^[A-Za-z0-9_-]{43}$/.test(q.quoteToken) ? {quoteToken:q.quoteToken} : {}), direction: direction as ChangeDirection, target: target as ChangeQuote['target'], current,
+    removedAddonSlots: int(q.removedAddonSlots) ?? 0, remainingDays: int(q.remainingDays), periodDays: int(q.periodDays, 1),
     chargeToday, nextMonthlyKrw, effectiveAt, nextBillingAt, quotedAt };
 }
 
@@ -71,22 +72,22 @@ export function parseCancellation(raw: unknown): CancellationQuote | null {
   const q = obj(raw);
   if (!q || q.policyVersion !== REFUND_POLICY_VERSION || !Array.isArray(q.allocations) || !q.allocations.length) return null;
   const refundAmount = int(q.refundAmount), cancellationDate = day(q.cancellationDate), unusedFrom = day(q.unusedFrom), periodEnd = day(q.periodEnd), quotedAt = day(q.quotedAt);
-  if (refundAmount === null || !cancellationDate || !unusedFrom || !periodEnd || !quotedAt || calendarDays(cancellationDate, unusedFrom) !== 1 || calendarDays(unusedFrom, periodEnd) < 0) return null;
+  if (refundAmount === null || !cancellationDate || !unusedFrom || !periodEnd || !quotedAt || calendarDays(cancellationDate, unusedFrom) !== 1 || (calendarDays(unusedFrom, periodEnd) < 0 && refundAmount !== 0)) return null;
   const allocations: RefundAllocation[] = [];
   const ids = new Set<string>();
   for (const value of q.allocations) {
     const a = obj(value);
     if (!a) return null;
     const receiptId = str(a.receiptId), amount = int(a.amount), start = day(a.periodStart), end = day(a.periodEnd);
-    const periodDays = int(a.periodDays, 1), remainingDays = int(a.remainingDays), balance = int(a.refundableBalance), refund = int(a.refundAmount);
+    const periodDays = int(a.periodDays), remainingDays = int(a.remainingDays), balance = int(a.refundableBalance), refund = int(a.refundAmount);
     if (!receiptId || ids.has(receiptId) || amount === null || !start || !end || periodDays === null || remainingDays === null || balance === null || refund === null
-      || calendarDays(start, end) !== periodDays || remainingDays > periodDays || balance > amount || refund > balance || calendarDays(end, periodEnd) !== 0
+      || (periodDays === 0 && amount !== 0) || calendarDays(start, end) !== periodDays || remainingDays > periodDays || balance > amount || refund > balance || calendarDays(end, periodEnd) !== 0
       || remainingDays !== Math.max(0, calendarDays(calendarDays(start, unusedFrom) < 0 ? start : unusedFrom, end))) return null;
     ids.add(receiptId);
     allocations.push({ receiptId, amount, periodStart: start, periodEnd: end, periodDays, remainingDays, refundableBalance: balance, refundAmount: refund });
   }
   const sum = allocations.reduce((total, a) => total + a.refundAmount, 0);
-  return Number.isSafeInteger(sum) && sum === refundAmount ? { policyVersion: REFUND_POLICY_VERSION, refundAmount, cancellationDate, unusedFrom, periodEnd, quotedAt, allocations } : null;
+  return Number.isSafeInteger(sum) && sum === refundAmount ? { ...(typeof q.quoteToken === 'string' && /^[A-Za-z0-9_-]{43}$/.test(q.quoteToken) ? {quoteToken:q.quoteToken} : {}), ...(typeof q.processingStatus === 'string' ? {processingStatus:q.processingStatus} : {}), policyVersion: REFUND_POLICY_VERSION, refundAmount, cancellationDate, unusedFrom, periodEnd, quotedAt, allocations } : null;
 }
 
 /** Calendar dates in Asia/Seoul, independent of time-of-day. */

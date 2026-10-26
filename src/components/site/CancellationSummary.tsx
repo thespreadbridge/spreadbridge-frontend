@@ -1,10 +1,10 @@
-import { kstDate, won, type CancellationQuote } from '@/lib/subscription-billing';
+import { calendarDays, kstDate, won, type CancellationQuote } from '@/lib/subscription-billing';
 
 export function CancellationSummary({ quote }: { quote: CancellationQuote }) {
   return <>
     <dl className="site-quote">
       <div><dt>해지일</dt><dd>{kstDate(quote.cancellationDate)}</dd></div>
-      <div><dt>환불 대상 기간</dt><dd>{kstDate(quote.unusedFrom)} ~ {kstDate(quote.periodEnd)} 전날</dd></div>
+      <div><dt>환불 대상 기간</dt><dd>{calendarDays(quote.unusedFrom,quote.periodEnd)<=0?'미사용 기간 없음':`${kstDate(quote.unusedFrom)} ~ ${kstDate(quote.periodEnd)} 전날`}</dd></div>
       <div><dt>환불 예정액</dt><dd><strong>{won(quote.refundAmount)}</strong></dd></div>
     </dl>
     <div className="site-table-wrap site-records"><table className="site-record-table" aria-label="결제별 환불 예정액">

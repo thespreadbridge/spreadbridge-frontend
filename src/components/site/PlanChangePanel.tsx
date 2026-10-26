@@ -97,7 +97,7 @@ export function PlanChangePanel({ products, addon, billing, checkoutUrl, eligibl
   const quote = load.state === 'ready' && load.key === selectionKey && load.quote.target.baseCode === baseCode && load.quote.target.addonSlots === addonSlots && !expired ? load.quote : null;
   const scheduled = billing?.scheduledChange ?? null;
   const scheduledName = scheduled ? configLabel(products.find(p => p.code === scheduled.baseCode)?.name ?? scheduled.baseCode, scheduled.addonSlots) : '';
-  const payHref = quote && checkoutUrl && (quote.direction === 'NEW' || (quote.direction === 'UPGRADE' && quote.chargeToday > 0))
+  const payHref = quote && checkoutUrl && (quote.direction === 'NEW' || quote.direction === 'UPGRADE')
     ? checkoutLink(checkoutUrl, { action: quote.direction === 'NEW' ? 'subscribe' : 'upgrade', plan: baseCode, addons: addonSlots, quotedAt: quote.quotedAt }) : null;
 
   return <section className="site-plan-change" aria-labelledby="plan-change-title">
@@ -131,7 +131,7 @@ export function PlanChangePanel({ products, addon, billing, checkoutUrl, eligibl
       : quote.direction === 'DOWNGRADE'
         ? <button type="button" className="btn primary" disabled={busy} onClick={schedule} data-analytics-id="plan_downgrade_schedule">다음 결제일부터 변경</button>
         : payHref
-          ? <a className="btn primary" href={payHref} onClick={event => { if (!quoteIsCurrent(quote.quotedAt)) { event.preventDefault(); setExpired(true); } }} target="_blank" rel="noopener noreferrer" data-analytics-id={`checkout_${quote.direction.toLowerCase()}`} data-analytics-event="begin_checkout">{quote.direction === 'UPGRADE' ? `${won(quote.chargeToday)} 결제하고 바로 변경` : '구독하기'}</a>
+          ? <a className="btn primary" href={payHref} onClick={event => { if (!quoteIsCurrent(quote.quotedAt)) { event.preventDefault(); setExpired(true); } }} data-analytics-id={`checkout_${quote.direction.toLowerCase()}`} data-analytics-event="begin_checkout">{quote.direction === 'UPGRADE' ? `${won(quote.chargeToday)} 결제하고 바로 변경` : '구독하기'}</a>
           : <button type="button" className="btn ghost" disabled>{quote.direction === 'UPGRADE' && quote.chargeToday === 0 ? '변경 처리 준비 중' : '결제 준비 중'}</button>
       : null}
     {message ? <p role="status">{message}</p> : null}

@@ -2,11 +2,14 @@ import { paginate } from '@/lib/pagination';
 import { Pagination } from './Pagination';
 
 export interface SubscriptionReceipt {
-  id: string; total_slots: number; kind?: 'PERIOD' | 'UPGRADE'; addon_slots?: number; amount: number; period_start: string; period_end: string; revoked_at: string | null; is_test?: boolean;
+  id: string; total_slots: number; kind?: 'PERIOD' | 'UPGRADE' | 'ADMIN_GRANT'; refunded_amount?: number; cancellation_status?: string | null; addon_slots?: number; amount: number; period_start: string; period_end: string; revoked_at: string | null; is_test?: boolean;
 }
 const date = (value: string) => new Date(value).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
 export function receiptStatus(item: SubscriptionReceipt, now: number) {
   if (item.revoked_at) return '취소';
+  if(item.cancellation_status==='REFUNDED')return '해지·환불 완료';
+  if(item.cancellation_status==='REVIEW_REQUIRED')return '해지·환불 확인 필요';
+  if(item.cancellation_status==='REFUNDING'||item.cancellation_status==='PARTIAL')return '해지·환불 처리 중';
   if (Date.parse(item.period_start) > now) return '시작 예정';
   return Date.parse(item.period_end) > now ? '이용 중' : '만료';
 }
@@ -19,7 +22,7 @@ export function SubscriptionHistory({ receipts, now = Date.now(), page }: { rece
     <div className="site-table-wrap site-records"><table className="site-record-table subscription-record-table" role="table" aria-label="구독 이용 내역"><thead role="rowgroup"><tr role="row"><th scope="col">요금제</th><th scope="col">금액</th><th scope="col">이용 기간</th><th scope="col">상태</th></tr></thead>
       <tbody role="rowgroup">{items.map(item => <tr key={item.id} role="row">
         <td role="cell" data-label="요금제">{item.total_slots}슬롯{item.addon_slots ? <span className="site-record-note"> (추가 {item.addon_slots} 포함)</span> : null}{item.kind === 'UPGRADE' ? <span className="site-test-label">업그레이드 차액</span> : null}{item.is_test ? <span className="site-test-label">테스트</span> : null}</td>
-        <td role="cell" data-label="금액" className="record-amount">{item.amount.toLocaleString('ko-KR')}원</td>
+        <td role="cell" data-label="금액" className="record-amount">{item.amount.toLocaleString('ko-KR')}원{typeof item.refunded_amount==='number'&&item.refunded_amount>0?<span className="site-record-note">환불 {item.refunded_amount.toLocaleString('ko-KR')}원</span>:null}</td>
         <td role="cell" data-label="이용 기간" className="record-wide"><span className="record-period"><time dateTime={item.period_start}>{date(item.period_start)}</time><span>~</span><time dateTime={item.period_end}>{date(item.period_end)}</time></span></td>
         <td role="cell" data-label="상태" className="record-wide record-status">{receiptStatus(item, now)}</td>
       </tr>)}</tbody>

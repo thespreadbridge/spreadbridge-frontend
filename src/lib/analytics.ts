@@ -9,7 +9,7 @@ export interface AnalyticsPage {
 }
 export type AnalyticsParams = Record<string, string | number | boolean | undefined>;
 const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_term', 'utm_content'];
-const sensitiveKeys = /^(code|state|token|access_token|refresh_token|id_token|email|password|api_key|session)$/i;
+const sensitiveKeys = /^(code|state|token|access_token|refresh_token|id_token|email|password|api_key|session|authKey|customerKey|billingKey)$/i;
 const allowedParams = new Set(['control_id', 'control_type', 'ui_area', 'destination_path', 'link_domain', 'platform', 'action', 'percent_scrolled', 'method', 'article_slug']);
 export const validMeasurementId = (value: string) => /^G-[A-Z0-9]{6,20}$/.test(value);
 export const safeUserId = (value: string | null) => value && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value) ? value : null;
@@ -33,7 +33,7 @@ export function cleanReferrer(raw: string, origin: string, knownPaths: Record<st
 }
 export function analyticsPage(raw: string, titleByPath: Record<string, string>, referrer: string): AnalyticsPage | null {
   const url = new URL(raw);
-  if (url.pathname.startsWith('/api/') || hasAuthParameters(url.searchParams)) return null;
+  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/payments/billing/callback') || hasAuthParameters(url.searchParams)) return null;
   const normalized = normalizePath(url.pathname);
   const path = titleByPath[normalized] ? normalized : '/not-found/';
   const query = new URLSearchParams();

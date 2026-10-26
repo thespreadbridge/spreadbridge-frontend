@@ -5,7 +5,7 @@ import { GET as quoteRoute } from '@/app/api/member/subscription/quote/route';
 import { PUT as scheduleRoute, DELETE as unscheduleRoute } from '@/app/api/member/subscription/scheduled-change/route';
 import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { checkoutLink, parseBilling, parseCancellation, parseQuote, validConfig } from '@/lib/subscription-billing';
-import { subscriptionCatalog } from '@/lib/subscription-catalog';
+import { checkoutTarget, subscriptionCatalog } from '@/lib/subscription-catalog';
 import { QuoteSummary } from '@/components/site/PlanChangePanel';
 import Pricing from '@/app/pricing/page';
 import { SessionProvider } from '@/components/auth/SessionProvider';
@@ -63,6 +63,14 @@ describe('slot pricing data', () => {
     expect(billing?.renewal?.monthlyKrw).toBe(99900); expect(billing?.scheduledChange?.addonSlots).toBe(0);
     expect(parseBilling({ billing: null })).toBeNull();
     expect(parseCancellation({ refundAmount: 41806, paidMonthlyKrw: 129600, remainingDays: 10, periodDays: 31, periodEnd: upgrade.current.periodEnd, quotedAt: upgrade.quotedAt })).toBeNull();
+  });
+  it('keeps zero-day, zero-won changes and cancellation records valid',()=>{
+    expect(parseQuote({...upgrade,remainingDays:0,chargeToday:0})?.remainingDays).toBe(0);
+    expect(parseCancellation({policyVersion:'PER_RECEIPT_KST_V1',refundAmount:0,cancellationDate:'2026-11-01',unusedFrom:'2026-11-02',periodEnd:'2026-11-01T05:00:00Z',quotedAt:'2026-11-01T01:00:00Z',allocations:[{receiptId:'zero',amount:0,periodStart:'2026-11-01T01:00:00Z',periodEnd:'2026-11-01T05:00:00Z',periodDays:0,remainingDays:0,refundableBalance:0,refundAmount:0}]})).not.toBeNull();
+    expect(checkoutTarget('http://127.0.0.1:3216/payments/checkout/')).toBeNull();
+    vi.stubEnv('SPREADBRIDGE_API_URL','http://127.0.0.1:8181/v1');
+    expect(checkoutTarget('http://127.0.0.1:3216/payments/checkout/')).not.toBeNull();
+    expect(checkoutTarget('http://other.invalid/payments/checkout/')).toBeNull();
   });
   it('adds plan parameters to the billing site link', () => {
     expect(checkoutLink('https://pay.example.test/checkout?src=site', { action: 'upgrade', plan: 'BASE_15', addons: 0 })).toBe('https://pay.example.test/checkout?src=site&action=upgrade&plan=BASE_15&addons=0');
