@@ -44,7 +44,7 @@ describe('slot pricing data', () => {
     expect(catalog?.addon).toEqual({ code: 'ADDON_1', name: '추가 1슬롯', slots: 1, monthly_krw: 9900, max_quantity: 3 });
     const html = renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Pricing()}</SessionProvider>);
     expect(html).toContain('99,900원'); expect(html).toContain('9,900원'); expect(html).toContain('최대 3개');
-    expect(html).toContain('다음 결제일부터'); expect(html).toContain('남은 기간의 이용료를 환불');
+    expect(html).toContain('다음 결제일부터'); expect(html).toContain('각 결제분에서 미사용 기간');
   });
   it('treats an add-on outside the 1-slot, 1–3 quantity rule as missing', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json({ products: [], addon: { code: 'ADDON_1', name: '추가', slots: 2, monthly_krw: 9900, max_quantity: 3 }, checkoutUrl: null, billingPeriod: 'MONTHLY' })));
@@ -62,7 +62,7 @@ describe('slot pricing data', () => {
       renewal: { baseCode: 'BASE_5', addonSlots: 0, monthlyKrw: 99900 }, scheduledChange: { baseCode: 'BASE_5', addonSlots: 0, effectiveAt: upgrade.current.periodEnd } } });
     expect(billing?.renewal?.monthlyKrw).toBe(99900); expect(billing?.scheduledChange?.addonSlots).toBe(0);
     expect(parseBilling({ billing: null })).toBeNull();
-    expect(parseCancellation({ refundAmount: 41806, paidMonthlyKrw: 129600, remainingDays: 10, periodDays: 31, periodEnd: upgrade.current.periodEnd, quotedAt: upgrade.quotedAt })?.refundAmount).toBe(41806);
+    expect(parseCancellation({ refundAmount: 41806, paidMonthlyKrw: 129600, remainingDays: 10, periodDays: 31, periodEnd: upgrade.current.periodEnd, quotedAt: upgrade.quotedAt })).toBeNull();
   });
   it('adds plan parameters to the billing site link', () => {
     expect(checkoutLink('https://pay.example.test/checkout?src=site', { action: 'upgrade', plan: 'BASE_15', addons: 0 })).toBe('https://pay.example.test/checkout?src=site&action=upgrade&plan=BASE_15&addons=0');
@@ -72,12 +72,12 @@ describe('slot pricing data', () => {
 describe('quote summary', () => {
   it('shows today’s prorated charge, next month’s price and the add-ons no longer billed', () => {
     const html = renderToStaticMarkup(<QuoteSummary quote={parseQuote(upgrade)!} />);
-    expect(html).toContain('22,677원'); expect(html).toContain('199,900원'); expect(html).toContain('남은 10일 / 31일');
+    expect(html).toContain('22,677원'); expect(html).toContain('199,900원'); expect(html).toContain('남은 10일 / 현재 결제 주기의 총일수 31일');
     expect(html).toContain('추가 슬롯 3개는 더 이상 청구되지 않습니다'); expect(html).toContain('2026. 11. 1.');
   });
   it('explains that a downgrade waits for the next billing date without a refund', () => {
     const html = renderToStaticMarkup(<QuoteSummary quote={parseQuote(downgrade)!} />);
-    expect(html).toContain('0원'); expect(html).toContain('99,900원'); expect(html).toContain('환불되지 않습니다'); expect(html).toContain('5슬롯 + 추가 3슬롯');
+    expect(html).toContain('0원'); expect(html).toContain('99,900원'); expect(html).toContain('이번 결제분은 변경되지 않습니다'); expect(html).toContain('구독 해지');
   });
 });
 
@@ -135,6 +135,6 @@ describe('plan change and refund rules in terms and FAQ', () => {
     expect(terms).toContain('이미 결제한 이용료의 차액은 환불하지 않습니다');
     expect(terms).toContain('결제한 월 요금 × 남은 일수 ÷ 현재 결제 주기 일수를 환불합니다');
     const faq = renderToStaticMarkup(<Faq />);
-    expect(faq).toContain('요금제를 바꾸거나 슬롯을 추가하면'); expect(faq).toContain('구독을 바로 해지하면 환불되나요?');
+    expect(faq).toContain('요금제를 바꾸거나 슬롯을 추가할 수 있나요?'); expect(faq).toContain('구독을 해지하면 환불되나요?');
   });
 });

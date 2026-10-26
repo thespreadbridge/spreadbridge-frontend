@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
 export function BlogStart() {
-  return <section id="blog-start" className="insight-next-step" aria-label="Spreadbridge 이용 안내">
+  return <section id="blog-start" className="insight-next-step" aria-label="스프레드브리지 이용 안내">
     <div>
-      <h2>Spreadbridge 시작하기</h2>
+      <h2>스프레드브리지 시작하기</h2>
       <p>앱 설치와 계정 연결에 필요한 준비 사항을 확인하세요.</p>
     </div>
     <div>

@@ -13,7 +13,12 @@ export interface ChangeQuote {
   removedAddonSlots: number; remainingDays: number | null; periodDays: number | null;
   chargeToday: number; nextMonthlyKrw: number; effectiveAt: string; nextBillingAt: string; quotedAt: string;
 }
-export interface CancellationQuote { refundAmount: number; paidMonthlyKrw: number; remainingDays: number; periodDays: number; periodEnd: string; quotedAt: string }
+export const REFUND_POLICY_VERSION = 'PER_RECEIPT_KST_V1';
+export interface RefundAllocation { receiptId: string; amount: number; periodStart: string; periodEnd: string; periodDays: number; remainingDays: number; refundableBalance: number; refundAmount: number }
+export interface CancellationQuote {
+  policyVersion: typeof REFUND_POLICY_VERSION; refundAmount: number; cancellationDate: string;
+  unusedFrom: string; periodEnd: string; quotedAt: string; allocations: RefundAllocation[];
+}
 
 const MAX_ADDON = 3;
 const obj = (v: unknown) => (v && typeof v === 'object' ? v as Record<string, unknown> : null);
@@ -61,12 +66,40 @@ export function parseQuote(raw: unknown): ChangeQuote | null {
     chargeToday, nextMonthlyKrw, effectiveAt, nextBillingAt, quotedAt };
 }
 
+/** Old cancellation quotes include the cancellation day and cannot represent this policy. */
 export function parseCancellation(raw: unknown): CancellationQuote | null {
   const q = obj(raw);
-  const refundAmount = int(q?.refundAmount), paidMonthlyKrw = int(q?.paidMonthlyKrw, 1), remainingDays = int(q?.remainingDays), periodDays = int(q?.periodDays, 1);
-  const periodEnd = day(q?.periodEnd), quotedAt = day(q?.quotedAt);
-  return refundAmount !== null && paidMonthlyKrw !== null && remainingDays !== null && periodDays !== null && periodEnd && quotedAt
-    ? { refundAmount, paidMonthlyKrw, remainingDays, periodDays, periodEnd, quotedAt } : null;
+  if (!q || q.policyVersion !== REFUND_POLICY_VERSION || !Array.isArray(q.allocations) || !q.allocations.length) return null;
+  const refundAmount = int(q.refundAmount), cancellationDate = day(q.cancellationDate), unusedFrom = day(q.unusedFrom), periodEnd = day(q.periodEnd), quotedAt = day(q.quotedAt);
+  if (refundAmount === null || !cancellationDate || !unusedFrom || !periodEnd || !quotedAt || calendarDays(cancellationDate, unusedFrom) !== 1 || calendarDays(unusedFrom, periodEnd) < 0) return null;
+  const allocations: RefundAllocation[] = [];
+  const ids = new Set<string>();
+  for (const value of q.allocations) {
+    const a = obj(value);
+    if (!a) return null;
+    const receiptId = str(a.receiptId), amount = int(a.amount), start = day(a.periodStart), end = day(a.periodEnd);
+    const periodDays = int(a.periodDays, 1), remainingDays = int(a.remainingDays), balance = int(a.refundableBalance), refund = int(a.refundAmount);
+    if (!receiptId || ids.has(receiptId) || amount === null || !start || !end || periodDays === null || remainingDays === null || balance === null || refund === null
+      || calendarDays(start, end) !== periodDays || remainingDays > periodDays || balance > amount || refund > balance || calendarDays(end, periodEnd) !== 0
+      || remainingDays !== Math.max(0, calendarDays(calendarDays(start, unusedFrom) < 0 ? start : unusedFrom, end))) return null;
+    ids.add(receiptId);
+    allocations.push({ receiptId, amount, periodStart: start, periodEnd: end, periodDays, remainingDays, refundableBalance: balance, refundAmount: refund });
+  }
+  const sum = allocations.reduce((total, a) => total + a.refundAmount, 0);
+  return Number.isSafeInteger(sum) && sum === refundAmount ? { policyVersion: REFUND_POLICY_VERSION, refundAmount, cancellationDate, unusedFrom, periodEnd, quotedAt, allocations } : null;
+}
+
+/** Calendar dates in Asia/Seoul, independent of time-of-day. */
+export function calendarDays(start: string, end: string): number {
+  const koreanDay = (value: string) => new Date(value).toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
+  const a = Date.parse(koreanDay(start) + 'T00:00:00Z'), b = Date.parse(koreanDay(end) + 'T00:00:00Z');
+  return (b - a) / 86400000;
+}
+
+/** A quote cannot cross its KST calendar day, even inside the API's one-hour TTL. */
+export function quoteIsCurrent(quotedAt: string, now = Date.now()) {
+  const timestamp = Date.parse(quotedAt);
+  return Number.isFinite(timestamp) && timestamp <= now + 5000 && now - timestamp < 3600000 && calendarDays(quotedAt, new Date(now).toISOString()) === 0;
 }
 
 /**

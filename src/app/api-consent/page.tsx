@@ -5,7 +5,7 @@ import { InformationPage } from '@/components/information/InformationPage';
 export const metadata = publicPageMetadata('/api-consent/');
 
 export default function ApiConsentPage() {
-  return <InformationPage title="API 사용동의" eyebrow="SPREADBRIDGE · API CONNECTION" updatedAt="2026-10-24" description="거래소·증권사 API를 연결하기 전에 이용 목적, 허용 권한과 해제 방법을 확인해 주세요.">
+  return <InformationPage title="API 사용동의" eyebrow="스프레드브리지 · API CONNECTION" updatedAt="2026-10-24" description="거래소·증권사 API를 연결하기 전에 이용 목적, 허용 권한과 해제 방법을 확인해 주세요.">
     <section><h2>1. 연결 목적과 범위</h2>
       <p>API 연결은 이용자 명의의 계좌에서 잔고·주문·체결 상태를 확인하고, 이용자가 설정하고 실행한 전략에 따라 주문을 제출·조회·취소하기 위해 사용합니다. 자산은 해당 거래소·증권사 계좌에 보관됩니다.</p>
       <p>이 페이지를 읽는 것만으로 API가 연결되거나 매매가 시작되지 않습니다. 실제 연결과 실행은 앱의 해당 화면에서 별도로 진행합니다.</p>

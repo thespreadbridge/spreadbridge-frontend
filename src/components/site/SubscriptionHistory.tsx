@@ -16,9 +16,9 @@ export function SubscriptionHistory({ receipts, now = Date.now(), page }: { rece
   const { items, ...pagination } = paginate(receipts, page);
   return <>
     {receipts.length === 100 ? <p>최근 100건의 이용 내역입니다.</p> : null}
-    <div className="site-table-wrap site-records"><table className="site-record-table subscription-record-table" role="table" aria-label="구독 이용 내역"><thead role="rowgroup"><tr role="row"><th scope="col">플랜</th><th scope="col">금액</th><th scope="col">이용 기간</th><th scope="col">상태</th></tr></thead>
+    <div className="site-table-wrap site-records"><table className="site-record-table subscription-record-table" role="table" aria-label="구독 이용 내역"><thead role="rowgroup"><tr role="row"><th scope="col">요금제</th><th scope="col">금액</th><th scope="col">이용 기간</th><th scope="col">상태</th></tr></thead>
       <tbody role="rowgroup">{items.map(item => <tr key={item.id} role="row">
-        <td role="cell" data-label="플랜">{item.total_slots}슬롯{item.addon_slots ? <span className="site-record-note"> (추가 {item.addon_slots} 포함)</span> : null}{item.kind === 'UPGRADE' ? <span className="site-test-label">업그레이드 차액</span> : null}{item.is_test ? <span className="site-test-label">테스트</span> : null}</td>
+        <td role="cell" data-label="요금제">{item.total_slots}슬롯{item.addon_slots ? <span className="site-record-note"> (추가 {item.addon_slots} 포함)</span> : null}{item.kind === 'UPGRADE' ? <span className="site-test-label">업그레이드 차액</span> : null}{item.is_test ? <span className="site-test-label">테스트</span> : null}</td>
         <td role="cell" data-label="금액" className="record-amount">{item.amount.toLocaleString('ko-KR')}원</td>
         <td role="cell" data-label="이용 기간" className="record-wide"><span className="record-period"><time dateTime={item.period_start}>{date(item.period_start)}</time><span>~</span><time dateTime={item.period_end}>{date(item.period_end)}</time></span></td>
         <td role="cell" data-label="상태" className="record-wide record-status">{receiptStatus(item, now)}</td>

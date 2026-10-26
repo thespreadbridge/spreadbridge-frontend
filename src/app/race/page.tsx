@@ -20,7 +20,7 @@ const rules = [
 export default async function Race() {
   const session = await serverSession();
   const signedIn = session.status === 'authenticated';
-  return <SitePage title="진입갭 레이스" eyebrow="SPREADBRIDGE · 회원 집계" width="wide" description="익명으로 공유된 활성 진입대기 설정의 인기 구간">
+  return <SitePage title="진입갭 레이스" eyebrow="스프레드브리지 · 회원 집계" width="wide" description="익명으로 공유된 활성 진입대기 설정의 인기 구간">
     {signedIn ? <RaceBoard /> : <div className="site-card race-gate">
       <h2>로그인 후 확인할 수 있습니다</h2>
       <p>회원 집계 · 내 설정은 동의 후 포함</p>

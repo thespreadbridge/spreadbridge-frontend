@@ -10,7 +10,7 @@ describe('public search metadata', () => {
       expect(meta.alternates?.canonical).toBe(SITE_ORIGIN + path);
       expect(path.endsWith('/')).toBe(true);
       expect(meta.description?.length).toBeGreaterThan(20);
-      expect(meta.openGraph).toMatchObject({ url: SITE_ORIGIN + path, locale: 'ko_KR', siteName: 'Spreadbridge' });
+      expect(meta.openGraph).toMatchObject({ url: SITE_ORIGIN + path, locale: 'ko_KR', siteName: '스프레드브리지' });
     }
     for (const path of Object.keys(ACCOUNT_PAGE_TITLES)) expect(PUBLIC_PAGES).not.toHaveProperty(path);
   });
@@ -19,7 +19,7 @@ describe('public search metadata', () => {
     expect(Object.values(pageTitles).every(title => !title.includes('@'))).toBe(true);
   });
   it('publishes truthful organization and software identity without invented ratings or sales', () => {
-    expect(organizationSchema['@graph'][0]).toMatchObject({ '@type': 'Organization', name: 'Spreadbridge', alternateName: '스프레드브릿지' });
+    expect(organizationSchema['@graph'][0]).toMatchObject({ '@type': 'Organization', name: '스프레드브리지', alternateName: 'Spreadbridge' });
     expect(softwareSchema).toMatchObject({ '@type': 'SoftwareApplication', operatingSystem: 'Windows, macOS' });
     expect(softwareSchema).not.toHaveProperty('aggregateRating');
     expect(softwareSchema).not.toHaveProperty('offers');

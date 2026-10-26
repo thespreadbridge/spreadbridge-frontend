@@ -247,7 +247,7 @@
     border-radius: 14px; padding: 26px 30px; margin-top: 30px;
   }
   .risk-band h3 { font-size: 15px; color: var(--warn); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-  .risk-band p { font-size: 13.5px; color: #b39968; line-height: 1.7; }
+  .risk-band p { font-size: 13px; color: #c4ae84; line-height: 1.75; }
 
   /* faq */
   .faq { margin-top: 40px; border-top: 1px solid var(--line); }
@@ -315,6 +315,7 @@
     .prod-card { padding: 26px; }
     .elig { padding: 24px; gap: 14px; }
     .risk-band { padding: 24px; }
+    .risk-band p { font-size: 13.5px; }
     .mb-inner { padding: 18px; }
     .mb-mine { flex-wrap: wrap; gap: 14px 20px; padding: 16px; }
     .mb-tabs { flex-wrap: wrap; }

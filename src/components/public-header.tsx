@@ -37,7 +37,7 @@ export function PublicHeader() {
       </button>
       <div className="site-menu" id={menuId} data-open={menuOpen}>
         <nav aria-label="주요 메뉴" className="site-nav" onClick={() => setMenuOpen(false)}>
-          <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">FAQ</Link><Link href="/race/">진입갭 레이스</Link><Link href="/blog/">블로그</Link>
+          <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">자주 묻는 질문</Link><Link href="/race/">진입갭 레이스</Link><Link href="/blog/">블로그</Link>
         </nav>
         <div className="site-actions" onClick={() => setMenuOpen(false)}>
           {session.status === 'authenticated' ? <>
@@ -50,7 +50,7 @@ export function PublicHeader() {
             <span className="member-status">로그인 정보 확인 {session.status === 'unavailable' ? '실패' : '중'}</span>
             <button data-analytics-id="session_retry" className="btn ghost" type="button" onClick={() => void refresh()}>다시 확인</button>
           </> : <>
-            <Link data-analytics-id="header_login" href="/login/" className="btn ghost">로그인</Link><Link data-analytics-id="header_start" href="/login/" className="btn primary">시작하기</Link>
+            <Link data-analytics-id="header_login" href="/login/" className="btn ghost">로그인</Link><Link data-analytics-id="header_start" href="/login/" className="btn primary">가입·로그인</Link>
           </>}
         </div>
       </div>

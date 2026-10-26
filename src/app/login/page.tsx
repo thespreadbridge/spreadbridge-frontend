@@ -18,9 +18,9 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
   const returnTo = safeReturnTo(params.next);
   const session = await serverSession();
   if (session.status === 'authenticated') redirect(returnTo);
-  return <SitePage title="다시 오신 것을 환영합니다." eyebrow="SPREADBRIDGE · SIGN IN" description="Google 계정으로 가입하고 로그인하세요.">
+  return <SitePage title="스프레드브리지 시작하기" eyebrow="스프레드브리지 · SIGN IN" description="Google 계정으로 가입하거나 로그인하세요.">
     <div className="site-login-card site-card">
-      <h2>Spreadbridge 로그인</h2><p>기존 회원은 가입했던 Google 계정으로 접속해 주세요.</p>
+      <h2>스프레드브리지 로그인</h2><p>기존 회원은 가입했던 Google 계정으로 접속해 주세요.</p>
       {params.error ? <p className="site-form-error" role="alert">{errors[params.error] ?? errors.oauth_error}</p> : null}
       <a className="btn primary" href={`/api/session/google/start/?next=${encodeURIComponent(returnTo)}`}>Google로 계속하기</a>
       <p className="site-login-note">처음 접속하면 계정이 생성됩니다. 로그인 과정에서 기본 Google 계정 정보를 확인합니다.</p>

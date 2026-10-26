@@ -5,7 +5,7 @@ import { InformationPage } from '@/components/information/InformationPage';
 export const metadata = publicPageMetadata('/risk/');
 
 export default function RiskPage() {
-  return <InformationPage title="위험고지" eyebrow="SPREADBRIDGE · RISK" updatedAt="2026-10-24" description="자동매매는 투자 위험을 없애지 않습니다. 거래를 시작하기 전에 아래 내용을 확인해 주세요.">
+  return <InformationPage title="위험고지" eyebrow="스프레드브리지 · RISK" updatedAt="2026-10-24" description="자동매매는 투자 위험을 없애지 않습니다. 거래를 시작하기 전에 아래 내용을 확인해 주세요.">
     <div className="site-callout"><p><strong>원금과 수익을 보장하지 않습니다.</strong> 시장 상황, 체결 결과와 운용 설정에 따라 손실이 발생하며, 파생상품 거래에서는 추가 증거금 납부나 강제 청산이 발생할 수 있습니다.</p></div>
     <section><h2>1. 가격 및 스프레드 위험</h2>
       <p>두 시장의 가격 차이는 예상과 다른 방향으로 움직이거나 장기간 유지될 수 있습니다. 환율, 수급, 유동성 및 거래 비용에 따라 손실이 발생할 수 있으며, 화면에 보이는 스프레드가 확정 수익을 뜻하지 않습니다.</p>

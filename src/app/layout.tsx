@@ -25,8 +25,8 @@ const mono = localFont({ src: '../fonts/GeistMono.woff2', variable: '--font-geis
 export const metadata: Metadata = {
   ...publicPageMetadata('/'),
   metadataBase: new URL('https://thespreadbridge.com'),
-  title: { default: '스프레드브릿지(Spreadbridge) | 달러선물·USDT 스프레드 자동매매', template: '%s | Spreadbridge' },
-  applicationName: 'Spreadbridge',
+  title: { default: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', template: '%s | 스프레드브리지' },
+  applicationName: '스프레드브리지',
   robots: { index: true, follow: true },
   icons: { icon: '/icon.svg', apple: '/images/spreadbridge-logo.png' },
   verification: {

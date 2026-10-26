@@ -17,6 +17,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
 export const metadata = {
   ...publicPageMetadata('/'),
-  title: { absolute: '스프레드브릿지(Spreadbridge) | 달러선물·USDT 스프레드 자동매매' },
+  title: { absolute: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매' },
   robots: { index: true, follow: true },
 };

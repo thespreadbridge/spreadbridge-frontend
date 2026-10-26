@@ -34,8 +34,8 @@ export function LaunchCountdown() {
 
   return (
     <div className="countdown">
-      <span className="cd-label">{remaining === 0 ? '런칭 할인 기간이 종료되었습니다' : '🔥 런칭 할인 종료까지'}</span>
-      <div className="cd-clock" role="timer" aria-live="off" aria-label="런칭 할인 남은 시간">
+      <span className="cd-label">{remaining === 0 ? '출시 할인 기간이 종료되었습니다' : '🔥 출시 할인 종료까지'}</span>
+      <div className="cd-clock" role="timer" aria-live="off" aria-label="출시 할인 남은 시간">
         {units.map((unit, index) => {
           const value = remaining === null ? '--' : String(
             Math.floor(remaining / unit.seconds) % (index === 0 ? Infinity : index === 1 ? 24 : 60),

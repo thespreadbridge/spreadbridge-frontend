@@ -2,8 +2,8 @@ import { backend } from '@/lib/auth/backend';
 
 export const downloadTargets = [
   { platform: 'win32', architecture: 'x64', name: 'Windows', detail: 'Windows 10 이상 · 64비트 · EXE 설치파일' },
-  { platform: 'darwin', architecture: 'arm64', name: 'Mac · Apple Silicon', detail: 'M1·M2·M3·M4 이후 Apple Silicon · ZIP' },
-  { platform: 'darwin', architecture: 'x64', name: 'Mac · Intel', detail: 'Intel 프로세서 · ZIP' },
+  { platform: 'darwin', architecture: 'arm64', name: 'Mac · Apple Silicon', detail: 'Apple Silicon 탑재 Mac(M1 이후) · arm64 · ZIP' },
+  { platform: 'darwin', architecture: 'x64', name: 'Mac · Intel', detail: 'Intel 프로세서 탑재 Mac · x64 · ZIP' },
 ] as const;
 type Target = typeof downloadTargets[number];
 export interface PublishedRelease { version: string; artifactUrl: string; installationMode: 'AUTO' | 'MANUAL' | 'AUTO_UNSIGNED' }

@@ -26,7 +26,7 @@ export default function PrivacyPage() {
               </tbody>
             </table>
           </div>
-          <p>정보는 사용자의 입력, Google 인증 응답, 사용자가 연결한 거래소 및 서비스 이용 과정에서 수집됩니다. 선택한 기능에 필요한 범위에서 처리하며, Google 로그인 대신 이메일 가입을 이용할 수 있습니다.</p>
+          <p>정보는 사용자의 입력, Google 인증 응답, 사용자가 연결한 거래소 및 서비스 이용 과정에서 수집됩니다. 선택한 기능에 필요한 범위에서 처리합니다. 일반 회원은 Google 계정으로 가입·로그인합니다.</p>
         </section>
         <section>
           <h2>3. Google 사용자 정보의 처리</h2>
