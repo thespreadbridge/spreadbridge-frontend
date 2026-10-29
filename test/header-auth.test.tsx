@@ -15,6 +15,9 @@ describe('published homepage session navigation', () => {
   it('links the member race page from the top menu', () => {
     expect(render(guestSession)).toMatch(/href="\/race\/?"[^>]*>진입갭 레이스</);
   });
+  it('places the download link next to the blog in the top menu', () => {
+    expect(render(guestSession)).toMatch(/href="\/blog\/?"[^>]*>블로그<\/a><a href="\/download\/?"[^>]*>다운로드<\/a>/);
+  });
   it('shows the verified member and offers logout', () => {
     const html = render({ status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: null });
     expect(html).toContain('회원 님');

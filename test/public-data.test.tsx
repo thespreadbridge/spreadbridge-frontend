@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { subscriptionCatalog, checkoutTarget } from '@/lib/subscription-catalog';
 import { publishedRelease } from '@/lib/published-releases';
@@ -6,8 +6,13 @@ import { HomeContent } from '@/components/home-v6/HomeContent';
 import Download from '@/app/download/page';
 import { SessionProvider } from '@/components/auth/SessionProvider';
 import { guestSession } from '@/lib/auth/types';
+import { serverSession } from '@/lib/auth/session';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh() {}, replace() {} }) }));
+vi.mock('@/lib/auth/session', () => ({ serverSession: vi.fn() }));
+beforeEach(() => {
+  vi.mocked(serverSession).mockResolvedValue({ status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: null });
+});
 const downloadHtml = async () => renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Download()}</SessionProvider>);
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });

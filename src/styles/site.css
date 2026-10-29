@@ -83,7 +83,7 @@
 .site-step-icon { display: grid; place-items: center; flex: 0 0 48px; height: 48px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: var(--r-md); }
 .site-step-number { display: block; color: var(--accent); font: 600 11px/1.4 var(--mono); letter-spacing: 1px; margin-bottom: 8px; }
 @media (max-width: 1100px) { .site-header-inner { gap: 16px; } .site-nav { gap: 16px; margin-left: 0; } }
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .site-header-inner { gap: 16px; }
   .site-menu-toggle { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; min-height: 42px; padding: 8px 12px; }
   .site-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 1; flex-direction: column; align-items: stretch; gap: 20px; padding: 20px var(--page-gutter) 24px; max-height: calc(100dvh - var(--site-header-height)); overflow-y: auto; background: var(--bg-2); border-bottom: 1px solid var(--line-2); box-shadow: var(--shadow-panel); }
@@ -94,8 +94,8 @@
   .site-actions .member-chip, .site-actions .member-status { grid-column: 1 / -1; min-width: 0; }
   .site-actions .member-chip { padding: 10px 0; }
   .member-chip span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .site-footer-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 900px) { .site-footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 700px) {
   .site-main { padding-top: 30px; padding-bottom: 56px; }
   .site-page-heading { padding-top: 28px; }

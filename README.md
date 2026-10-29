@@ -45,7 +45,7 @@ Homepage section composition remains scoped in
 `src/styles/insights.css` and inherits the same shared tokens. The previous light landing stylesheet is no
 longer loaded. Change shared tokens/components to update all public pages together.
 
-At widths up to 900px, the shared header uses a menu disclosure for navigation and
+At widths up to 1000px, the shared header uses a menu disclosure for navigation and
 account actions. It closes after choosing a link, pressing Escape, or clicking
 outside. The collapsed header stays one row for signed-in and guest visitors.
 Shared header-height and anchor-offset tokens keep article and section links clear
@@ -212,3 +212,16 @@ excluded from the sitemap.
 Blog introductions and excerpts use the public site's concise product guidance tone.
 `src/components/blog/BlogStart.tsx` owns the shared installation/guide call to action
 for the index and article pages so its wording stays consistent across the blog.
+
+## Member downloads (2026-10-29)
+
+The shared header places Download next to Blog on desktop and in the mobile menu.
+The public download page shows sign-in links to guests and retains `/download/` as
+the login return destination. Only authenticated members load published release
+metadata; a paid subscription is not required. Installer buttons use
+`/api/member/download/?platform=...&architecture=...`, which revalidates the
+backend session before redirecting to the validated current release. Authentication
+and release-service failures fail closed; download responses are private/no-store.
+
+This restricts downloads through the website. GitHub release assets and the
+desktop public update API retain their existing public distribution policy.
