@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readingMinutes } from '@/lib/reading-time';
 import { insights } from '@/lib/insights';
+import { articleEditorialNote, tradeManagementNotice } from '@/lib/blog-notices';
 import { calendarDays, parseCancellation, quoteIsCurrent, REFUND_POLICY_VERSION } from '@/lib/subscription-billing';
 
 const refund = {
@@ -46,9 +47,10 @@ describe('editorial reading time', () => {
   });
   it('shares final body-derived values across cards and article pages', () => {
     expect(insights).toHaveLength(14);
-    expect(insights.find(p => p.slug === 'spread-and-profit')?.readingMinutes).toBe(3);
+    expect(insights.find(p => p.slug === 'spread-and-profit')?.readingMinutes).toBe(2);
     for (const post of insights) {
-      expect(post.readingMinutes).toBe(readingMinutes(post.bodyHtml));
+      const warning = post.id >= 2 ? tradeManagementNotice.title + tradeManagementNotice.body : '';
+      expect(post.readingMinutes).toBe(readingMinutes(post.bodyHtml + articleEditorialNote + warning));
       expect(post.bodyHtml).not.toMatch(/Spreadbridge[이은]|스프레드브릿지|부분체결/);
     }
   });

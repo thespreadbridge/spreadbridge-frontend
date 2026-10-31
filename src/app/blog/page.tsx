@@ -21,7 +21,7 @@ export default function BlogIndex() {
         <header className="insight-index-heading">
           <span className="insight-kicker">스프레드브리지 블로그</span>
           <h1>원리부터 운용까지,<br /><em>스프레드브리지 블로그</em></h1>
-          <p>스프레드 거래의 기본 원리와 계좌 준비,<br className="insight-desktop-break" /> 앱 설정 및 운용 정보를 안내합니다.</p>
+          <p>USDT와 달러선물의 가격 차이부터 계좌 준비와 앱 사용법까지 차례로 알아봅니다.</p>
           <div className="insight-index-meta"><span>{insightCategories.length}개 주제</span><span>{insights.length}편의 글</span><Link href="/feed.xml">RSS 구독 ↗</Link></div>
         </header>
         <nav className="insight-category-nav" aria-label="블로그 주제">

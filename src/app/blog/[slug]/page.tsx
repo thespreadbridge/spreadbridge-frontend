@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleCard } from '@/components/blog/ArticleCard';
 import { BlogStart } from '@/components/blog/BlogStart';
+import { articleEditorialNote, tradeManagementNotice } from '@/lib/blog-notices';
 import { formatArticleDate, getInsight, insightCategories, insightPath, insights, jsonLd, siteOrigin } from '@/lib/insights';
 
 export const dynamicParams = false;
@@ -40,13 +41,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <header className="insight-article-heading">
             <Link className="insight-kicker" href={`/blog/#${category.id}`}>{category.name} · {String(post.id).padStart(2, '0')}</Link>
             <h1>{post.title}</h1><p className="insight-description">{post.description}</p>
-            <div className="insight-byline"><Link href="/blog/">스프레드브리지</Link><time dateTime={post.publishedAt}>{formatArticleDate(post.publishedAt)}</time><span>{post.readingMinutes}분 읽기</span></div>
+            <div className="insight-byline"><Link href="/blog/">스프레드브리지</Link><span>게시 <time dateTime={post.publishedAt}>{formatArticleDate(post.publishedAt)}</time></span><span>수정 <time dateTime={post.updatedAt}>{formatArticleDate(post.updatedAt)}</time></span><span>{post.readingMinutes}분 읽기</span></div>
           </header>
+          {post.id >= 2 && <aside className="insight-notice insight-trade-warning" aria-labelledby="trade-warning-title">
+            <strong id="trade-warning-title">{tradeManagementNotice.title}</strong>
+            <p>{tradeManagementNotice.body}</p>
+          </aside>}
           <details className="insight-toc" open><summary>목차</summary><ol>{post.toc.map((section) => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></details>
           {/* Reviewed local content, restricted to article markup at import. No draft scripts or controls. */}
           <div className="insight-body" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
-          <section className="insight-sources" aria-labelledby="sources-title"><h2 id="sources-title">참고 자료</h2><p>상품·기관 안내는 2026년 10월 24일 기준으로 확인했습니다. 실제 거래에는 각 기관의 최신 조건이 적용됩니다.</p><ul>{post.sources.map((source) => <li key={source.url}><a href={source.url} target={source.url.startsWith('https://') ? '_blank' : undefined} rel={source.url.startsWith('https://') ? 'noopener noreferrer' : undefined}>{source.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul></section>
-          <p className="insight-editorial-note">이 글은 거래 구조와 운용을 이해하기 위한 자료입니다. 예시 수치는 실제 시세나 수익률이 아니며, 특정 조건의 거래를 권유하지 않습니다. 실제 기능과 표시 항목은 설치한 앱 버전에서 확인하세요.</p>
+          {post.sources.length > 0 && <section className="insight-sources" aria-labelledby="sources-title"><h2 id="sources-title">참고 자료</h2><p>상품·기관 안내는 2026년 10월 24일 기준으로 확인했습니다. 실제 거래에는 각 기관의 최신 조건이 적용됩니다.</p><ul>{post.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}<span aria-hidden="true"> ↗</span></a></li>)}</ul></section>}
+          <p className="insight-editorial-note">{articleEditorialNote}</p>
           <BlogStart />
         </article>
         <aside className="insight-related" aria-labelledby="related-title"><div className="insight-series-heading"><h2 id="related-title">관련 글</h2><Link href="/blog/">전체 글 보기 →</Link></div><div className="insight-card-grid">{related.map((item) => <ArticleCard key={item.id} post={item} />)}</div></aside>
