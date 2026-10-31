@@ -39,8 +39,11 @@ Google-side email and query redaction supplements the client allowlist. Event/us
 
 Use the GA traffic acquisition report with **Session source / medium**, campaign, landing page, and key events. Compare new visitors using the user acquisition report. Google Search Console supplies organic search queries, impressions, clicks, and search positions; these are aggregated search data, not a member's search history.
 
-Use consistent UTM links for ads, partners, social and email. Example:
-`https://thespreadbridge.com/?utm_source=naver&utm_medium=cpc&utm_campaign=launch_202610&utm_content=hero_a`
+Use consistent UTM links for ads, partners, social and email. Only use `cpc` for actual paid campaigns: GA classifies a `naver / cpc` tag as Paid Search even when no ad was purchased.
+
+For acquisition QA, use a clearly marked link with developer debugging enabled, for example:
+`http://localhost:3211/?utm_source=qa&utm_medium=referral&utm_campaign=qa_YYYYMMDD&ga_debug=1`
+Verify in DebugView and confirm the existing developer-traffic exclusion is active before testing against production. An example or unit test alone does not prove any historical session came from QA; check the recorded campaign and landing URL.
 
 Keep campaign names stable and exclude personal identifiers from UTM values. Referral domains are retained; external referrer paths/search text are stripped. Hash menu clicks are `ui_click`, not additional page views.
 

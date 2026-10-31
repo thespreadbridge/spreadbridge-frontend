@@ -1,15 +1,17 @@
 import { homeFaqs } from '@/lib/public-faq';
 import { LaunchCountdown } from './LaunchCountdown';
 import { subscriptionCatalog } from '@/lib/subscription-catalog';
-import { softwareSchema } from '@/lib/seo';
-import { jsonLd } from '@/lib/insights';
+import { softwareSchemaForPlan } from '@/lib/seo';
+import { insights, insightPath, jsonLd } from '@/lib/insights';
+
+const introductoryPosts = [1, 5, 9].map(id => insights.find(post => post.id === id)).filter(post => post !== undefined);
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
 export async function HomeContent() {
   const catalog = await subscriptionCatalog();
   const startingPlan = catalog?.products[0];
   return <>
-<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchema) }} />
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchemaForPlan(startingPlan)) }} />
 <header className={"hero view-guest"}>
   <div className={"hero-glow"}></div>
   <div className={"wrap hero-grid"}>
@@ -180,6 +182,24 @@ export async function HomeContent() {
   </div>
 </section>
 
+
+<section className="blk" aria-labelledby="reading-title">
+  <div className="wrap">
+    <div className="sec-eyebrow">시작 가이드</div>
+    <h2 className="sec-title" id="reading-title">테더·달러선물 스프레드 거래 알아보기</h2>
+    <p className="sec-lead">가격 차이가 생기는 이유부터 계좌 연결과 주문 조건까지, 시작 전에 필요한 내용을 확인하세요.</p>
+    <div className="how-grid">
+      {introductoryPosts.map(post => <article className="how-card" key={post.id}>
+        <h3><a href={insightPath(post.slug)}>{post.title}</a></h3>
+        <p>{post.description}</p>
+      </article>)}
+    </div>
+    <div className="hero-actions">
+      <a className="btn ghost" href="/guide/">설치·API 연결 가이드</a>
+      <a className="btn ghost" href="/blog/">전체 글 보기</a>
+    </div>
+  </div>
+</section>
 
 <section className={"blk section-tint"} id={"faq"}>
   <div className={"wrap"}>

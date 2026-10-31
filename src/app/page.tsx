@@ -1,7 +1,7 @@
 import { HomeContent } from '@/components/home-v6/HomeContent';
 import { HomeExperience } from '@/components/home-v6/HomeExperience';
 import { redirect } from 'next/navigation';
-import { publicPageMetadata } from '@/lib/seo';
+import { publicPageMetadata, publicRobots } from '@/lib/seo';
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
@@ -18,5 +18,5 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 export const metadata = {
   ...publicPageMetadata('/'),
   title: { absolute: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매' },
-  robots: { index: true, follow: true },
+  robots: publicRobots,
 };

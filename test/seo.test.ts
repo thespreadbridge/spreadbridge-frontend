@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { PUBLIC_PAGES, ACCOUNT_PAGE_TITLES, SITE_ORIGIN } from '@/lib/site-pages';
-import { organizationSchema, pageTitles, publicPageMetadata, softwareSchema } from '@/lib/seo';
+import { organizationSchema, pageTitles, publicPageMetadata, softwareSchema, softwareSchemaForPlan } from '@/lib/seo';
+import type { SubscriptionProduct } from '@/lib/subscription-catalog';
 import { insights, insightPath, jsonLd } from '@/lib/insights';
 
 describe('public search metadata', () => {
@@ -10,6 +11,7 @@ describe('public search metadata', () => {
       expect(meta.alternates?.canonical).toBe(SITE_ORIGIN + path);
       expect(path.endsWith('/')).toBe(true);
       expect(meta.description?.length).toBeGreaterThan(20);
+      expect(meta.robots).toMatchObject({ index: true, follow: true, 'max-image-preview': 'large' });
       expect(meta.openGraph).toMatchObject({ url: SITE_ORIGIN + path, locale: 'ko_KR', siteName: '스프레드브리지' });
     }
     for (const path of Object.keys(ACCOUNT_PAGE_TITLES)) expect(PUBLIC_PAGES).not.toHaveProperty(path);
@@ -29,5 +31,15 @@ describe('public search metadata', () => {
     expect(softwareSchema).not.toHaveProperty('aggregateRating');
     expect(softwareSchema).not.toHaveProperty('offers');
     expect(jsonLd({ value: '</script>' })).not.toContain('</script>');
+  });
+  it('only publishes an offer when the visible plan has a valid enabled monthly price', () => {
+    const plan: SubscriptionProduct = { code: 'BASIC', name: '기본 요금제', slots: 5, monthly_krw: 12345, enabled: true, promotion_label: '', sort_order: 1 };
+    expect(softwareSchemaForPlan(plan)).toMatchObject({ offers: {
+      price: 12345, priceCurrency: 'KRW', url: SITE_ORIGIN + '/pricing/',
+      priceSpecification: { price: 12345, billingDuration: 'P1M', valueAddedTaxIncluded: true },
+    } });
+    for (const invalid of [undefined, { ...plan, enabled: false }, { ...plan, monthly_krw: -1 }, { ...plan, monthly_krw: NaN }]) {
+      expect(softwareSchemaForPlan(invalid)).not.toHaveProperty('offers');
+    }
   });
 });

@@ -2,11 +2,17 @@ export const SITE_ORIGIN = 'https://thespreadbridge.com';
 export const SITE_NAME = '스프레드브리지';
 // Update when the public content/metadata is materially revised.
 export const SITE_CONTENT_UPDATED_AT = '2026-10-26';
+// Dates reflect reviewed content changes, never the time a build runs.
+export const PAGE_CONTENT_UPDATED_AT: Record<string, string> = {
+  '/': '2026-11-01',
+  '/download/': '2026-11-01',
+  '/blog/': '2026-11-01',
+};
 export const PUBLIC_PAGES: Record<string, { title: string; description: string }> = {
-  '/': { title: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', description: '업비트 USDT와 한국투자증권 달러선물의 가격 차이를 비교하고 설정한 조건으로 실행하는 PC 자동매매 소프트웨어. 스프레드브리지의 작동 방식, 월 구독 요금, 설치와 사용 가이드를 확인하세요.' },
+  '/': { title: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', description: '업비트 테더(USDT)와 한국투자증권 미국달러선물의 가격 차이를 비교하고 설정한 조건으로 매매를 실행하는 PC 소프트웨어. 스프레드 거래의 원리, 계좌·API 연결, 월 구독 요금과 Windows·Mac 설치 방법을 확인하세요.' },
   '/guide/': { title: '시작 가이드 | 계좌 준비·API 연결·전략 설정', description: '스프레드브리지 시작에 필요한 업비트·한국투자증권 계좌, API 권한, PC 설치, 전략 설정과 실행 전 확인 사항을 안내합니다.' },
   '/pricing/': { title: '구독 요금 | 5·15·25슬롯 월 요금제·추가 슬롯', description: '스프레드브리지의 슬롯별 월 구독 요금과 이용 조건을 확인하세요. 거래소·증권사 수수료와 소프트웨어 구독료를 구분해 안내합니다.' },
-  '/download/': { title: '앱 다운로드 | Windows·Mac 설치 안내', description: '스프레드브리지 PC 앱의 Windows·Mac 배포 현황과 설치·업데이트 방법을 확인하세요.' },
+  '/download/': { title: '앱 다운로드 | Windows·Mac 설치 안내', description: '스프레드브리지 Windows·Mac 앱의 설치·업데이트 방법을 안내합니다. Google 계정으로 가입·로그인 후 설치파일을 다운로드할 수 있으며, 다운로드에는 유료 구독이 필요하지 않습니다.' },
   '/blog/': { title: '블로그 | 달러선물·USDT 스프레드 거래 가이드', description: 'USDT와 달러선물의 가격 차이부터 계좌 준비와 앱 사용법까지 차례로 알아봅니다.' },
   '/privacy/': { title: '개인정보처리방침', description: '스프레드브리지의 개인정보와 Google 로그인 정보 처리, 웹사이트 이용 분석, 보관·삭제 및 문의 방법을 안내합니다.' },
   '/notices/': { title: '공지사항 | 서비스 변경·업데이트 안내', description: '스프레드브리지의 서비스 변경, 점검과 앱 업데이트 소식을 확인하세요.' },

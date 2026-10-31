@@ -5,7 +5,7 @@ import localFont from 'next/font/local';
 import { Suspense } from 'react';
 import { Analytics } from '@/components/analytics/Analytics';
 import { GA_MEASUREMENT_ID } from '@/lib/analytics-config';
-import { organizationSchema, pageTitles, publicPageMetadata } from '@/lib/seo';
+import { organizationSchema, pageTitles, publicPageMetadata, publicRobots } from '@/lib/seo';
 import { jsonLd } from '@/lib/insights';
 
 import '../styles/tokens.css';
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://thespreadbridge.com'),
   title: { default: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', template: '%s | 스프레드브리지' },
   applicationName: '스프레드브리지',
-  robots: { index: true, follow: true },
+  robots: publicRobots,
   icons: { icon: '/icon.svg', apple: '/images/spreadbridge-logo.png' },
   verification: {
     other: { 'naver-site-verification': '193462cdf03f0035bac4c42074fb8c3591444cae' },
