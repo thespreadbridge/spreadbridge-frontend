@@ -1,0 +1,26 @@
+.manual-library { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin:32px 0; }
+.manual-card { min-width:0; border:1px solid var(--line-2); border-radius:var(--r-md); overflow:hidden; background:var(--panel); }
+.manual-cover { display:block; width:100%; border:0; padding:0; background:white; cursor:pointer; }
+.manual-cover img { display:block; width:100%; height:auto; }
+.manual-card-body { padding:24px; }
+.site-prose .manual-index { font-size:11px; letter-spacing:1px; color:var(--accent); margin:0 0 12px; }
+.site-prose .manual-card h2 { font-size:21px; line-height:1.5; margin:0 0 12px; word-break:keep-all; }
+.site-prose .manual-card-body>p:not(.manual-index) { font-size:14px; color:var(--ink-2); margin:0 0 24px; }
+.manual-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.manual-actions>.primary { width:100%; }
+.manual-actions>.ghost { flex:1; padding-inline:8px; font-size:12px; }
+.manual-reader { width:1200px; max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); margin:auto; padding:0; color:var(--ink); background:var(--bg-2); border:1px solid var(--line-2); border-radius:12px; overflow:auto; }
+.manual-reader::backdrop { background:#000b; }
+.manual-reader-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px 24px; }
+.manual-reader-head h2 { font-size:18px; margin:0; }
+.manual-reader-head span { font-size:12px; color:var(--ink-3); }
+.manual-reader-head button { flex-shrink:0; }
+.manual-reader-nav { display:flex; align-items:center; gap:12px; padding:12px 24px; border-block:1px solid var(--line); flex-wrap:wrap; }
+.manual-reader-nav a { margin-left:auto; }
+.manual-reader button:disabled { opacity:.4; cursor:default; }
+.manual-reader-content { max-height:calc(100dvh - 210px); overflow:auto; overscroll-behavior:contain; padding:16px; }
+.manual-reader-content>img { display:block; width:100%; min-width:640px; height:auto; background:white; }
+.manual-reader details { margin:16px 0 0; }
+.manual-reader details p { white-space:pre-line; font-size:14px; line-height:1.8; }
+@media(max-width:1000px) { .manual-library { grid-template-columns:1fr; } .manual-card { display:grid; grid-template-columns:1fr 1fr; align-items:center; } }
+@media(max-width:600px) { .manual-card { display:block; } .manual-reader-head,.manual-reader-nav { padding:12px; } .manual-reader-head h2 { font-size:15px; } .manual-reader-nav { gap:8px; } .manual-reader-content { padding:8px; } }

@@ -14,6 +14,7 @@ const footerGroups = [
     { href: '/blog/', label: '블로그' },
     { href: 'mailto:contact@thespreadbridge.com', label: '고객센터' },
     { href: '/guide/', label: '시작 가이드' },
+    { href: '/manuals/', label: '설치 매뉴얼' },
     { href: '/notices/', label: '공지사항' },
   ] },
   { title: '정책', links: policyLinks },

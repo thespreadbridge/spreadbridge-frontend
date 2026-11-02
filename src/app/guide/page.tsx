@@ -1,6 +1,7 @@
 import { publicPageMetadata } from '@/lib/seo';
 import { SitePage } from '@/components/site/SitePage';
 import { icons } from '@/components/landing/icons';
+import Link from 'next/link';
 
 const sections = [
   ['01', '거래 계좌와 거래 요건 확인', '업비트 계정과 한국투자증권 국내선물옵션 계좌를 준비합니다. 본인에게 적용되는 사전교육·모의거래·기본예탁금 요건을 증권사에서 확인하세요.', 'card'],
@@ -14,6 +15,7 @@ const sections = [
 
 export default function Guide() {
   return <SitePage title="설치부터 첫 실행까지" eyebrow="스프레드브리지 · GETTING STARTED" description="투자금은 본인 계좌에 보관됩니다. 이용자의 PC에서 설정한 조건에 따라 매매를 실행합니다.">
+    <p><Link href="/manuals/">화면으로 따라 하는 설치·API 매뉴얼 보기 →</Link></p>
     <ol className="site-steps">
       {sections.map(([number, title, body, icon]) => <li className="site-step" key={number}>
         <span className="site-step-icon">{icons[icon]}</span>
