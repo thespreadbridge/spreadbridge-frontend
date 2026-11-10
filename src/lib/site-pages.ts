@@ -7,7 +7,7 @@ export const PAGE_CONTENT_UPDATED_AT: Record<string, string> = {
   '/': '2026-11-01',
   '/download/': '2026-11-01',
   '/blog/': '2026-11-01',
-  '/manuals/': '2026-11-02',
+  '/manuals/': '2026-11-10',
 };
 export const PUBLIC_PAGES: Record<string, { title: string; description: string }> = {
   '/': { title: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', description: '업비트 테더(USDT)와 한국투자증권 미국달러선물의 가격 차이를 비교하고 설정한 조건으로 매매를 실행하는 PC 소프트웨어. 스프레드 거래의 원리, 계좌·API 연결, 월 구독 요금과 Windows·Mac 설치 방법을 확인하세요.' },

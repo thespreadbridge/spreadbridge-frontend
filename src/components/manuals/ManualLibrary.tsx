@@ -50,7 +50,7 @@ function ManualReader({ manual, close }: { manual: Manual; close: () => void }) 
     content.current?.scrollTo(0, 0);
   }
   return <dialog ref={dialog} className="manual-reader" aria-label={manual.title} onCancel={event => { event.preventDefault(); close(); }}>
-    <header className="manual-reader-head"><div><h2>{manual.title}</h2><span>v{manual.version} · 화면 기준 2026.11.01</span></div><button type="button" className="btn ghost" onClick={close} aria-label="매뉴얼 닫기">닫기 ×</button></header>
+    <header className="manual-reader-head"><div><h2>{manual.title}</h2><span>v{manual.version} · 화면 기준 {manual.screenDate}</span></div><button type="button" className="btn ghost" onClick={close} aria-label="매뉴얼 닫기">닫기 ×</button></header>
     <nav className="manual-reader-nav" aria-label="매뉴얼 페이지">
       <button type="button" className="btn ghost" disabled={page === 0} onClick={() => changePage(page - 1)}>← 이전</button>
       <span role="status">{page + 1} / {manual.pages.length}쪽</span>
