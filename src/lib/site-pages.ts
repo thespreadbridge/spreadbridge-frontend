@@ -10,7 +10,7 @@ export const PAGE_CONTENT_UPDATED_AT: Record<string, string> = {
   '/manuals/': '2026-11-10',
 };
 export const PUBLIC_PAGES: Record<string, { title: string; description: string }> = {
-  '/': { title: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', description: '업비트 테더(USDT)와 한국투자증권 미국달러선물의 가격 차이를 비교하고 설정한 조건으로 매매를 실행하는 PC 소프트웨어. 스프레드 거래의 원리, 계좌·API 연결, 월 구독 요금과 Windows·Mac 설치 방법을 확인하세요.' },
+  '/': { title: '스프레드브리지 | 달러선물·USDT 스프레드 자동매매', description: '업비트 테더(USDT)와 한국투자증권 미국달러선물의 가격 차이를 비교하고 설정한 조건으로 매매를 실행하는 PC 소프트웨어. 스프레드 거래의 원리, 계좌·API 연결과 Windows·Mac 설치 방법을 확인하세요.' },
   '/guide/': { title: '시작 가이드 | 계좌 준비·API 연결·전략 설정', description: '스프레드브리지 시작에 필요한 업비트·한국투자증권 계좌, API 권한, PC 설치, 전략 설정과 실행 전 확인 사항을 안내합니다.' },
   '/manuals/': { title: '설치 매뉴얼 | 프로그램 설치·업비트·한국투자증권 API', description: '프로그램 설치와 업비트·한국투자증권 API 신청 및 등록 방법을 화면으로 확인하세요. 세 가이드를 바로 읽거나 PDF·PPTX 파일로 다운로드할 수 있습니다.' },
   '/pricing/': { title: '구독 요금 | 5·15·25슬롯 월 요금제·추가 슬롯', description: '스프레드브리지의 슬롯별 월 구독 요금과 이용 조건을 확인하세요. 거래소·증권사 수수료와 소프트웨어 구독료를 구분해 안내합니다.' },

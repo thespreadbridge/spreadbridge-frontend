@@ -1,17 +1,13 @@
-import { homeFaqs } from '@/lib/public-faq';
-import { LaunchCountdown } from './LaunchCountdown';
-import { subscriptionCatalog } from '@/lib/subscription-catalog';
-import { softwareSchemaForPlan } from '@/lib/seo';
+import { homeFaqs, planChangeFaq } from '@/lib/public-faq';
+import { softwareSchema } from '@/lib/seo';
 import { insights, insightPath, jsonLd } from '@/lib/insights';
 
 const introductoryPosts = [1, 5, 9].map(id => insights.find(post => post.id === id)).filter(post => post !== undefined);
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
-export async function HomeContent() {
-  const catalog = await subscriptionCatalog();
-  const startingPlan = catalog?.products[0];
+export function HomeContent() {
   return <>
-<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchemaForPlan(startingPlan)) }} />
+<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchema) }} />
 <header className={"hero view-guest"}>
   <div className={"hero-glow"}></div>
   <div className={"wrap hero-grid"}>
@@ -22,7 +18,6 @@ export async function HomeContent() {
         스프레드브리지는 업비트의 테더(USDT)와 한국투자증권의 미국달러선물 간 가격 차이(스프레드)를 확인하고, 사용자가 설정한 조건에 따라 매매를 실행하는 소프트웨어입니다.
       </p>
       <div className={"hero-actions"}>
-        <a data-analytics-id="hero_start" className={"btn primary lg"} href={"#product"}>요금제 보기</a>
         <a data-analytics-id="hero_how" className={"btn ghost lg"} href={"#how"}>작동 방식 보기</a>
       </div>
       <div className={"hero-trust"}>
@@ -114,25 +109,13 @@ export async function HomeContent() {
 
 <section className={"blk"} id={"product"}>
   <div className={"wrap"}>
-    <div className={"sec-eyebrow"}>요금</div>
-    <h2 className={"sec-title"}>지금 시작하면 가장 저렴합니다</h2>
-    <p className={"sec-lead"}>출시 할인은 지금 참여하는 분들께만 적용됩니다. 이용자가 늘수록 할인폭은 줄어들고, 가장 낮은 가격은 지금뿐입니다.</p>
     <div className={"prod-wrap"}>
       <div className={"prod-card live"}>
         <span className={"prod-badge now"}>● 지금 이용 가능</span>
         <h3>스프레드브리지</h3>
         <p className={"desc"}>USDT·달러선물 스프레드 거래를 자동화합니다. 슬롯별로 조건을 설정하고 여러 전략을 함께 운용할 수 있습니다.</p>
-        <div className={"prod-price"}>
-          <div className={"price-top"}>
-            {startingPlan?.promotion_label ? <span className={"price-off"}>{startingPlan.promotion_label}</span> : null}
-          </div>
-          {startingPlan ? <><span className={"amt"}>{startingPlan.monthly_krw.toLocaleString('ko-KR')}원</span><span className={"per"}> / 월부터 · 부가세 포함</span>
-            <div className={"price-note"}>{startingPlan.name} 기준 · <a href="/pricing/">전체 요금 보기</a></div></> : <p role="status">{catalog ? '현재 판매 중인 구독 상품이 없습니다.' : '요금 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.'}</p>}
-          <LaunchCountdown />
-        </div>
         <ul className={"prod-feat"}>
           <li><span className={"ck"}>✓</span> 슬롯 단위 전략 등록 · 동시 운용</li>
-          {catalog?.addon ? <li><span className={"ck"}>✓</span> 슬롯 1개씩 추가 · 월 {catalog.addon.monthly_krw.toLocaleString('ko-KR')}원 (최대 {catalog.addon.max_quantity}개)</li> : null}
           <li><span className={"ck"}>✓</span> 진입 · 청산 · 손절 직접 설정</li>
           <li><span className={"ck"}>✓</span> 24시간 자동 감시 · 실행</li>
           <li><span className={"ck"}>✓</span> IP 변경 자동 감지 · 재등록 안내</li>
@@ -206,7 +189,7 @@ export async function HomeContent() {
     <div className={"sec-eyebrow"}>자주 묻는 질문</div>
     <h2 className={"sec-title"}>궁금한 것들</h2>
     <div className={"faq"}>
-      {homeFaqs.map((faq, index) => <div className={index === 0 ? 'faq-item open' : 'faq-item'} key={faq.id}>
+      {homeFaqs.filter(faq => faq !== planChangeFaq).map((faq, index) => <div className={index === 0 ? 'faq-item open' : 'faq-item'} key={faq.id}>
         <div data-analytics-id={'faq_' + faq.id} className="faq-q" role="button" aria-expanded={index === 0} tabIndex={0}>{faq.question} <span className="plus">+</span></div>
         <div className="faq-a">{faq.answer}</div>
       </div>)}

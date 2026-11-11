@@ -4,6 +4,7 @@ import { subscriptionCatalog, checkoutTarget } from '@/lib/subscription-catalog'
 import { publishedRelease } from '@/lib/published-releases';
 import { HomeContent } from '@/components/home-v6/HomeContent';
 import Download from '@/app/download/page';
+import Pricing from '@/app/pricing/page';
 import { SessionProvider } from '@/components/auth/SessionProvider';
 import { guestSession } from '@/lib/auth/types';
 import { serverSession } from '@/lib/auth/session';
@@ -14,6 +15,7 @@ beforeEach(() => {
   vi.mocked(serverSession).mockResolvedValue({ status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: null });
 });
 const downloadHtml = async () => renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Download()}</SessionProvider>);
+const pricingHtml = async () => renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Pricing()}</SessionProvider>);
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 const plan = { code: 'BASE_5', name: '5슬롯', slots: 5, monthly_krw: 123000, promotion_label: '서버 요금', enabled: true, sort_order: 5 };
@@ -22,10 +24,20 @@ const release = { platform: 'darwin', architecture: 'arm64', status: 'PUBLISHED'
 const target = { platform: 'darwin', architecture: 'arm64' } as const;
 
 describe('live public API data', () => {
+  it('keeps pricing and offers off the homepage without fetching the catalog', async () => {
+    const fetcher = vi.fn(async () => Response.json(catalog));
+    vi.stubGlobal('fetch', fetcher);
+
+    const html = renderToStaticMarkup(<HomeContent />);
+
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(html).toContain('구독 시작하기');
+    expect(html).not.toMatch(/123,000|서버 요금|요금제 보기|출시 할인|\/pricing\/|"offers"|faq_plan_change/);
+  });
   it('uses the dedicated API without serving a stored price after the server changes it', async () => {
     vi.stubEnv('SPREADBRIDGE_API_URL', 'https://api.thespreadbridge.com/v1');
     const fetcher = vi.fn(async () => Response.json(catalog)); vi.stubGlobal('fetch', fetcher);
-    const html = renderToStaticMarkup(await HomeContent());
+    const html = await pricingHtml();
     expect(fetcher).toHaveBeenCalledWith('https://api.thespreadbridge.com/v1/public/subscriptions/catalog', expect.objectContaining({ cache: 'no-store' }));
     expect(html).toContain('123,000'); expect(html).toContain('서버 요금'); expect(html).not.toContain('₩99,000');
   });
@@ -35,7 +47,7 @@ describe('live public API data', () => {
   });
   it('shows a lookup failure instead of old prices on API failure', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response(null, { status: 503 })));
-    const html = renderToStaticMarkup(await HomeContent());
+    const html = await pricingHtml();
     expect(html).toContain('요금 정보를 불러오지 못했습니다'); expect(html).not.toContain('₩99,000');
   });
   it.each([-1, 1.5, '99000'])('rejects an invalid server price %s', async price => {
