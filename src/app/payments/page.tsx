@@ -12,6 +12,7 @@ import { SubscriptionCancellation } from '@/components/site/SubscriptionCancella
 import { BillingOperationStatus } from '@/components/site/BillingOperationStatus';
 import { parseBillingStatus } from '@/lib/subscription-checkout';
 import { PlanChangePanel } from '@/components/site/PlanChangePanel';
+import { BetaSubscriptionPanel } from '@/components/site/BetaSubscriptionPanel';
 
 export const metadata = { title: '구독 관리', robots: { index: false, follow: false } };
 
@@ -36,6 +37,7 @@ export default async function Payments({ searchParams }: { searchParams: Promise
   const receipts: SubscriptionReceipt[] | null = await json(history);
   const member = session.subscription;
   const currentData = await json(current);
+  const betaActive = currentData ? currentData.betaActive === true : member.betaActive === true;
   const billing: CurrentBilling | null = member.active ? parseBilling(currentData) : null;
   const managedEntitlement = currentData?.active === true && currentData.billing === null;
   const refund: CancellationQuote | null = billing ? parseCancellation(await json(await backend('/subscriptions/cancellation-quote', { headers }).catch(() => null))) : null;
@@ -51,7 +53,7 @@ export default async function Payments({ searchParams }: { searchParams: Promise
     <div className="site-summary-grid">
       <article><h2>현재 요금제</h2><p>{member.active ? currentBase ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
       <article><h2>이용 가능 슬롯</h2><p>{member.active ? member.maxActiveSlots : 0}개</p></article>
-      <article><h2>이용 기한</h2><p>{member.expiresAt ? kstDate(member.expiresAt) : member.active ? '관리자 지정 이용권' : '—'}</p></article>
+      <article><h2>이용 기한</h2><p>{betaActive ? '베타 종료까지' : member.expiresAt ? kstDate(member.expiresAt) : member.active ? '관리자 지정 이용권' : '—'}</p></article>
     </div>
     {billing ? <>
       <div className="site-summary-grid">
@@ -65,9 +67,10 @@ export default async function Payments({ searchParams }: { searchParams: Promise
         <div><dt>현재 결제 주기의 총일수</dt><dd>{calendarDays(billing.cycleStart, billing.periodEnd)}일</dd></div>
       </dl>
     </> : null}
+    {catalog?.beta && (!member.active || betaActive) && <BetaSubscriptionPanel beta={catalog.beta} active={betaActive} canEnroll={eligible} />}
     {!catalog ? <p role="status">상품 정보를 불러오지 못했습니다.</p>
       : !catalog.products.length ? <p role="status">현재 판매 중인 구독 상품이 없습니다.</p>
-      : member.active && !billing ? <p role="status">{managedEntitlement ? '관리자가 지정한 이용권은 이 화면에서 구성을 바꿀 수 없습니다. 변경이 필요하면 고객센터로 문의해 주세요.' : '구독 세부 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.'}</p>
+      : member.active && !billing && !betaActive ? <p role="status">{managedEntitlement ? '관리자가 지정한 이용권은 이 화면에서 구성을 바꿀 수 없습니다. 변경이 필요하면 고객센터로 문의해 주세요.' : '구독 세부 정보를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.'}</p>
       : <PlanChangePanel products={catalog.products} addon={catalog.addon} billing={billing} checkoutUrl={checkout} eligible={eligible} />}
     {catalog && !checkout && !paymentStatus?.enabled ? <p>새 구독 결제 연결을 준비하고 있습니다. 기존 구독의 자동결제 상태는 카드 정보에서 확인해 주세요.</p> : null}
     {billing ? <section className="site-plan-change" aria-labelledby="cancel-title"><h2 id="cancel-title">구독 해지와 환불</h2>

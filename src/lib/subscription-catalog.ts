@@ -17,8 +17,15 @@ export interface SubscriptionAddon {
   monthly_krw: number;
   max_quantity: number;
 }
+export interface SubscriptionBeta {
+  code: 'BETA';
+  baseSlots: number;
+  addonSlots: number;
+  monthlyKrw: 0;
+}
 export interface SubscriptionCatalog {
   products: SubscriptionProduct[];
+  beta?: SubscriptionBeta | null;
   addon: SubscriptionAddon | null;
   checkoutUrl: string | null;
   billingPeriod: 'MONTHLY';
@@ -42,6 +49,15 @@ function parseAddon(value: unknown): SubscriptionAddon | null {
     ? { code: a.code, name: a.name, slots: 1, monthly_krw: Number(a.monthly_krw), max_quantity: Number(a.max_quantity) } : null;
 }
 
+function parseBeta(value: unknown): SubscriptionBeta | null {
+  if (!value || typeof value !== 'object') return null;
+  const beta = value as Partial<SubscriptionBeta>;
+  return beta.code === 'BETA' && beta.monthlyKrw === 0
+    && typeof beta.baseSlots === 'number' && Number.isSafeInteger(beta.baseSlots) && beta.baseSlots > 0
+    && typeof beta.addonSlots === 'number' && Number.isSafeInteger(beta.addonSlots) && beta.addonSlots >= 0 && beta.addonSlots <= 3
+    ? { code: beta.code, baseSlots: beta.baseSlots, addonSlots: beta.addonSlots, monthlyKrw: beta.monthlyKrw } : null;
+}
+
 export async function subscriptionCatalog(accessToken: string | undefined): Promise<SubscriptionCatalog | null> {
   if (!accessToken) return null;
   try {
@@ -55,6 +71,7 @@ export async function subscriptionCatalog(accessToken: string | undefined): Prom
       && Number.isSafeInteger(p.slots) && p.slots > 0 && Number.isSafeInteger(p.monthly_krw) && p.monthly_krw >= 0
       && typeof p.promotion_label === 'string' && typeof p.enabled === 'boolean' && Number.isFinite(p.sort_order))) return null;
     return {
+      beta: parseBeta(data.beta),
       products: data.products.filter((p: SubscriptionProduct) => p.enabled).sort((a: SubscriptionProduct, b: SubscriptionProduct) => a.sort_order - b.sort_order),
       addon: parseAddon(data.addon),
       checkoutUrl: typeof data.checkoutUrl === 'string' ? checkoutTarget(data.checkoutUrl)?.toString() ?? null : null,

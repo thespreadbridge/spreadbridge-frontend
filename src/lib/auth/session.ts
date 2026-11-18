@@ -21,6 +21,7 @@ export async function resolveSession(accessToken?: string): Promise<SiteSession>
     const raw = subscriptionResponse.ok ? await subscriptionResponse.json() : null;
     const subscription = raw && typeof raw.active === 'boolean' ? {
       active: raw.active && (!raw.expiresAt || Date.parse(raw.expiresAt) > Date.now()),
+      ...(raw.betaActive === true && { betaActive: true }),
       planName: typeof raw.planName === 'string' ? raw.planName : null,
       maxActiveSlots: typeof raw.maxActiveSlots === 'number' && Number.isInteger(raw.maxActiveSlots) ? Math.max(0, raw.maxActiveSlots) : 0,
       expiresAt: typeof raw.expiresAt === 'string' ? raw.expiresAt : null,

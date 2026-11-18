@@ -8,6 +8,7 @@ export interface Member {
 }
 export interface Membership {
   active: boolean;
+  betaActive?: boolean;
   planName: string | null;
   maxActiveSlots: number;
   expiresAt: string | null;

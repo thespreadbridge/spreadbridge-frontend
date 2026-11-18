@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { GET as quoteRoute } from '@/app/api/member/subscription/quote/route';
+import { POST as enrollBeta } from '@/app/api/member/subscription/beta/route';
 import { PUT as scheduleRoute, DELETE as unscheduleRoute } from '@/app/api/member/subscription/scheduled-change/route';
 import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { checkoutLink, parseBilling, parseCancellation, parseQuote, validConfig } from '@/lib/subscription-billing';
@@ -87,6 +88,19 @@ describe('quote summary', () => {
 });
 
 describe('member subscription routes', () => {
+  it('enrolls via the member API only on a signed-in same-origin request', async () => {
+    const fetcher = vi.fn(async () => Response.json({ active: true, maxActiveSlots: 5 }));
+    const path = '/api/member/subscription/beta/';
+    vi.stubGlobal('fetch', fetcher);
+    expect((await enrollBeta(request(path, { method: 'POST', headers: { origin } }, false))).status).toBe(401);
+    expect((await enrollBeta(request(path, { method: 'POST', headers: { origin: 'https://other.invalid' } }))).status).toBe(403);
+    expect(fetcher).not.toHaveBeenCalled();
+    const response = await enrollBeta(request(path, { method: 'POST', headers: { origin }, body: '{"maxActiveSlots":50}' }));
+    expect(await response.json()).toEqual({ active: true, maxActiveSlots: 5 });
+    expect(fetcher).toHaveBeenCalledWith(expect.stringMatching(/\/subscriptions\/beta$/), expect.objectContaining({
+      method: 'POST', body: '{}', headers: expect.objectContaining({ Authorization: `Bearer ${token}` }),
+    }));
+  });
   it('forwards a validated quote request with the member token', async () => {
     const fetcher = vi.fn(async (input: string, init?: RequestInit) => {
       const url = new URL(input);
