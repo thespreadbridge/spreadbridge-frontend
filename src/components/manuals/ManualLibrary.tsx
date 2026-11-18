@@ -19,7 +19,6 @@ export function ManualLibrary({ manuals }: { manuals: readonly Manual[] }) {
           <div className="manual-actions">
             <button type="button" className="btn primary" onClick={() => setSelected(manual)}>{manual.title} 읽기</button>
             <a className="btn ghost" href={manual.pdf} download>PDF 다운로드</a>
-            <a className="btn ghost" href={manual.pptx} download>PPTX 다운로드</a>
           </div>
         </div>
       </section>)}

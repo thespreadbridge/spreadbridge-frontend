@@ -5,7 +5,6 @@
     "description": "Windows·Mac 다운로드, 설치 확인 메시지와 Mac 보안 설정, 로그인 방법을 안내합니다.",
     "version": "1.1",
     "pdf": "/manuals/v1.1/install/install-guide-v1.1.pdf",
-    "pptx": "/manuals/v1.1/install/install-guide-v1.1.pptx",
     "screenDate": "2026.11.10",
     "pages": [
       {
@@ -36,7 +35,6 @@
     "description": "API 키 발급, 조회·주문 권한과 허용 IP 설정, 앱 등록을 안내합니다.",
     "version": "1.0",
     "pdf": "/manuals/upbit-20261102/upbit-guide.pdf",
-    "pptx": "/manuals/upbit-20261102/upbit-guide.pptx",
     "screenDate": "2026.11.01",
     "pages": [
       {
@@ -63,7 +61,6 @@
     "description": "한국투자증권 API 신청과 APP Key·계좌번호 등록을 안내합니다.",
     "version": "1.1",
     "pdf": "/manuals/v1.1/kis/kis-guide-v1.1.pdf",
-    "pptx": "/manuals/v1.1/kis/kis-guide-v1.1.pptx",
     "screenDate": "2026.11.01",
     "pages": [
       {

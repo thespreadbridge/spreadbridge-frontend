@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { GET } from '@/app/api/member/download/route';
 import { GET as manualAsset } from '@/app/manuals/[...asset]/route';
 import Download from '@/app/download/page';
+import Manuals from '@/app/manuals/page';
 import { resolveSession, serverSession } from '@/lib/auth/session';
 import { guestSession, type SiteSession } from '@/lib/auth/types';
 import { ACCESS_COOKIE } from '@/lib/auth/cookies';
@@ -87,5 +88,15 @@ describe('member-only website downloads', () => {
     expect(file.headers.get('content-type')).toBe('application/pdf');
     expect(file.headers.get('cache-control')).toContain('no-store');
     expect(Buffer.from(await file.arrayBuffer()).subarray(0, 5).toString()).toBe('%PDF-');
+    const formerSlide = { params: Promise.resolve({ asset: ['v1.1', 'install', 'install-guide-v1.1.pptx'] }) };
+    expect((await manualAsset(request(), formerSlide)).status).toBe(404);
+  });
+  it('offers each manual as a PDF and an on-page reader', async () => {
+    const subscriber: SiteSession = { ...member, subscription: { active: true, planName: '베타', maxActiveSlots: 5, expiresAt: null } };
+    vi.mocked(serverSession).mockResolvedValue(subscriber);
+    const markup = renderToStaticMarkup(<SessionProvider initialSession={subscriber}>{await Manuals()}</SessionProvider>);
+    expect(markup.match(/>PDF 다운로드<\/a>/g)).toHaveLength(3);
+    expect(markup.match(/class="manual-cover"/g)).toHaveLength(3);
+    expect(markup).not.toMatch(/pptx/i);
   });
 });

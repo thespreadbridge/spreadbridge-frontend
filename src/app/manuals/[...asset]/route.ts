@@ -7,7 +7,6 @@ import { subscriberAccessStatus } from '@/lib/auth/access';
 
 const contentTypes: Record<string, string> = {
   '.pdf': 'application/pdf',
-  '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   '.webp': 'image/webp',
 };
 
