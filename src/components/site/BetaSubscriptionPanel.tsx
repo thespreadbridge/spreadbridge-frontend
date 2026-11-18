@@ -44,7 +44,7 @@ export function BetaSubscriptionPanel({ beta, active, canEnroll }: {
     <p>결제 수단 등록 없이 가입할 수 있습니다. 정식 구독은 별도로 신청합니다.</p>
     {subscribed
       ? <p role="status">무료 베타 이용 중</p>
-      : <button type="button" className="btn primary site-beta-action" disabled={busy || !canEnroll} onClick={() => void enroll()}>
+      : <button type="button" className="btn primary" disabled={busy || !canEnroll} onClick={() => void enroll()}>
         {busy ? '베타 가입 중…' : '무료 베타 구독'}
       </button>}
     {message && <p role="alert">{message}</p>}
