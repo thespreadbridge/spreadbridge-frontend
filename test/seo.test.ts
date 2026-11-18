@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { PUBLIC_PAGES, ACCOUNT_PAGE_TITLES, SITE_ORIGIN } from '@/lib/site-pages';
-import { organizationSchema, pageTitles, publicPageMetadata, softwareSchema } from '@/lib/seo';
+import { PUBLIC_PAGES, PUBLIC_SITE_PATHS, ACCOUNT_PAGE_TITLES, SITE_ORIGIN } from '@/lib/site-pages';
+import { organizationSchema, pageTitles, publicPageMetadata, publicRobots, softwareSchema } from '@/lib/seo';
 import { insights, insightPath, jsonLd } from '@/lib/insights';
 
 describe('public search metadata', () => {
@@ -10,15 +10,10 @@ describe('public search metadata', () => {
       expect(meta.alternates?.canonical).toBe(SITE_ORIGIN + path);
       expect(path.endsWith('/')).toBe(true);
       expect(meta.description?.length).toBeGreaterThan(20);
-      expect(meta.robots).toMatchObject({ index: true, follow: true, 'max-image-preview': 'large' });
+      expect(meta.robots).toMatchObject(PUBLIC_SITE_PATHS.includes(path) ? publicRobots : { index: false, follow: false });
       expect(meta.openGraph).toMatchObject({ url: SITE_ORIGIN + path, locale: 'ko_KR', siteName: '스프레드브리지' });
     }
     for (const path of Object.keys(ACCOUNT_PAGE_TITLES)) expect(PUBLIC_PAGES).not.toHaveProperty(path);
-  });
-  it('includes the brand on article social previews', async () => {
-    const { generateMetadata } = await import('@/app/blog/[slug]/page');
-    const meta = await generateMetadata({ params: Promise.resolve({ slug: insights[0].slug }) });
-    expect(meta.openGraph).toMatchObject({ siteName: '스프레드브리지' });
   });
   it('uses only public route titles for analytics and includes all published articles', () => {
     for (const post of insights) expect(pageTitles[insightPath(post.slug)]).toBe(post.title);

@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { Brand } from '@/components/brand';
-import { policyLinks } from '@/lib/information-links';
+import { policyLinks, publicPolicyLinks } from '@/lib/information-links';
+import { useSession } from '@/components/auth/SessionProvider';
+import { homeView } from '@/lib/auth/types';
 
 const footerGroups = [
   { title: '제품', links: [
@@ -21,12 +25,17 @@ const footerGroups = [
 ];
 
 export function SiteFooter() {
+  const { session } = useSession();
+  const groups = homeView(session) === 'paid' ? footerGroups : [
+    ...(session.status === 'authenticated' ? [{ title: '제품', links: [{ href: '/download/', label: '다운로드' }] }] : []),
+    { title: '정책', links: publicPolicyLinks },
+  ];
   return (
     <footer className="site-footer">
       <div className="site-container">
         <div className="site-footer-grid">
           <div className="site-footer-brand"><Brand /><p>달러의 가격 격차를 자동으로 다루는 매매 소프트웨어. 판단은 당신의 PC에서, 자산은 당신의 손에서.</p></div>
-          {footerGroups.map(group => <nav className="site-footer-column" key={group.title} aria-label={`${group.title} 하단 메뉴`}>
+          {groups.map(group => <nav className="site-footer-column" key={group.title} aria-label={`${group.title} 하단 메뉴`}>
             <h2>{group.title}</h2>
             {group.links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}
           </nav>)}

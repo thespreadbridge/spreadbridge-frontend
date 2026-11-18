@@ -5,16 +5,15 @@ import { ArticleCard } from '@/components/blog/ArticleCard';
 import { BlogStart } from '@/components/blog/BlogStart';
 import { articleEditorialNote, tradeManagementNotice } from '@/lib/blog-notices';
 import { formatArticleDate, getInsight, insightCategories, insightPath, insights, jsonLd, siteOrigin } from '@/lib/insights';
-
-export const dynamicParams = false;
-export function generateStaticParams() { return insights.map(({ slug }) => ({ slug })); }
+import { requireSubscriberAccess } from '@/lib/auth/access';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  await requireSubscriberAccess();
   const post = getInsight((await params).slug);
   if (!post) notFound();
   const url = `${siteOrigin}${insightPath(post.slug)}`;
   return {
-    title: post.title, description: post.description, alternates: { canonical: url },
+    title: post.title, description: post.description, alternates: { canonical: url }, robots: { index: false, follow: false },
     authors: [{ name: '스프레드브리지', url: `${siteOrigin}/blog/` }],
     openGraph: { siteName: '스프레드브리지', title: post.title, description: post.description, url, type: 'article', locale: 'ko_KR', publishedTime: post.publishedAt, modifiedTime: post.updatedAt, authors: ['스프레드브리지'], images: [{ url: `${siteOrigin}/images/insights-cover.png`, width: 1200, height: 630, alt: '스프레드브리지 인사이트' }] },
     twitter: { card: 'summary_large_image', title: post.title, description: post.description, images: [`${siteOrigin}/images/insights-cover.png`] },
@@ -22,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  await requireSubscriberAccess();
   const post = getInsight((await params).slug);
   if (!post) notFound();
   const category = insightCategories.find((item) => item.id === post.category)!;

@@ -1,8 +1,18 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import ArticlePage, { generateMetadata } from '@/app/blog/[slug]/page';
 import { insights } from '@/lib/insights';
 import { tradeManagementNotice } from '@/lib/blog-notices';
+import { serverSession } from '@/lib/auth/session';
+import { guestSession, type SiteSession } from '@/lib/auth/types';
+
+vi.mock('@/lib/auth/session', () => ({ serverSession: vi.fn() }));
+const subscribed: SiteSession = {
+  status: 'authenticated',
+  user: { userId: 'reader', email: 'reader@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' },
+  subscription: { active: true, planName: '베타', maxActiveSlots: 5, expiresAt: null },
+};
+beforeEach(() => vi.mocked(serverSession).mockResolvedValue(subscribed));
 
 describe('final blog publication', () => {
   it('shows the external-order warning once before the table of contents on articles 2–14', async () => {
@@ -39,7 +49,18 @@ describe('final blog publication', () => {
       const meta = await generateMetadata({ params: Promise.resolve({ slug: post.slug }) });
       expect(meta).toMatchObject({ title: post.title, description: post.description });
       expect(meta.openGraph).toMatchObject({ title: post.title, description: post.description, publishedTime: post.publishedAt, modifiedTime: post.updatedAt });
+      expect(meta.openGraph).toHaveProperty('siteName', '스프레드브리지');
+      expect(meta.robots).toMatchObject({ index: false, follow: false });
       expect(meta.twitter).toMatchObject({ title: post.title, description: post.description });
     }
+  });
+  it('redirects direct article and metadata requests before rendering content for guests and unsubscribed members', async () => {
+    const params = { params: Promise.resolve({ slug: insights[0].slug }) };
+    vi.mocked(serverSession).mockResolvedValue(guestSession);
+    await expect(ArticlePage(params)).rejects.toMatchObject({ digest: expect.stringContaining(';/;') });
+    await expect(generateMetadata(params)).rejects.toMatchObject({ digest: expect.stringContaining(';/;') });
+    vi.mocked(serverSession).mockResolvedValue({ ...subscribed, subscription: { active: false, planName: null, maxActiveSlots: 0, expiresAt: null } });
+    await expect(ArticlePage(params)).rejects.toMatchObject({ digest: expect.stringContaining(';/download/;') });
+    await expect(generateMetadata(params)).rejects.toMatchObject({ digest: expect.stringContaining(';/download/;') });
   });
 });

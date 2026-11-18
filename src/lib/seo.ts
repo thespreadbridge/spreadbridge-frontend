@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { PUBLIC_PAGES, ACCOUNT_PAGE_TITLES, SITE_NAME, SITE_ORIGIN } from './site-pages';
+import { PUBLIC_PAGES, PUBLIC_SITE_PATHS, ACCOUNT_PAGE_TITLES, SITE_NAME, SITE_ORIGIN } from './site-pages';
 import { insights, insightPath } from './insights';
 
-export const publicRobots: Metadata['robots'] = {
+export const publicRobots = {
   index: true, follow: true,
   'max-image-preview': 'large',
-};
+} satisfies Metadata['robots'];
 
 export const pageTitles: Record<string, string> = {
   ...Object.fromEntries(Object.entries(PUBLIC_PAGES).map(([path, page]) => [path, page.title])),
@@ -17,7 +17,8 @@ export function publicPageMetadata(path: string): Metadata {
   if (!page) throw new Error('Unknown public page');
   const url = SITE_ORIGIN + path;
   return {
-    title: page.title, description: page.description, alternates: { canonical: url }, robots: publicRobots,
+    title: page.title, description: page.description, alternates: { canonical: url },
+    robots: PUBLIC_SITE_PATHS.includes(path) ? publicRobots : { index: false, follow: false },
     openGraph: { type: 'website', locale: 'ko_KR', siteName: SITE_NAME, title: page.title,
       description: page.description, url, images: [{ url: SITE_ORIGIN + '/images/spreadbridge-cover.png', width: 1200, height: 630, alt: '스프레드브리지 · 달러선물과 USDT 스프레드 자동매매' }] },
     twitter: { card: 'summary_large_image', title: page.title, description: page.description, images: [SITE_ORIGIN + '/images/spreadbridge-cover.png'] },
@@ -34,6 +35,6 @@ export const organizationSchema = {
 export const softwareSchema = {
   '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: SITE_NAME, alternateName: 'Spreadbridge',
   url: SITE_ORIGIN + '/', description: PUBLIC_PAGES['/'].description, applicationCategory: 'FinanceApplication',
-  operatingSystem: 'Windows, macOS', softwareHelp: SITE_ORIGIN + '/guide/',
+  operatingSystem: 'Windows, macOS',
   publisher: { '@id': SITE_ORIGIN + '/#organization' },
 };

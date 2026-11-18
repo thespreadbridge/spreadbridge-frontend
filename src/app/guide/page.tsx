@@ -2,6 +2,7 @@ import { publicPageMetadata } from '@/lib/seo';
 import { SitePage } from '@/components/site/SitePage';
 import { icons } from '@/components/landing/icons';
 import Link from 'next/link';
+import { requireSubscriberAccess } from '@/lib/auth/access';
 
 const sections = [
   ['01', '거래 계좌와 거래 요건 확인', '업비트 계정과 한국투자증권 국내선물옵션 계좌를 준비합니다. 본인에게 적용되는 사전교육·모의거래·기본예탁금 요건을 증권사에서 확인하세요.', 'card'],
@@ -13,7 +14,8 @@ const sections = [
   ['07', '실행 전후 주문과 포지션 확인', '실행 전 전체 슬롯의 총수량, 자금 여유, 미체결 주문과 보유 포지션을 확인합니다. 실행 후에는 업비트와 한국투자증권의 실제 주문·체결 결과를 함께 확인하세요.', 'play'],
 ];
 
-export default function Guide() {
+export default async function Guide() {
+  await requireSubscriberAccess();
   return <SitePage title="설치부터 첫 실행까지" eyebrow="스프레드브리지 · GETTING STARTED" description="투자금은 본인 계좌에 보관됩니다. 이용자의 PC에서 설정한 조건에 따라 매매를 실행합니다.">
     <p><Link href="/manuals/">화면으로 따라 하는 설치·API 매뉴얼 보기 →</Link></p>
     <ol className="site-steps">

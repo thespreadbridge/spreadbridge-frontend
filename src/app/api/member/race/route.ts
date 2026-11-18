@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ACCESS_COOKIE, privateResponse } from '@/lib/auth/cookies';
 import { backend } from '@/lib/auth/backend';
+import { resolveSession } from '@/lib/auth/session';
+import { subscriberAccessStatus } from '@/lib/auth/access';
 import { isRaceSymbol, type RaceBucket, type RaceSummary } from '@/lib/race';
 
 const integer = (value: unknown) => typeof value === 'number' && Number.isInteger(value) ? value : 0;
@@ -22,13 +24,12 @@ function pickSummary(raw: unknown, symbol: string): RaceSummary {
   };
 }
 
-// The backend validates the bearer token itself, so this route forwards it without
-// resolving the whole member profile on every poll.
 export async function GET(request: NextRequest) {
   const symbol = request.nextUrl.searchParams.get('symbol') ?? '';
   if (!isRaceSymbol(symbol)) return privateResponse(NextResponse.json({ error: 'Invalid symbol' }, { status: 400 }));
   const token = request.cookies.get(ACCESS_COOKIE)?.value;
-  if (!token) return privateResponse(NextResponse.json({ error: 'Authentication required' }, { status: 401 }));
+  const status = subscriberAccessStatus(await resolveSession(token));
+  if (status !== 200) return privateResponse(NextResponse.json({ error: 'Race access unavailable' }, { status }));
   try {
     const result = await backend(`/desktop/entry-race?symbol=${encodeURIComponent(symbol)}`, { headers: { Authorization: `Bearer ${token}` } });
     if (result.status === 401 || result.status === 403) return privateResponse(NextResponse.json({ error: 'Not permitted' }, { status: result.status }));

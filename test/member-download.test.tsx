@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { GET } from '@/app/api/member/download/route';
+import { GET as manualAsset } from '@/app/manuals/[...asset]/route';
 import Download from '@/app/download/page';
 import { resolveSession, serverSession } from '@/lib/auth/session';
 import { guestSession, type SiteSession } from '@/lib/auth/types';
@@ -9,7 +10,10 @@ import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { SessionProvider } from '@/components/auth/SessionProvider';
 
 vi.mock('@/lib/auth/session', () => ({ resolveSession: vi.fn(), serverSession: vi.fn() }));
-vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh() {}, replace() {} }) }));
+vi.mock('next/navigation', async importOriginal => ({
+  ...await importOriginal<typeof import('next/navigation')>(),
+  useRouter: () => ({ refresh() {}, replace() {} }),
+}));
 const member: SiteSession = { status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: { active: false, planName: null, maxActiveSlots: 0, expiresAt: null } };
 const release = { platform: 'win32', architecture: 'x64', status: 'PUBLISHED', version: '1.2.3', artifactUrl: 'https://downloads.example.test/app.exe', sha512: 'A'.repeat(86) + '==', artifactSize: 12345, installationMode: 'AUTO_UNSIGNED' };
 const request = (query = 'platform=win32&architecture=x64') => new NextRequest(`https://thespreadbridge.com/api/member/download/?${query}`, { headers: { cookie: `${ACCESS_COOKIE}=verified-member-token` } });
@@ -58,13 +62,9 @@ describe('member-only website downloads', () => {
     fetcher.mockResolvedValueOnce(new Response(null, { status: 503 }));
     expect((await GET(request())).status).toBe(503);
   });
-  it.each(['guest', 'refresh_required', 'unavailable'] as const)('shows login links without querying or exposing installers to %s visitors', async status => {
+  it.each(['guest', 'refresh_required', 'unavailable'] as const)('redirects %s visitors before fetching installer information', async status => {
     vi.mocked(serverSession).mockResolvedValue({ status, user: null, subscription: null });
-    const markup = await html();
-    expect(markup).toContain('로그인 후 다운로드');
-    expect(markup).toMatch(/\/login\/?\?next=%2Fdownload%2F/);
-    expect(markup).not.toContain(release.artifactUrl);
-    expect(markup).not.toContain('/api/member/download/');
+    await expect(html()).rejects.toMatchObject({ digest: expect.stringContaining(';/login/?next=%2Fdownload%2F;') });
     expect(fetcher).not.toHaveBeenCalled();
   });
   it('uses the authenticated download endpoint rather than embedding the installer URL', async () => {
@@ -72,5 +72,20 @@ describe('member-only website downloads', () => {
     expect(markup).toContain('/api/member/download/?platform=win32&amp;architecture=x64');
     expect(markup).toContain('설치파일 다운로드');
     expect(markup).not.toContain(release.artifactUrl);
+    expect(markup).not.toContain('href="/manuals');
+    expect(markup).toMatch(/href="\/payments\/?"/);
+  });
+  it('allows the installer for a signed-in member and reserves manual files for an active subscription', async () => {
+    const params = { params: Promise.resolve({ asset: ['v1.1', 'install', 'install-guide-v1.1.pdf'] }) };
+    expect((await GET(request())).status).toBe(302);
+    expect((await manualAsset(request(), params)).status).toBe(403);
+    vi.mocked(resolveSession).mockResolvedValue(guestSession);
+    expect((await manualAsset(request(), params)).status).toBe(401);
+    vi.mocked(resolveSession).mockResolvedValue({ ...member, subscription: { active: true, betaActive: true, planName: '베타', maxActiveSlots: 5, expiresAt: null } });
+    const file = await manualAsset(request(), params);
+    expect(file.status).toBe(200);
+    expect(file.headers.get('content-type')).toBe('application/pdf');
+    expect(file.headers.get('cache-control')).toContain('no-store');
+    expect(Buffer.from(await file.arrayBuffer()).subarray(0, 5).toString()).toBe('%PDF-');
   });
 });

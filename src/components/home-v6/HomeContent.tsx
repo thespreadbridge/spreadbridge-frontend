@@ -5,7 +5,7 @@ import { insights, insightPath, jsonLd } from '@/lib/insights';
 const introductoryPosts = [1, 5, 9].map(id => insights.find(post => post.id === id)).filter(post => post !== undefined);
 
 // User-provided v6 HTML, retained for visual review in docs/design/.
-export function HomeContent() {
+export function HomeContent({ signedIn = false, subscriber = false }: { signedIn?: boolean; subscriber?: boolean } = {}) {
   return <>
 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(softwareSchema) }} />
 <header className={"hero view-guest"}>
@@ -121,7 +121,7 @@ export function HomeContent() {
           <li><span className={"ck"}>✓</span> IP 변경 자동 감지 · 재등록 안내</li>
           <li><span className={"ck"}>✓</span> 모의거래 모드 · 실시간 리포트</li>
         </ul>
-        <a data-analytics-id="product_start" className={"btn primary"} href={"/payments/"}>구독 시작하기</a>
+        <a data-analytics-id="product_start" className={"btn primary"} href={signedIn ? '/payments/' : '/login/?next=%2Fpayments%2F'}>구독 시작하기</a>
       </div>
 
       <div className={"prod-card"}>
@@ -136,7 +136,7 @@ export function HomeContent() {
           <li><span className={"ck"}>○</span> 고급 리스크 관리 도구</li>
           <li><span className={"ck"}>○</span> 전용 초기 설정 안내 · 우선 지원</li>
         </ul>
-        <a className={"btn ghost"} href={"/notices/"}>출시 소식 보기</a>
+        {subscriber && <a className={"btn ghost"} href={"/notices/"}>출시 소식 보기</a>}
       </div>
     </div>
 
@@ -166,7 +166,7 @@ export function HomeContent() {
 </section>
 
 
-<section className="blk" aria-labelledby="reading-title">
+{subscriber && <section className="blk" aria-labelledby="reading-title">
   <div className="wrap">
     <div className="sec-eyebrow">시작 가이드</div>
     <h2 className="sec-title" id="reading-title">테더·달러선물 스프레드 거래 알아보기</h2>
@@ -182,7 +182,7 @@ export function HomeContent() {
       <a className="btn ghost" href="/blog/">전체 글 보기</a>
     </div>
   </div>
-</section>
+</section>}
 
 <section className={"blk section-tint"} id={"faq"}>
   <div className={"wrap"}>

@@ -62,7 +62,7 @@ export function MemberHome() {
           <div className="board-foot">증권사·거래소의 실제 체결 내역도 함께 확인해 주세요.</div>
         </div>
       </> : <div className="site-callout"><p>구독 상태와 이용 기간은 <Link href="/payments/">구독 관리</Link>에서 확인할 수 있습니다.</p></div>}
-      <div className="member-actions"><Link href="/download/" className="btn primary">데스크톱 앱 다운로드</Link><Link href="/guide/" className="btn ghost">시작 가이드</Link></div>
+      <div className="member-actions"><Link href="/download/" className="btn primary">데스크톱 앱 다운로드</Link>{view === 'paid' && <Link href="/guide/" className="btn ghost">시작 가이드</Link>}</div>
     </div>
   </section>;
 }

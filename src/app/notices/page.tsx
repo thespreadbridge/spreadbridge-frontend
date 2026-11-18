@@ -1,10 +1,12 @@
 import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { InformationPage } from '@/components/information/InformationPage';
+import { requireSubscriberAccess } from '@/lib/auth/access';
 
 export const metadata = publicPageMetadata('/notices/');
 
-export default function NoticesPage() {
+export default async function NoticesPage() {
+  await requireSubscriberAccess();
   return <InformationPage title="공지사항" eyebrow="스프레드브리지 · NOTICE" description="서비스 변경, 점검 및 업데이트 소식을 안내합니다.">
     <div className="site-empty">
       <svg className="site-empty-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">

@@ -4,13 +4,15 @@ import Link from 'next/link';
 import { ArticleCard } from '@/components/blog/ArticleCard';
 import { BlogStart } from '@/components/blog/BlogStart';
 import { insightCategories, insightPath, insights, jsonLd, siteOrigin } from '@/lib/insights';
+import { requireSubscriberAccess } from '@/lib/auth/access';
 
 export const metadata: Metadata = {
   ...publicPageMetadata('/blog/'),
   alternates: { canonical: siteOrigin + '/blog/', types: { 'application/rss+xml': siteOrigin + '/feed.xml' } },
 };
 
-export default function BlogIndex() {
+export default async function BlogIndex() {
+  await requireSubscriberAccess();
   const schema = {
     '@context': 'https://schema.org', '@type': 'CollectionPage', name: '스프레드브리지 블로그', url: `${siteOrigin}/blog/`,
     mainEntity: { '@type': 'ItemList', itemListElement: insights.map((post, index) => ({ '@type': 'ListItem', position: index + 1, name: post.title, url: `${siteOrigin}${insightPath(post.slug)}` })) },

@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import manuals from '@/content/manuals.json';
+import type manualData from '@/content/manuals.json';
 
-type Manual = typeof manuals[number];
+type Manual = typeof manualData[number];
 
-export function ManualLibrary() {
+export function ManualLibrary({ manuals }: { manuals: readonly Manual[] }) {
   const [selected, setSelected] = useState<Manual | null>(null);
   return <>
     <div className="manual-library">

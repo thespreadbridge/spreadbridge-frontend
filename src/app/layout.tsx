@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { SessionProvider } from '@/components/auth/SessionProvider';
 import { serverSession } from '@/lib/auth/session';
+import { homeView } from '@/lib/auth/types';
+import { PUBLIC_SITE_PATHS } from '@/lib/site-pages';
 import localFont from 'next/font/local';
 import { Suspense } from 'react';
 import { Analytics } from '@/components/analytics/Analytics';
@@ -36,12 +38,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const session = await serverSession();
+  const visibleTitles = homeView(session) === 'paid' ? pageTitles : Object.fromEntries(
+    Object.entries(pageTitles).filter(([path]) => PUBLIC_SITE_PATHS.includes(path) || path === '/login/'
+      || (session.status === 'authenticated' && ['/download/', '/payments/', '/payments/checkout/'].includes(path))),
+  );
   return (
     <html lang="ko" data-scroll-behavior="smooth" className={`${pretendard.variable} ${mono.variable}`}>
       <body>
         <SessionProvider initialSession={session}>
           {children}
-          <Suspense fallback={null}><Analytics measurementId={GA_MEASUREMENT_ID} pageTitles={pageTitles} /></Suspense>
+          <Suspense fallback={null}><Analytics measurementId={GA_MEASUREMENT_ID} pageTitles={visibleTitles} /></Suspense>
         </SessionProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema) }} />
       </body>

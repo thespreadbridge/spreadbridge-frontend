@@ -1,5 +1,6 @@
 export const SITE_ORIGIN = 'https://thespreadbridge.com';
 export const SITE_NAME = '스프레드브리지';
+export const PUBLIC_SITE_PATHS: readonly string[] = ['/', '/terms/', '/privacy/'];
 // Update when the public content/metadata is materially revised.
 export const SITE_CONTENT_UPDATED_AT = '2026-10-26';
 // Dates reflect reviewed content changes, never the time a build runs.

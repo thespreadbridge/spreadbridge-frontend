@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 export default {
   outputFileTracingRoot: projectRoot,
+  outputFileTracingIncludes: { '/manuals/*': ['./src/content/manual-assets/**/*'] },
   turbopack: { root: projectRoot },
   trailingSlash: true, poweredByHeader: false,
   images: { unoptimized: true },

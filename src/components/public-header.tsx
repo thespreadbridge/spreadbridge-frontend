@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Brand } from './brand';
 import { useSession } from './auth/SessionProvider';
+import { homeView } from '@/lib/auth/types';
 
 export function PublicHeader() {
   const { session, logout, refresh, busy } = useSession();
+  const subscriber = homeView(session) === 'paid';
   const [logoutError, setLogoutError] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
@@ -36,15 +38,20 @@ export function PublicHeader() {
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">{menuOpen ? <path d="m4 4 10 10M14 4 4 14" /> : <path d="M2 4h14M2 9h14M2 14h14" />}</svg>메뉴
       </button>
       <div className="site-menu" id={menuId} data-open={menuOpen}>
-        <nav aria-label="주요 메뉴" className="site-nav" onClick={() => setMenuOpen(false)}>
-          <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">자주 묻는 질문</Link><Link href="/race/">진입갭 레이스</Link><Link href="/blog/">블로그</Link><Link href="/download/">다운로드</Link><Link href="/manuals/">설치 매뉴얼</Link>
-        </nav>
+        {session.status === 'authenticated' && <nav aria-label="주요 메뉴" className="site-nav" onClick={() => setMenuOpen(false)}>
+          {subscriber && <>
+            <Link href="/#how">작동 방식</Link><Link href="/#security">보안</Link><Link href="/#product">요금</Link><Link href="/#faq">자주 묻는 질문</Link>
+            <Link href="/race/">진입갭 레이스</Link><Link href="/blog/">블로그</Link>
+          </>}
+          <Link href="/download/">다운로드</Link>
+          {subscriber && <Link href="/manuals/">설치 매뉴얼</Link>}
+        </nav>}
         <div className="site-actions" onClick={() => setMenuOpen(false)}>
           {session.status === 'authenticated' ? <>
             <Link data-analytics-id="account_profile" className="member-chip" href="/payments/" aria-label={`${session.user.displayName} 님 구독 관리`}>
               <span className="member-avatar" aria-hidden="true">{session.user.displayName.slice(0, 1)}</span><span>{session.user.displayName} 님</span>
             </Link>
-            <Link href="/payments/" className="btn ghost">구독 관리</Link>
+            <Link href="/payments/" className="btn ghost">{subscriber ? '구독 관리' : '구독하기'}</Link>
             <button data-analytics-id="logout" className="btn ghost" type="button" disabled={busy} onClick={() => { setLogoutError(false); void logout().catch(() => setLogoutError(true)); }}>{busy ? '로그아웃 중' : '로그아웃'}</button>
           </> : session.status === 'unavailable' || session.status === 'refresh_required' ? <>
             <span className="member-status">로그인 정보 확인 {session.status === 'unavailable' ? '실패' : '중'}</span>

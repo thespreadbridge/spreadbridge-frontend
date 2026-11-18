@@ -2,6 +2,8 @@ import { HomeContent } from '@/components/home-v6/HomeContent';
 import { HomeExperience } from '@/components/home-v6/HomeExperience';
 import { redirect } from 'next/navigation';
 import { publicPageMetadata, publicRobots } from '@/lib/seo';
+import { serverSession } from '@/lib/auth/session';
+import { homeView } from '@/lib/auth/types';
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
@@ -12,7 +14,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
     if (typeof params.error === 'string') query.set('error', params.error);
     redirect(`/api/session/google/callback/?${query}`);
   }
-  return <HomeExperience><HomeContent /></HomeExperience>;
+  const session = await serverSession();
+  return <HomeExperience>
+    <HomeContent signedIn={session.status === 'authenticated'} subscriber={homeView(session) === 'paid'} />
+  </HomeExperience>;
 }
 
 export const metadata = {

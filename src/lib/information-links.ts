@@ -6,3 +6,4 @@ export const policyLinks = [
 ];
 
 export const informationLinks = [{ href: '/notices/', label: '공지사항' }, ...policyLinks];
+export const publicPolicyLinks = policyLinks.filter(link => link.href === '/terms/' || link.href === '/privacy/');

@@ -1,5 +1,6 @@
 import { publicPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
+import { SubscriberLink } from '@/components/information/SubscriberLink';
 import { InformationPage } from '@/components/information/InformationPage';
 
 export const metadata = publicPageMetadata('/terms/');
@@ -19,7 +20,7 @@ export default function TermsPage() {
     </section>
     <section><h2>4. 거래 설정과 실행</h2>
       <p>거래 종목, 수량, 진입·청산 조건과 실행 여부는 이용자가 확인하고 설정합니다. 실제 주문 전에는 실행 모드와 계좌를 확인하고, 모의거래 결과가 실제 거래 결과와 같지 않을 수 있음을 이해해야 합니다.</p>
-      <p>앱 중지, 로그아웃 또는 구독 해지가 기존 주문 취소나 보유 포지션의 청산을 의미하지 않습니다. 주문·잔고·포지션은 해당 거래소나 증권사에서도 확인해야 합니다. 상세 위험은 <Link href="/risk/">위험고지</Link>를 확인하세요.</p>
+      <p>앱 중지, 로그아웃 또는 구독 해지가 기존 주문 취소나 보유 포지션의 청산을 의미하지 않습니다. 주문·잔고·포지션은 해당 거래소나 증권사에서도 확인해야 합니다. 상세 위험은 <SubscriberLink href="/risk/">위험고지</SubscriberLink>를 확인하세요.</p>
     </section>
     <section><h2>5. 구독 및 결제</h2>
       <p>이용 요금, 슬롯 수, 이용 기간, 할인 적용 기간 및 갱신 조건은 상품 및 결제 화면에서 안내한 내용을 기준으로 합니다. 거래소·증권사의 수수료와 증거금은 서비스 이용료에 포함되지 않습니다.</p>
@@ -37,10 +38,10 @@ export default function TermsPage() {
     </section>
     <section><h2>7. 이용 제한 및 서비스 변경</h2>
       <p>타인 계정 도용, 불법 거래, 보안 침해, 서비스 운영 방해 등 부정 이용이 확인되면 필요한 범위에서 이용을 제한할 수 있습니다. 긴급한 보안·장애 대응을 제외하고 사유와 이의 제기 방법을 안내합니다.</p>
-      <p>점검, 외부 서비스 장애 또는 기능 변경으로 일부 서비스가 일시 중단될 수 있습니다. 예정된 주요 변경은 <Link href="/notices/">공지사항</Link> 등을 통해 안내합니다.</p>
+      <p>점검, 외부 서비스 장애 또는 기능 변경으로 일부 서비스가 일시 중단될 수 있습니다. 예정된 주요 변경은 <SubscriberLink href="/notices/">공지사항</SubscriberLink> 등을 통해 안내합니다.</p>
     </section>
     <section><h2>8. 개인정보와 책임</h2>
-      <p>정보의 수집·이용 및 보관은 <Link href="/privacy/">개인정보처리방침</Link>에 따릅니다. 거래소 연결에 관한 내용은 <Link href="/api-consent/">API 사용동의</Link>에서 확인할 수 있습니다.</p>
+      <p>정보의 수집·이용 및 보관은 <Link href="/privacy/">개인정보처리방침</Link>에 따릅니다. 거래소 연결에 관한 내용은 <SubscriberLink href="/api-consent/">API 사용동의</SubscriberLink>에서 확인할 수 있습니다.</p>
       <p>거래 위험에 대한 안내는 운영자의 고의·과실 등 관계 법령에 따른 책임을 배제하지 않습니다. 손해와 분쟁에 대한 책임은 발생 원인과 관계 법령에 따라 판단합니다.</p>
     </section>
     <section><h2>9. 약관 변경 및 문의</h2>

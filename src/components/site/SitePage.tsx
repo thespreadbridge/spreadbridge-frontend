@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { PublicHeader } from '@/components/public-header';
 import { SiteFooter } from '@/components/landing/SiteFooter';
-import { informationLinks } from '@/lib/information-links';
+import { InformationNavigation } from '@/components/information/InformationNavigation';
 
 export type SitePageProps = {
   title: string;
@@ -26,9 +26,7 @@ export function SitePage({ title, eyebrow, description, children, updatedAt, dat
         <p className="site-description">{description}</p>
         {updatedAt ? <p className="site-date">{dateLabel} <time dateTime={updatedAt}>{updatedAt.replaceAll('-', '.')}</time></p> : null}
       </header>
-      {policyNavigation ? <nav className="site-policy-nav" aria-label="공지 및 정책">
-        {informationLinks.map(link => <Link key={link.href} href={link.href} aria-current={link.label === title ? 'page' : undefined}>{link.label}</Link>)}
-      </nav> : null}
+      {policyNavigation && <InformationNavigation title={title} />}
       <div className="site-prose">{children}</div>
     </main>
     <SiteFooter />
