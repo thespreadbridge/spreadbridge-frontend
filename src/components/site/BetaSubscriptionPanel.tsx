@@ -30,12 +30,21 @@ export function BetaSubscriptionPanel({ beta, active, canEnroll }: {
     }
   }
 
-  return <section className="site-plan-change" aria-labelledby="beta-title">
-    <h2 id="beta-title">베타 · 월 {beta.monthlyKrw}원</h2>
-    <p>기본 {beta.baseSlots}슬롯과 추가 {beta.addonSlots}슬롯을 베타 종료까지 이용할 수 있습니다. 결제 수단 등록 없이 가입할 수 있고 정식 구독은 별도로 신청합니다.</p>
+  return <section className="site-plan-change site-beta-plan" aria-labelledby="beta-title">
+    <div className="site-beta-header">
+      <div>
+        <div className="site-beta-heading">
+          <h2 id="beta-title">무료 베타 플랜</h2>
+          <span className="site-beta-date"><time dateTime="2027-01-31">2027.01.31</time>까지</span>
+        </div>
+        <p className="site-beta-slots">기본 {beta.baseSlots}슬롯 + 추가 {beta.addonSlots}슬롯</p>
+      </div>
+      <span className="site-beta-price">월 <strong>{beta.monthlyKrw}원</strong></span>
+    </div>
+    <p>결제 수단 등록 없이 가입할 수 있습니다. 정식 구독은 별도로 신청합니다.</p>
     {subscribed
       ? <p role="status">무료 베타 이용 중</p>
-      : <button type="button" className="btn primary" disabled={busy || !canEnroll} onClick={() => void enroll()}>
+      : <button type="button" className="btn primary site-beta-action" disabled={busy || !canEnroll} onClick={() => void enroll()}>
         {busy ? '베타 가입 중…' : '무료 베타 구독'}
       </button>}
     {message && <p role="alert">{message}</p>}
