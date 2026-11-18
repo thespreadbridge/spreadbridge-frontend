@@ -9,16 +9,19 @@ import { SessionProvider } from '@/components/auth/SessionProvider';
 import { guestSession } from '@/lib/auth/types';
 import { serverSession } from '@/lib/auth/session';
 
-vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh() {}, replace() {} }) }));
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh() {}, replace() {} }),
+  permanentRedirect: (path: string) => { throw new Error(`Redirect to ${path}`); },
+}));
 vi.mock('@/lib/auth/session', () => ({ serverSession: vi.fn() }));
 beforeEach(() => {
   vi.mocked(serverSession).mockResolvedValue({ status: 'authenticated', user: { userId: 'member', email: 'member@example.test', displayName: '회원', role: 'OWNER', emailVerified: true, customerStatus: 'ACTIVE' }, subscription: null });
 });
 const downloadHtml = async () => renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Download()}</SessionProvider>);
-const pricingHtml = async () => renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Pricing()}</SessionProvider>);
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 const plan = { code: 'BASE_5', name: '5슬롯', slots: 5, monthly_krw: 123000, promotion_label: '서버 요금', enabled: true, sort_order: 5 };
+const token = 'member-access-token';
 const catalog = { products: [plan], checkoutUrl: null, billingPeriod: 'MONTHLY' };
 const release = { platform: 'darwin', architecture: 'arm64', status: 'PUBLISHED', version: '1.2.3', artifactUrl: 'https://downloads.example.test/app.zip', sha512: 'A'.repeat(86) + '==', artifactSize: 12345, installationMode: 'MANUAL' };
 const target = { platform: 'darwin', architecture: 'arm64' } as const;
@@ -34,25 +37,31 @@ describe('live public API data', () => {
     expect(html).toContain('구독 시작하기');
     expect(html).not.toMatch(/123,000|서버 요금|요금제 보기|출시 할인|\/pricing\/|"offers"|faq_plan_change/);
   });
-  it('uses the dedicated API without serving a stored price after the server changes it', async () => {
+  it('loads prices only through the authenticated catalog', async () => {
     vi.stubEnv('SPREADBRIDGE_API_URL', 'https://api.thespreadbridge.com/v1');
     const fetcher = vi.fn(async () => Response.json(catalog)); vi.stubGlobal('fetch', fetcher);
-    const html = await pricingHtml();
-    expect(fetcher).toHaveBeenCalledWith('https://api.thespreadbridge.com/v1/public/subscriptions/catalog', expect.objectContaining({ cache: 'no-store' }));
-    expect(html).toContain('123,000'); expect(html).toContain('서버 요금'); expect(html).not.toContain('₩99,000');
+    expect((await subscriptionCatalog(token))?.products).toEqual([plan]);
+    expect(fetcher).toHaveBeenCalledWith('https://api.thespreadbridge.com/v1/subscriptions/catalog', expect.objectContaining({
+      cache: 'no-store', headers: expect.objectContaining({ Authorization: `Bearer ${token}` }),
+    }));
+  });
+  it('redirects the former pricing page and does not fetch the catalog for a guest', async () => {
+    const fetcher = vi.fn(); vi.stubGlobal('fetch', fetcher);
+    expect(Pricing).toThrow('Redirect to /payments/');
+    expect(await subscriptionCatalog(undefined)).toBeNull();
+    expect(fetcher).not.toHaveBeenCalled();
   });
   it('does not advertise disabled products', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json({ ...catalog, products: [plan, { ...plan, code: 'DISABLED', enabled: false }] })));
-    expect((await subscriptionCatalog())?.products.map(p => p.code)).toEqual(['BASE_5']);
+    expect((await subscriptionCatalog(token))?.products.map(p => p.code)).toEqual(['BASE_5']);
   });
-  it('shows a lookup failure instead of old prices on API failure', async () => {
+  it('returns no catalog on API failure', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response(null, { status: 503 })));
-    const html = await pricingHtml();
-    expect(html).toContain('요금 정보를 불러오지 못했습니다'); expect(html).not.toContain('₩99,000');
+    expect(await subscriptionCatalog(token)).toBeNull();
   });
   it.each([-1, 1.5, '99000'])('rejects an invalid server price %s', async price => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json({ ...catalog, products: [{ ...plan, monthly_krw: price }] })));
-    expect(await subscriptionCatalog()).toBeNull();
+    expect(await subscriptionCatalog(token)).toBeNull();
   });
   it.each(['http://billing.example.test', 'javascript:alert(1)', 'https://user:secret@billing.example.test'])('rejects unsafe checkout URL %s', url => {
     expect(checkoutTarget(url)).toBeNull();

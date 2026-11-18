@@ -7,7 +7,6 @@ import { ACCESS_COOKIE } from '@/lib/auth/cookies';
 import { checkoutLink, parseBilling, parseCancellation, parseQuote, validConfig } from '@/lib/subscription-billing';
 import { checkoutTarget, subscriptionCatalog } from '@/lib/subscription-catalog';
 import { QuoteSummary } from '@/components/site/PlanChangePanel';
-import Pricing from '@/app/pricing/page';
 import { SessionProvider } from '@/components/auth/SessionProvider';
 import { guestSession } from '@/lib/auth/types';
 
@@ -38,17 +37,15 @@ const account = (role = 'OWNER') => (input: string) => {
 
 describe('slot pricing data', () => {
   it('reads the add-on product beside the base plans', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Response.json({ products: [{ code: 'BASE_5', kind: 'BASE', name: '5슬롯', slots: 5, monthly_krw: 99900, promotion_label: '', enabled: true, sort_order: 5 }],
-      addon: { code: 'ADDON_1', name: '추가 1슬롯', slots: 1, monthly_krw: 9900, max_quantity: 3 }, checkoutUrl: null, billingPeriod: 'MONTHLY' })));
-    const catalog = await subscriptionCatalog();
-    expect(catalog?.addon).toEqual({ code: 'ADDON_1', name: '추가 1슬롯', slots: 1, monthly_krw: 9900, max_quantity: 3 });
-    const html = renderToStaticMarkup(<SessionProvider initialSession={guestSession}>{await Pricing()}</SessionProvider>);
-    expect(html).toContain('99,900원'); expect(html).toContain('9,900원'); expect(html).toContain('최대 3개');
-    expect(html).toContain('다음 결제일부터'); expect(html).toContain('각 결제분에서 미사용 기간');
+    vi.stubGlobal('fetch', vi.fn(async () => Response.json({ products: [{ code: 'BASE_2', kind: 'BASE', name: '2슬롯', slots: 2, monthly_krw: 38900, promotion_label: '50% 할인', enabled: true, sort_order: 2 }],
+      addon: { code: 'ADDON_1', name: '추가 1슬롯', slots: 1, monthly_krw: 19000, max_quantity: 3 }, checkoutUrl: null, billingPeriod: 'MONTHLY' })));
+    const catalog = await subscriptionCatalog(token);
+    expect(catalog?.products[0]).toMatchObject({ code: 'BASE_2', monthly_krw: 38900 });
+    expect(catalog?.addon).toEqual({ code: 'ADDON_1', name: '추가 1슬롯', slots: 1, monthly_krw: 19000, max_quantity: 3 });
   });
   it('treats an add-on outside the 1-slot, 1–3 quantity rule as missing', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json({ products: [], addon: { code: 'ADDON_1', name: '추가', slots: 2, monthly_krw: 9900, max_quantity: 3 }, checkoutUrl: null, billingPeriod: 'MONTHLY' })));
-    expect((await subscriptionCatalog())?.addon).toBeNull();
+    expect((await subscriptionCatalog(token))?.addon).toBeNull();
   });
   it('accepts only a known plan code with 0–3 add-ons', () => {
     expect(validConfig('BASE_15', '2')).toEqual({ baseCode: 'BASE_15', addonSlots: 2 });

@@ -42,9 +42,12 @@ function parseAddon(value: unknown): SubscriptionAddon | null {
     ? { code: a.code, name: a.name, slots: 1, monthly_krw: Number(a.monthly_krw), max_quantity: Number(a.max_quantity) } : null;
 }
 
-export async function subscriptionCatalog(): Promise<SubscriptionCatalog | null> {
+export async function subscriptionCatalog(accessToken: string | undefined): Promise<SubscriptionCatalog | null> {
+  if (!accessToken) return null;
   try {
-    const response = await backend('/public/subscriptions/catalog');
+    const response = await backend('/subscriptions/catalog', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
     if (!response.ok) return null;
     const data = await response.json();
     if (data.billingPeriod !== 'MONTHLY' || !Array.isArray(data.products)) return null;

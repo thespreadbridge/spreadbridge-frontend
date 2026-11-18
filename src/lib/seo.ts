@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { PUBLIC_PAGES, ACCOUNT_PAGE_TITLES, SITE_NAME, SITE_ORIGIN } from './site-pages';
 import { insights, insightPath } from './insights';
-import type { SubscriptionProduct } from './subscription-catalog';
 
 export const publicRobots: Metadata['robots'] = {
   index: true, follow: true,
@@ -38,19 +37,3 @@ export const softwareSchema = {
   operatingSystem: 'Windows, macOS', softwareHelp: SITE_ORIGIN + '/guide/',
   publisher: { '@id': SITE_ORIGIN + '/#organization' },
 };
-
-// Use the exact plan rendered on the page; never publish a fallback/free price.
-export function softwareSchemaForPlan(plan?: SubscriptionProduct) {
-  if (!plan?.enabled || !Number.isSafeInteger(plan.monthly_krw) || plan.monthly_krw < 0) return softwareSchema;
-  return {
-    ...softwareSchema,
-    offers: {
-      '@type': 'Offer', url: SITE_ORIGIN + '/pricing/', name: plan.name,
-      price: plan.monthly_krw, priceCurrency: 'KRW',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification', price: plan.monthly_krw, priceCurrency: 'KRW',
-        billingDuration: 'P1M', unitText: '월 구독', valueAddedTaxIncluded: true,
-      },
-    },
-  };
-}

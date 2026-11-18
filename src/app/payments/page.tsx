@@ -27,7 +27,7 @@ export default async function Payments({ searchParams }: { searchParams: Promise
   const headers = { Authorization: `Bearer ${token}` };
   const eligible = session.user.role === 'OWNER' && session.user.emailVerified && session.user.customerStatus === 'ACTIVE';
   const [catalog, history, current, params, billingResponse] = await Promise.all([
-    subscriptionCatalog(),
+    subscriptionCatalog(token),
     backend('/subscriptions/history', { headers }).catch(() => null),
     backend('/subscriptions/current', { headers }).catch(() => null),
     searchParams,
@@ -43,13 +43,13 @@ export default async function Payments({ searchParams }: { searchParams: Promise
   const checkout = catalog?.checkoutUrl ?? null;
   const renewal = billing?.renewal ?? null;
   const base = catalog?.products.find(plan => plan.code === billing?.baseCode);
-  const currentBase = base?.name ?? (billing ? billing.baseCode : null);
+  const currentBase = base?.name ?? member.planName;
   const additionalCapacity = billing && catalog?.addon ? Math.max(0, catalog.addon.max_quantity - billing.addonSlots) : 0;
   return <SitePage title="구독 관리" eyebrow="스프레드브리지 · MEMBERSHIP" width="wide" description={`${session.user.displayName} 님의 구독 상태와 이용 내역을 확인하세요.`}>
     {paymentStatus?.latestOperation ? <BillingOperationStatus initial={paymentStatus.latestOperation} /> : null}
     {paymentStatus?.cardRegistered ? <p>결제 카드: {paymentStatus.cardLabel} · {paymentStatus.renewalEnabled ? '자동결제 이용 중' : '자동결제 꺼짐'}</p> : null}
     <div className="site-summary-grid">
-      <article><h2>현재 요금제</h2><p>{member.active ? currentBase ?? member.planName ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
+      <article><h2>현재 요금제</h2><p>{member.active ? currentBase ?? '유료 구독' : '이용 가능한 구독 없음'}</p></article>
       <article><h2>이용 가능 슬롯</h2><p>{member.active ? member.maxActiveSlots : 0}개</p></article>
       <article><h2>이용 기한</h2><p>{member.expiresAt ? kstDate(member.expiresAt) : member.active ? '관리자 지정 이용권' : '—'}</p></article>
     </div>

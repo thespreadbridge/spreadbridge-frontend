@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PUBLIC_PAGES, ACCOUNT_PAGE_TITLES, SITE_ORIGIN } from '@/lib/site-pages';
-import { organizationSchema, pageTitles, publicPageMetadata, softwareSchema, softwareSchemaForPlan } from '@/lib/seo';
-import type { SubscriptionProduct } from '@/lib/subscription-catalog';
+import { organizationSchema, pageTitles, publicPageMetadata, softwareSchema } from '@/lib/seo';
 import { insights, insightPath, jsonLd } from '@/lib/insights';
 
 describe('public search metadata', () => {
@@ -32,14 +31,7 @@ describe('public search metadata', () => {
     expect(softwareSchema).not.toHaveProperty('offers');
     expect(jsonLd({ value: '</script>' })).not.toContain('</script>');
   });
-  it('only publishes an offer when the visible plan has a valid enabled monthly price', () => {
-    const plan: SubscriptionProduct = { code: 'BASIC', name: '기본 요금제', slots: 5, monthly_krw: 12345, enabled: true, promotion_label: '', sort_order: 1 };
-    expect(softwareSchemaForPlan(plan)).toMatchObject({ offers: {
-      price: 12345, priceCurrency: 'KRW', url: SITE_ORIGIN + '/pricing/',
-      priceSpecification: { price: 12345, billingDuration: 'P1M', valueAddedTaxIncluded: true },
-    } });
-    for (const invalid of [undefined, { ...plan, enabled: false }, { ...plan, monthly_krw: -1 }, { ...plan, monthly_krw: NaN }]) {
-      expect(softwareSchemaForPlan(invalid)).not.toHaveProperty('offers');
-    }
+  it('omits the former pricing route from public search metadata', () => {
+    expect(PUBLIC_PAGES).not.toHaveProperty('/pricing/');
   });
 });
